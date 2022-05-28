@@ -15,6 +15,7 @@
 		DB664D2528427CBD0088749A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2428427CBD0088749A /* Networking.swift */; };
 		DB664D2728427D290088749A /* NeworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2628427D290088749A /* NeworkingError.swift */; };
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
+		DBC0C07C28429B31006AA61A /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = DBC0C07B28429B31006AA61A /* Inject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBC0C07C28429B31006AA61A /* Inject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +97,9 @@
 			dependencies = (
 			);
 			name = "Lichess opening explorer";
+			packageProductDependencies = (
+				DBC0C07B28429B31006AA61A /* Inject */,
+			);
 			productName = "Lichess opening explorer";
 			productReference = DB664D1128427BEC0088749A /* Lichess opening explorer.app */;
 			productType = "com.apple.product-type.application";
@@ -123,6 +128,9 @@
 				Base,
 			);
 			mainGroup = DB664D0828427BEC0088749A;
+			packageReferences = (
+				DBC0C07A28429B31006AA61A /* XCRemoteSwiftPackageReference "Inject" */,
+			);
 			productRefGroup = DB664D1228427BEC0088749A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -355,6 +363,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DBC0C07A28429B31006AA61A /* XCRemoteSwiftPackageReference "Inject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DBC0C07B28429B31006AA61A /* Inject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBC0C07A28429B31006AA61A /* XCRemoteSwiftPackageReference "Inject" */;
+			productName = Inject;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DB664D0928427BEC0088749A /* Project object */;
 }
