@@ -28,7 +28,7 @@ struct Move: Codable {
 }
 
 // MARK: - Game
-struct Game: Codable {
+struct Game: Codable, Identifiable {
     let id: String
     let winner: String?
     let speed, mode: String
