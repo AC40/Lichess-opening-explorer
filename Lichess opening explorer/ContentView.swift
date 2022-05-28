@@ -40,6 +40,14 @@ struct ContentView: View {
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
+                            
+                            Spacer()
+                            
+                            Text(game.winner ?? "Draw")
+                                .foregroundColor(foreColor(with: game.winner, at: i))
+                                .padding(10)
+                                .background(backColor(with: game.winner, at: i))
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
                         .listRowBackground((((i % 2) != 0)) ? Color.secondary : Color(uiColor: .tertiaryLabel))
                     }
@@ -54,6 +62,41 @@ struct ContentView: View {
             await vm.getPlayerGames()
         }
         .enableInjection()
+    }
+    
+    func foreColor(with winner: String?, at i: Int) -> Color {
+        
+        if let winner = winner {
+            if winner == "white" {
+                return Color.black
+            } else {
+                return Color.white
+            }
+        }
+        
+        return Color.white
+        if (i % 2) != 0 {
+            return Color(uiColor: .tertiaryLabel)
+        } else {
+            return Color(uiColor: .secondaryLabel)
+        }
+    }
+    
+    func backColor(with winner: String?, at i: Int) -> Color {
+        
+        if let winner = winner {
+            if winner == "white" {
+                return Color.white
+            } else {
+                return Color.black
+            }
+        }
+        
+        if (i % 2) != 0 {
+            return Color(uiColor: .secondaryLabel)
+        } else {
+            return Color(uiColor: .tertiaryLabel)
+        }
     }
 }
 

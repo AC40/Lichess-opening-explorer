@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class ContentViewModel: ObservableObject {
     
     @Published var currentResponse: PlayerGameResponse?
@@ -14,7 +15,9 @@ class ContentViewModel: ObservableObject {
     func getPlayerGames() async {
         
         do {
-            currentResponse = try await Networking.fetchPlayerGames(for: "e2e4,e7e5,b1c3")
+//            DispatchQueue.main.async {
+                currentResponse = try await Networking.fetchPlayerGames(for: "e2e4,e7e5,b1c3")
+//            }
         } catch {
             print(error)
         }
