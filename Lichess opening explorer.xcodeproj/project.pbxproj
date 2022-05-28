@@ -11,6 +11,10 @@
 		DB664D1728427BEC0088749A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1628427BEC0088749A /* ContentView.swift */; };
 		DB664D1928427BEE0088749A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB664D1828427BEE0088749A /* Assets.xcassets */; };
 		DB664D1C28427BEE0088749A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB664D1B28427BEE0088749A /* Preview Assets.xcassets */; };
+		DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2228427CA10088749A /* PlayerGameResponse.swift */; };
+		DB664D2528427CBD0088749A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2428427CBD0088749A /* Networking.swift */; };
+		DB664D2728427D290088749A /* NeworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2628427D290088749A /* NeworkingError.swift */; };
+		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		DB664D1628427BEC0088749A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DB664D1828427BEE0088749A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB664D1B28427BEE0088749A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DB664D2228427CA10088749A /* PlayerGameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerGameResponse.swift; sourceTree = "<group>"; };
+		DB664D2428427CBD0088749A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		DB664D2628427D290088749A /* NeworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeworkingError.swift; sourceTree = "<group>"; };
+		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,10 @@
 			children = (
 				DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */,
 				DB664D1628427BEC0088749A /* ContentView.swift */,
+				DB664D28284280470088749A /* ContentViewModel.swift */,
+				DB664D2228427CA10088749A /* PlayerGameResponse.swift */,
+				DB664D2428427CBD0088749A /* Networking.swift */,
+				DB664D2628427D290088749A /* NeworkingError.swift */,
 				DB664D1828427BEE0088749A /* Assets.xcassets */,
 				DB664D1A28427BEE0088749A /* Preview Content */,
 			);
@@ -138,7 +150,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB664D1728427BEC0088749A /* ContentView.swift in Sources */,
+				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
+				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
 				DB664D1528427BEC0088749A /* Lichess_opening_explorerApp.swift in Sources */,
+				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
+				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

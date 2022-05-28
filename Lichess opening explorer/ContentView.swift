@@ -8,9 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject private var vm = ContentViewModel()
+    
     var body: some View {
-        Text("Hello, world!")
+        Color.white
             .padding()
+            .overlay(VStack {
+                if vm.currentResponse != nil {
+                    Text("White:  \(vm.currentResponse!.white)")
+                    Text("Black: \(vm.currentResponse!.black)")
+                    Text("Draw: \(vm.currentResponse!.draws)")
+                }
+            })
+            .task {
+                await vm.getPlayerGames()
+            }
     }
 }
 
