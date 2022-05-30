@@ -11,10 +11,41 @@ struct PieceView: View {
     
     var piece: Piece
     
+    @State private var offset: CGSize = .zero
+    @State private var isDragging = false
+    
     var body: some View {
-        Image(piece.rawValue)
-            .resizable()
-            .aspectRatio(1, contentMode: .fit)
+        Group {
+            
+            if piece != .none {
+                Image(piece.rawValue)
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fit)
+                    .offset(offset)
+                    .gesture(DragGesture()
+                        .onChanged({ value in
+                            
+                            isDragging = true
+                            
+                            withAnimation(.linear.speed(4)) {
+                                offset = value.translation
+                            }
+                        })
+                        .onEnded({ value in
+                            
+                            isDragging = false
+                            
+                            withAnimation {
+                                offset = .zero
+                            }
+                        })
+                    )
+                    .zIndex(isDragging ? 100 : 1)
+            } else {
+                Color.clear
+                    .aspectRatio(1, contentMode: .fit)
+            }
+        }
     }
 }
 

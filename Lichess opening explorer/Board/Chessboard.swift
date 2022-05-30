@@ -18,7 +18,7 @@ struct Chessboard: View {
             Color.teal
                 .edgesIgnoringSafeArea(.all)
             
-            VStack(spacing: 0) {
+            ZStack {
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<64) { i in
                         
@@ -28,9 +28,12 @@ struct Chessboard: View {
                         Rectangle()
                             .foregroundColor((((rank + file) % 2) == 0) ? vm.colorLight : vm.colorDark)
                             .aspectRatio(1, contentMode: .fill)
-                            .overlay(
-                                PieceView(piece: vm.squares[i])
-                            )
+//                            .overlay()
+                    }
+                }
+                LazyVGrid(columns: vm.layout, spacing: 0) {
+                    ForEach(0..<64) { i in
+                        PieceView(piece: vm.squares[i])
                     }
                 }
             }
