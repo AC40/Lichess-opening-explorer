@@ -15,6 +15,12 @@
 		DB664D2528427CBD0088749A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2428427CBD0088749A /* Networking.swift */; };
 		DB664D2728427D290088749A /* NeworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2628427D290088749A /* NeworkingError.swift */; };
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
+		DBAE573D28451A6300B72B8C /* OpeningDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573C28451A6300B72B8C /* OpeningDatabase.swift */; };
+		DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573E28451A8500B72B8C /* Chessboard.swift */; };
+		DBAE57412845302300B72B8C /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57402845302300B72B8C /* Piece.swift */; };
+		DBAE5744284530D600B72B8C /* PieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE5743284530D600B72B8C /* PieceView.swift */; };
+		DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */; };
+		DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */; };
 		DBC0C07C28429B31006AA61A /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = DBC0C07B28429B31006AA61A /* Inject */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +34,12 @@
 		DB664D2428427CBD0088749A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		DB664D2628427D290088749A /* NeworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeworkingError.swift; sourceTree = "<group>"; };
 		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		DBAE573C28451A6300B72B8C /* OpeningDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningDatabase.swift; sourceTree = "<group>"; };
+		DBAE573E28451A8500B72B8C /* Chessboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chessboard.swift; sourceTree = "<group>"; };
+		DBAE57402845302300B72B8C /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
+		DBAE5743284530D600B72B8C /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
+		DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadDefaultFEN.swift"; sourceTree = "<group>"; };
+		DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessboardViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,11 +74,12 @@
 			isa = PBXGroup;
 			children = (
 				DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */,
-				DB664D1628427BEC0088749A /* ContentView.swift */,
-				DB664D28284280470088749A /* ContentViewModel.swift */,
-				DB664D2228427CA10088749A /* PlayerGameResponse.swift */,
+				DBAE573A28451A2900B72B8C /* Analysis */,
+				DBAE573928451A1E00B72B8C /* Board */,
+				DBAE573B28451A3400B72B8C /* Models */,
 				DB664D2428427CBD0088749A /* Networking.swift */,
-				DB664D2628427D290088749A /* NeworkingError.swift */,
+				DBAE57452845341100B72B8C /* Networking */,
+				DBAE57462845341C00B72B8C /* Utility */,
 				DB664D1828427BEE0088749A /* Assets.xcassets */,
 				DB664D1A28427BEE0088749A /* Preview Content */,
 			);
@@ -79,6 +92,67 @@
 				DB664D1B28427BEE0088749A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DBAE573928451A1E00B72B8C /* Board */ = {
+			isa = PBXGroup;
+			children = (
+				DBAE573E28451A8500B72B8C /* Chessboard.swift */,
+				DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */,
+				DBAE5742284530CC00B72B8C /* Subviews */,
+			);
+			path = Board;
+			sourceTree = "<group>";
+		};
+		DBAE573A28451A2900B72B8C /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+				DB664D1628427BEC0088749A /* ContentView.swift */,
+				DB664D28284280470088749A /* ContentViewModel.swift */,
+			);
+			path = Analysis;
+			sourceTree = "<group>";
+		};
+		DBAE573B28451A3400B72B8C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DB664D2228427CA10088749A /* PlayerGameResponse.swift */,
+				DB664D2628427D290088749A /* NeworkingError.swift */,
+				DBAE573C28451A6300B72B8C /* OpeningDatabase.swift */,
+				DBAE57402845302300B72B8C /* Piece.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DBAE5742284530CC00B72B8C /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				DBAE5743284530D600B72B8C /* PieceView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		DBAE57452845341100B72B8C /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		DBAE57462845341C00B72B8C /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				DBAE57472845342400B72B8C /* Extensions */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		DBAE57472845342400B72B8C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,10 +232,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB664D1728427BEC0088749A /* ContentView.swift in Sources */,
+				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
 				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
+				DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */,
 				DB664D1528427BEC0088749A /* Lichess_opening_explorerApp.swift in Sources */,
+				DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */,
+				DBAE5744284530D600B72B8C /* PieceView.swift in Sources */,
+				DBAE57412845302300B72B8C /* Piece.swift in Sources */,
 				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
+				DBAE573D28451A6300B72B8C /* OpeningDatabase.swift in Sources */,
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

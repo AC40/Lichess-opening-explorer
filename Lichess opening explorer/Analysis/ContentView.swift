@@ -13,12 +13,22 @@ struct ContentView: View {
     
     @StateObject private var vm = ContentViewModel()
     
+    @State private var foo = Foo.player
+    
     var body: some View {
         VStack(spacing: 0) {
             
-            Image("chessboard")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+            Chessboard()
+            
+            Picker("", selection: $foo) {
+                Text("OTB")
+                    .tag(Foo.otb)
+                Text("Lichess")
+                    .tag(Foo.lichess)
+                Text("Player")
+                    .tag(Foo.player)
+            }
+            .pickerStyle(.segmented)
             
             if vm.currentResponse != nil {
                 List {
@@ -55,6 +65,7 @@ struct ContentView: View {
                 .listStyle(.plain)
             } else {
                 Text("No recent games could be found")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
 //        .background(Color.gray.edgesIgnoringSafeArea(.all))
@@ -74,7 +85,7 @@ struct ContentView: View {
             }
         }
         
-        return Color.white
+//        return Color.white
         if (i % 2) != 0 {
             return Color(uiColor: .tertiaryLabel)
         } else {
@@ -97,6 +108,7 @@ struct ContentView: View {
         } else {
             return Color(uiColor: .tertiaryLabel)
         }
+//        return Color.black
     }
 }
 
