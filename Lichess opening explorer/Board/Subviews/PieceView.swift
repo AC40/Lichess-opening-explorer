@@ -24,6 +24,7 @@ struct PieceView: View {
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .offset(offset)
+                    .allowsHitTesting(chessboardVM.whiteTurn == (piece.color == .white) ? true : false)
                     .gesture(DragGesture(coordinateSpace: .global)
                         .onChanged({ value in
                             

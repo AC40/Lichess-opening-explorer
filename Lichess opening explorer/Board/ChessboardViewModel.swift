@@ -39,9 +39,18 @@ class ChessboardViewModel: ObservableObject {
         if whiteTurn {
             if squares[i].piece.color == .white {
                 select(i)
-            } else {
-                guard selectedSquare != nil else { return }
+            } else if selectedSquare != nil {
                 movePiece(from: selectedSquare!, to: i)
+            } else {
+                resetSelection()
+            }
+        } else {
+            if squares[i].piece.color == .black {
+                select(i)
+            } else if selectedSquare != nil {
+                movePiece(from: selectedSquare!, to: i)
+            } else {
+                resetSelection()
             }
         }
     }
@@ -53,10 +62,18 @@ class ChessboardViewModel: ObservableObject {
         }
         
         let piece = squares[start].piece
+        
+        guard piece != .none else {
+            return
+        }
+        
         squares[start].piece = Piece.none
         squares[end].piece = piece
         
         resetSelection()
+        
+        // Switch turn
+        whiteTurn.toggle()
     }
     
     func select(_ i: Int) {
@@ -96,7 +113,7 @@ class ChessboardViewModel: ObservableObject {
     func legalSquares(for piece: Piece, at i: Int) -> [Int] {
         var legalSquares: [Int] = []
         
-        for move in ReachableSquares.forPiece(piece.type) {
+        for move in ReachableSquares.forPiece(piece) {
             
             let newI = i - move
             
