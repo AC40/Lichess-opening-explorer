@@ -41,13 +41,61 @@ class ChessboardViewModel: ObservableObject {
     }
     
     func select(_ i: Int) {
+        guard selectedSquare != i else {
+            return
+        }
         
+        // Select square
+        selectedSquare = i
+        
+        // Reset all squares
+        squares.makeAllIllegal()
+        
+        // Check if field is empty
         if whiteTurn {
             guard squares[i].piece.color == .white else {
                 return
             }
             
+            // Display legal moves
+            for legalSquare in legalSquares(for: squares[i].piece, at: i) {
+                squares[legalSquare].isLegal = true
+            }
+        }
+    }
+    
+    func legalSquares(for piece: Piece, at i: Int) -> [Int] {
+        var legalSquares: [Int] = []
+        
+        for move in ReachableSquares.forPiece(piece.type) {
             
+            let newI = i - move
+            
+            guard newI >= 0 && newI <= 63 else {
+                break
+            }
+            
+            if squareIsEmpty(newI) || pieceIsOppositeColor(at: newI) {
+                legalSquares.append(newI)
+            }
+        }
+        
+        //TODO: En passant
+        //TODO: Pawn initial "double-jump"
+        //TODO: Pawn taking diagonally
+        
+        return legalSquares
+    }
+    
+    func squareIsEmpty(_ i: Int) -> Bool {
+        return squares[i].piece == Piece.none
+    }
+    
+    func pieceIsOppositeColor(at i: Int) -> Bool {
+        if whiteTurn {
+            return squares[i].piece.color == .black
+        } else {
+            return squares[i].piece.color == .white
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Piece {
+struct Piece: Equatable {
     
     static let none = Piece(color: .none, type: .none)
     
@@ -27,6 +27,10 @@ struct Piece {
     
     var color: ChessColor
     var type: PieceType
+    
+    static func == (lhs: Piece, rhs: Piece) -> Bool {
+        return lhs.color == rhs.color && lhs.type == rhs.type
+    }
 }
 
 enum PieceType: String {

@@ -17,6 +17,8 @@
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
 		DB98B4F92847C59200BB466E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98B4F82847C59200BB466E /* Square.swift */; };
 		DBAB9F93284E007600E1CFE4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F92284E007600E1CFE4 /* Constants.swift */; };
+		DBAB9F95284E06F400E1CFE4 /* ReachableSquares.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */; };
+		DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */; };
 		DBAE573D28451A6300B72B8C /* OpeningDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573C28451A6300B72B8C /* OpeningDatabase.swift */; };
 		DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573E28451A8500B72B8C /* Chessboard.swift */; };
 		DBAE57412845302300B72B8C /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57402845302300B72B8C /* Piece.swift */; };
@@ -38,6 +40,8 @@
 		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		DB98B4F82847C59200BB466E /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		DBAB9F92284E007600E1CFE4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachableSquares.swift; sourceTree = "<group>"; };
+		DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + allIllegal.swift"; sourceTree = "<group>"; };
 		DBAE573C28451A6300B72B8C /* OpeningDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningDatabase.swift; sourceTree = "<group>"; };
 		DBAE573E28451A8500B72B8C /* Chessboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chessboard.swift; sourceTree = "<group>"; };
 		DBAE57402845302300B72B8C /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 			children = (
 				DBAB9F91284E006A00E1CFE4 /* Constants */,
 				DBAE57472845342400B72B8C /* Extensions */,
+				DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */,
+				DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -245,6 +251,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */,
+				DBAB9F95284E06F400E1CFE4 /* ReachableSquares.swift in Sources */,
 				DB664D1728427BEC0088749A /* ContentView.swift in Sources */,
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,

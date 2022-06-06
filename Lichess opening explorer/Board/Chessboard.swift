@@ -29,16 +29,26 @@ struct Chessboard: View {
                         Rectangle()
                             .foregroundColor((((rank + file) % 2) == 0) ? vm.colorLight : vm.colorDark)
                             .aspectRatio(1, contentMode: .fill)
+                            .overlay(
+                                Group {
+                                    if vm.squares[i].isLegal {
+                                        Circle()
+                                            .foregroundColor(.teal.opacity(0.8))
+                                            .padding()
+                                    }
+                                }
+                            )
                             .onTapGesture {
-                                vm.selectedSquare = i
+                                vm.select(i)
                             }
+                        
                     }
                 }
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<64) { i in
                         PieceView(chessboardVM: vm, i: i)
                             .onTapGesture {
-                                vm.selectedSquare = i
+                                vm.select(i)
                             }
                     }
                 }
