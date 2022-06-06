@@ -105,6 +105,7 @@
 		DBAB9F91284E006A00E1CFE4 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */,
 				DBAB9F92284E007600E1CFE4 /* Constants.swift */,
 			);
 			path = Constants;
@@ -161,7 +162,6 @@
 			children = (
 				DBAB9F91284E006A00E1CFE4 /* Constants */,
 				DBAE57472845342400B72B8C /* Extensions */,
-				DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";

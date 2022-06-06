@@ -41,26 +41,44 @@ class ChessboardViewModel: ObservableObject {
     }
     
     func select(_ i: Int) {
+        
+        // Check if square was already selected
         guard selectedSquare != i else {
             return
         }
         
+
+        
+        // Check player is allowed to select
+        if whiteTurn {
+            guard squares[i].piece.color == .white else {
+                // unselect square
+                selectedSquare = nil
+                
+                // Reset all squares legality status
+                squares.makeAllIllegal()
+                return
+            }
+        } else {
+            guard squares[i].piece.color == .black else {
+                // unselect square
+                selectedSquare = nil
+                
+                // Reset all squares legality status
+                squares.makeAllIllegal()
+                return
+            }
+        }
+        
+        // Reset all squares legality status
+        squares.makeAllIllegal()
+        
         // Select square
         selectedSquare = i
         
-        // Reset all squares
-        squares.makeAllIllegal()
-        
-        // Check if field is empty
-        if whiteTurn {
-            guard squares[i].piece.color == .white else {
-                return
-            }
-            
-            // Display legal moves
-            for legalSquare in legalSquares(for: squares[i].piece, at: i) {
-                squares[legalSquare].isLegal = true
-            }
+        // Display legal moves
+        for legalSquare in legalSquares(for: squares[i].piece, at: i) {
+            squares[legalSquare].isLegal = true
         }
     }
     
@@ -78,10 +96,21 @@ class ChessboardViewModel: ObservableObject {
             if squareIsEmpty(newI) || pieceIsOppositeColor(at: newI) {
                 legalSquares.append(newI)
             }
+            
+            
+        }
+        
+        //TODO: Pawn initial "double-step"
+        if piece.type == .pawn {
+            if whiteTurn && Constants.pawnRankW().contains(i) {
+                legalSquares.append(i-16)
+            } else if Constants.pawnRankB().contains(i) {
+                legalSquares.append(i+16)
+            }
         }
         
         //TODO: En passant
-        //TODO: Pawn initial "double-jump"
+        
         //TODO: Pawn taking diagonally
         
         return legalSquares

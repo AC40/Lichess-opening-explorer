@@ -27,11 +27,15 @@ struct Chessboard: View {
                         let file = i % 8
                         
                         Rectangle()
-                            .foregroundColor((((rank + file) % 2) == 0) ? vm.colorLight : vm.colorDark)
+                            .foregroundColor(vm.selectedSquare == i ? .teal : (((rank + file) % 2) == 0) ? vm.colorLight : vm.colorDark)
                             .aspectRatio(1, contentMode: .fill)
                             .overlay(
                                 Group {
-                                    if vm.squares[i].isLegal {
+                                    if vm.squares[i].isLegal && vm.pieceIsOppositeColor(at: i) {
+                                        Rectangle()
+                                            .stroke(lineWidth: 3)
+                                            .foregroundColor(.teal)
+                                    } else if vm.squares[i].isLegal {
                                         Circle()
                                             .foregroundColor(.teal.opacity(0.8))
                                             .padding()
