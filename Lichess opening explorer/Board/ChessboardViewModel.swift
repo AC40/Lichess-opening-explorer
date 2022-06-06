@@ -10,8 +10,9 @@ import SwiftUI
 class ChessboardViewModel: ObservableObject {
     
     @Published var squares = Array(repeating: Square(), count: 64)
-    @Published var selectedSquare: Int? = nil
+    @Published var squareFrames = Array(repeating: CGRect.zero, count: 64)
     
+    @Published var selectedSquare: Int? = nil
     @Published var whiteTurn = true
     
     let colorLight = Color(red: 235/255, green: 217/255, blue: 184/255)
@@ -33,11 +34,29 @@ class ChessboardViewModel: ObservableObject {
         squares.loadDefaultFEN()
     }
     
+    func handleTap(at i: Int) {
+        
+        if whiteTurn {
+            if squares[i].piece.color == .white {
+                select(i)
+            } else {
+                guard selectedSquare != nil else { return }
+                movePiece(from: selectedSquare!, to: i)
+            }
+        }
+    }
+    
     func movePiece(from start: Int, to end: Int) {
+        
+        guard squares[end].isLegal else {
+            return
+        }
         
         let piece = squares[start].piece
         squares[start].piece = Piece.none
         squares[end].piece = piece
+        
+        resetSelection()
     }
     
     func select(_ i: Int) {
@@ -52,20 +71,12 @@ class ChessboardViewModel: ObservableObject {
         // Check player is allowed to select
         if whiteTurn {
             guard squares[i].piece.color == .white else {
-                // unselect square
-                selectedSquare = nil
-                
-                // Reset all squares legality status
-                squares.makeAllIllegal()
+                resetSelection()
                 return
             }
         } else {
             guard squares[i].piece.color == .black else {
-                // unselect square
-                selectedSquare = nil
-                
-                // Reset all squares legality status
-                squares.makeAllIllegal()
+                resetSelection()
                 return
             }
         }
@@ -125,6 +136,20 @@ class ChessboardViewModel: ObservableObject {
             return squares[i].piece.color == .black
         } else {
             return squares[i].piece.color == .white
+        }
+    }
+    
+    func resetSelection() {
+        // unselect square
+        selectedSquare = nil
+        
+        // Reset all squares legality status
+        squares.makeAllIllegal()
+    }
+    
+    func onDrop(location: CGPoint, i: Int) {
+        if let end = squareFrames.firstIndex(where: { $0.contains(location) }) {
+            movePiece(from: i, to: end)
         }
     }
 }

@@ -19,6 +19,7 @@
 		DBAB9F93284E007600E1CFE4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F92284E007600E1CFE4 /* Constants.swift */; };
 		DBAB9F95284E06F400E1CFE4 /* ReachableSquares.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */; };
 		DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */; };
+		DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */; };
 		DBAE573D28451A6300B72B8C /* OpeningDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573C28451A6300B72B8C /* OpeningDatabase.swift */; };
 		DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573E28451A8500B72B8C /* Chessboard.swift */; };
 		DBAE57412845302300B72B8C /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57402845302300B72B8C /* Piece.swift */; };
@@ -42,6 +43,7 @@
 		DBAB9F92284E007600E1CFE4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachableSquares.swift; sourceTree = "<group>"; };
 		DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + allIllegal.swift"; sourceTree = "<group>"; };
+		DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
 		DBAE573C28451A6300B72B8C /* OpeningDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningDatabase.swift; sourceTree = "<group>"; };
 		DBAE573E28451A8500B72B8C /* Chessboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chessboard.swift; sourceTree = "<group>"; };
 		DBAE57402845302300B72B8C /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
@@ -85,7 +87,6 @@
 				DBAE573A28451A2900B72B8C /* Analysis */,
 				DBAE573928451A1E00B72B8C /* Board */,
 				DBAE573B28451A3400B72B8C /* Models */,
-				DB664D2428427CBD0088749A /* Networking.swift */,
 				DBAE57452845341100B72B8C /* Networking */,
 				DBAE57462845341C00B72B8C /* Utility */,
 				DB664D1828427BEE0088749A /* Assets.xcassets */,
@@ -146,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				DBAE5743284530D600B72B8C /* PieceView.swift */,
+				DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -153,6 +155,7 @@
 		DBAE57452845341100B72B8C /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				DB664D2428427CBD0088749A /* Networking.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				DB98B4F92847C59200BB466E /* Square.swift in Sources */,
 				DBAE5744284530D600B72B8C /* PieceView.swift in Sources */,
 				DBAE57412845302300B72B8C /* Piece.swift in Sources */,
+				DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */,
 				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
 				DBAB9F93284E007600E1CFE4 /* Constants.swift in Sources */,
 				DBAE573D28451A6300B72B8C /* OpeningDatabase.swift in Sources */,

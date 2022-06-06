@@ -33,9 +33,6 @@ extension Array where Element == Square {
         self[14].piece = Piece.pawnB
         self[15].piece = Piece.pawnB
         
-        print(self[0].piece)
-        print(Piece.rookB)
-        
         // White pieces
         self[48].piece = Piece.pawnW
         self[49].piece = Piece.pawnW

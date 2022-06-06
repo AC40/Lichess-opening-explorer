@@ -24,8 +24,12 @@ struct PieceView: View {
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .offset(offset)
-                    .gesture(DragGesture()
+                    .gesture(DragGesture(coordinateSpace: .global)
                         .onChanged({ value in
+                            
+                            if !isDragging {
+                                chessboardVM.select(i)
+                            }
                             
                             isDragging = true
                             
@@ -36,9 +40,10 @@ struct PieceView: View {
                         .onEnded({ value in
                             
                             
-                            withAnimation {
+//                            withAnimation {
+                                chessboardVM.onDrop(location: value.location, i: i)
                                 offset = .zero
-                            }
+//                            }
                             
                             isDragging = false
                         })
@@ -48,6 +53,9 @@ struct PieceView: View {
                 Color.clear
                     .aspectRatio(1, contentMode: .fit)
             }
+        }
+        .onTapGesture {
+            chessboardVM.select(i)
         }
     }
 }

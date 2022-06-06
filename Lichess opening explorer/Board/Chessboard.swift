@@ -23,37 +23,13 @@ struct Chessboard: View {
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<64) { i in
                         
-                        let rank = i / 8
-                        let file = i % 8
-                        
-                        Rectangle()
-                            .foregroundColor(vm.selectedSquare == i ? .teal : (((rank + file) % 2) == 0) ? vm.colorLight : vm.colorDark)
-                            .aspectRatio(1, contentMode: .fill)
-                            .overlay(
-                                Group {
-                                    if vm.squares[i].isLegal && vm.pieceIsOppositeColor(at: i) {
-                                        Rectangle()
-                                            .stroke(lineWidth: 3)
-                                            .foregroundColor(.teal)
-                                    } else if vm.squares[i].isLegal {
-                                        Circle()
-                                            .foregroundColor(.teal.opacity(0.8))
-                                            .padding()
-                                    }
-                                }
-                            )
-                            .onTapGesture {
-                                vm.select(i)
-                            }
-                        
+                        SquareView(chessboardVM: vm, i: i)
                     }
                 }
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<64) { i in
                         PieceView(chessboardVM: vm, i: i)
-                            .onTapGesture {
-                                vm.select(i)
-                            }
+                            
                     }
                 }
             }
