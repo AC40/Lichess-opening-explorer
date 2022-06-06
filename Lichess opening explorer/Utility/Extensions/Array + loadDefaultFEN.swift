@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Array where Element == Piece {
+extension Array where Element == Square {
     
     mutating func loadDefaultFEN() {
         guard self.count == 64 else {
@@ -15,38 +15,43 @@ extension Array where Element == Piece {
             return
         }
         
-        self[0] = Piece.rookB
-        self[1] = Piece.knightB
-        self[2] = Piece.bishopB
-        self[3] = Piece.queenB
-        self[4] = Piece.kingB
-        self[5] = Piece.bishopB
-        self[6] = Piece.knightB
-        self[7] = Piece.rookB
-        self[8] = Piece.pawnB
-        self[9] = Piece.pawnB
-        self[10] = Piece.pawnB
-        self[11] = Piece.pawnB
-        self[12] = Piece.pawnB
-        self[13] = Piece.pawnB
-        self[14] = Piece.pawnB
-        self[15] = Piece.pawnB
+        // Black pieces
+        self[0].piece = Piece.rookB
+        self[1].piece = Piece.knightB
+        self[2].piece = Piece.bishopB
+        self[3].piece = Piece.queenB
+        self[4].piece = Piece.kingB
+        self[5].piece = Piece.bishopB
+        self[6].piece = Piece.knightB
+        self[7].piece = Piece.rookB
+        self[8].piece = Piece.pawnB
+        self[9].piece = Piece.pawnB
+        self[10].piece = Piece.pawnB
+        self[11].piece = Piece.pawnB
+        self[12].piece = Piece.pawnB
+        self[13].piece = Piece.pawnB
+        self[14].piece = Piece.pawnB
+        self[15].piece = Piece.pawnB
         
-        self[48] = Piece.pawnW
-        self[49] = Piece.pawnW
-        self[50] = Piece.pawnW
-        self[51] = Piece.pawnW
-        self[52] = Piece.pawnW
-        self[53] = Piece.pawnW
-        self[54] = Piece.pawnW
-        self[55] = Piece.pawnW
-        self[56] = Piece.rookW
-        self[57] = Piece.knightW
-        self[58] = Piece.bishopW
-        self[59] = Piece.queenW
-        self[60] = Piece.kingW
-        self[61] = Piece.bishopW
-        self[62] = Piece.knightW
-        self[63] = Piece.rookW
+        print(self[0].piece)
+        print(Piece.rookB)
+        
+        // White pieces
+        self[48].piece = Piece.pawnW
+        self[49].piece = Piece.pawnW
+        self[50].piece = Piece.pawnW
+        self[51].piece = Piece.pawnW
+        self[52].piece = Piece.pawnW
+        self[53].piece = Piece.pawnW
+        self[54].piece = Piece.pawnW
+        self[55].piece = Piece.pawnW
+        self[56].piece = Piece.rookW
+        self[57].piece = Piece.knightW
+        self[58].piece = Piece.bishopW
+        self[59].piece = Piece.queenW
+        self[60].piece = Piece.kingW
+        self[61].piece = Piece.bishopW
+        self[62].piece = Piece.knightW
+        self[63].piece = Piece.rookW
     }
 }

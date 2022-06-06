@@ -10,6 +10,7 @@ import SwiftUI
 struct Chessboard: View {
     
     @StateObject private var vm = ChessboardViewModel()
+    @StateObject private var foo = ChessboardViewModel()
     
     var body: some View {
         
@@ -28,18 +29,20 @@ struct Chessboard: View {
                         Rectangle()
                             .foregroundColor((((rank + file) % 2) == 0) ? vm.colorLight : vm.colorDark)
                             .aspectRatio(1, contentMode: .fill)
-//                            .overlay()
+                            .onTapGesture {
+                                vm.selectedSquare = i
+                            }
                     }
                 }
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<64) { i in
-                        PieceView(piece: vm.squares[i])
+                        PieceView(chessboardVM: vm, i: i)
+                            .onTapGesture {
+                                vm.selectedSquare = i
+                            }
                     }
                 }
             }
-        }
-        .onAppear {
-            vm.squares.loadDefaultFEN()
         }
     }
 }

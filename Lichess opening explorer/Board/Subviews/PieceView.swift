@@ -9,16 +9,18 @@ import SwiftUI
 
 struct PieceView: View {
     
-    var piece: Piece
+    @ObservedObject var chessboardVM: ChessboardViewModel
+    var i: Int
     
     @State private var offset: CGSize = .zero
     @State private var isDragging = false
     
     var body: some View {
-        Group {
+        VStack {
             
-            if piece != .none {
-                Image(piece.rawValue)
+            if chessboardVM.squares[i].piece.color != .none {
+                let piece = chessboardVM.squares[i].piece
+                Image(piece.type.rawValue + piece.color.rawValue)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .offset(offset)
@@ -33,11 +35,12 @@ struct PieceView: View {
                         })
                         .onEnded({ value in
                             
-                            isDragging = false
                             
                             withAnimation {
                                 offset = .zero
                             }
+                            
+                            isDragging = false
                         })
                     )
                     .zIndex(isDragging ? 100 : 1)
@@ -49,8 +52,3 @@ struct PieceView: View {
     }
 }
 
-struct PieceView_Previews: PreviewProvider {
-    static var previews: some View {
-        PieceView(piece: .kingW)
-    }
-}
