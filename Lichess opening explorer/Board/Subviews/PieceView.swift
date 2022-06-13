@@ -7,6 +7,16 @@
 
 import SwiftUI
 
+struct CenterPreferenceKey: PreferenceKey {
+    typealias Value = Anchor<CGPoint>?
+    
+    static var defaultValue: Value = nil
+    
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value = nextValue()
+    }
+}
+
 struct PieceView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
@@ -23,18 +33,23 @@ struct PieceView: View {
                 Image(piece.type.rawValue + piece.color.rawValue)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
+                    .scaleEffect(isDragging ? 1.3 : 1, anchor: .center)
+//                    .allowsHitTesting(chessboardVM.whiteTurn == (piece.color == .white) ? true : false)
                     .offset(offset)
-                    .allowsHitTesting(chessboardVM.whiteTurn == (piece.color == .white) ? true : false)
                     .gesture(DragGesture(coordinateSpace: .global)
                         .onChanged({ value in
                             
                             if !isDragging {
-                                chessboardVM.select(i)
+//                                chessboardVM.select(i)
+                                chessboardVM.handleTap(at: i)
                             }
                             
-                            isDragging = true
+                            guard chessboardVM.whiteTurn == (piece.color == .white) else {
+                                return
+                            }
                             
-                            withAnimation(.linear.speed(4)) {
+                            withAnimation(.linear.speed(10)) {
+                                isDragging = true
                                 offset = value.translation
                             }
                         })
@@ -56,7 +71,8 @@ struct PieceView: View {
             }
         }
         .onTapGesture {
-            chessboardVM.select(i)
+//            chessboardVM.select(i)
+            chessboardVM.handleTap(at: i)
         }
     }
 }

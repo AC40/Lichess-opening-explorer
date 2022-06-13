@@ -58,12 +58,14 @@ class ChessboardViewModel: ObservableObject {
     func movePiece(from start: Int, to end: Int) {
         
         guard squares[end].isLegal else {
+            resetSelection()
             return
         }
         
         let piece = squares[start].piece
         
         guard piece != .none else {
+            resetSelection()
             return
         }
         
