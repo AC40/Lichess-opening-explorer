@@ -115,42 +115,107 @@ class ChessboardViewModel: ObservableObject {
     func legalSquares(for piece: Piece, at i: Int) -> [Int] {
         var legalSquares: [Int] = []
         
-        for move in ReachableSquares.forPiece(piece) {
+        // Check sliding pieces with looping method
+        if piece.isSlidingPiece() {
             
-            let newI = i - move
-            
-            guard newI >= 0 && newI <= 63 else {
-                break
+            for move in ReachableSquares.forPiece(piece) {
+                
+                var newI = i - move
+                
+                let rank = Int(Double(i/8).rounded())
+                let file = Int(Double(i%8))
+                
+                while squareIsEmpty(newI) {
+                    
+                    
+                    // Check, if bishop is on outside and eliminate corresponding moves
+                    if piece.type == .bishop {
+                        if file == 0 && (move == 9 || move == -7 ) {
+                            break
+                        }
+                        
+                        if file == 7 && (move == -9 || move == 7) {
+                            break
+                        }
+                    }
+                    
+                    legalSquares.append(newI)
+                    
+                    // Check, if side of board was reached
+                    let newRank = Int(Double(newI/8).rounded())
+                    let newFile = newI % 8
+                    if newRank == 0 || newRank == 7 || newFile == 0 || newFile == 7 {
+                        break
+                    }
+                    
+                    newI -= move
+                }
+                
+                if pieceIsOppositeColor(at: newI) {
+                    legalSquares.append(newI)
+                }
+                
             }
-            
-            if squareIsEmpty(newI) || pieceIsOppositeColor(at: newI) {
-                legalSquares.append(newI)
+        
+        // Check other pieces (and pawns)
+        } else {
+        
+            for move in ReachableSquares.forPiece(piece) {
+                
+                let newI = i - move
+                
+                if squareIsEmpty(newI) || pieceIsOppositeColor(at: newI) {
+                    legalSquares.append(newI)
+                }
             }
-            
-            
         }
         
-        //TODO: Pawn initial "double-step"
+        //MARK: Special rules
+        // Check Pawns initial "double-step"
         if piece.type == .pawn {
-            if whiteTurn && Constants.pawnRankW().contains(i) {
+            if piece.color == .white && Constants.pawnRankW().contains(i) {
                 legalSquares.append(i-16)
-            } else if Constants.pawnRankB().contains(i) {
+            } else if piece.color == .black && Constants.pawnRankB().contains(i) {
                 legalSquares.append(i+16)
             }
         }
         
-        //TODO: En passant
+        //TODO: Check for En passant
         
-        //TODO: Pawn taking diagonally
+        //TODO: Allow pawns to take diagonally
+        
+        //TODO: Allow pawns to promote
         
         return legalSquares
     }
     
+    func moveChangesBoardSize(start: Int, end: Int) -> Bool {
+        
+        guard end >= 0 && end <= 63 else {
+            return false
+        }
+        
+        let rank = Int(Double(start/8).rounded())
+        let file = Int(Double(start%8))
+        
+        return (start/8 != end/8) && (start%8 != end%8)
+    }
+    
     func squareIsEmpty(_ i: Int) -> Bool {
+        
+        guard i >= 0 && i <= 63 else {
+            return false
+        }
+        
         return squares[i].piece == Piece.none
     }
     
     func pieceIsOppositeColor(at i: Int) -> Bool {
+        
+        guard i >= 0 && i <= 63 else {
+            return false
+        }
+        
         if whiteTurn {
             return squares[i].piece.color == .black
         } else {

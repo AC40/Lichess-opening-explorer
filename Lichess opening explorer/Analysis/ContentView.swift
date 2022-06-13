@@ -32,32 +32,40 @@ struct ContentView: View {
             .pickerStyle(.segmented)
             
             ScrollView {
-                VStack (alignment: .leading) {
-                    Text("Load Position:")
-                        .font(.headline)
-                    
-                    Button("with Bishops") {
-                        loadPosition(for: .bishop)
+                HStack {
+                    VStack (alignment: .leading) {
+                        Text("Load Position:")
+                            .font(.headline)
+                        
+                        Button("with Bishops") {
+                            loadPosition(for: .bishop)
+                        }
+                        
+                        Button("with Rooks") {
+                            loadPosition(for: .rook)
+                        }
+                        
+                        Button("with Knights") {
+                            loadPosition(for: .knight)
+                        }
+                        
+                        Button("with Pawns") {
+                            loadPosition(for: .pawn)
+                        }
+                        
+                        Button("with Kings") {
+                            loadPosition(for: .king)
+                        }
+                        
+                        Button("with Queens") {
+                            loadPosition(for: .queen)
+                        }
                     }
-                    
-                    Button("with Rooks") {
-                        loadPosition(for: .rook)
-                    }
-                    
-                    Button("with Knights") {
-                        loadPosition(for: .knight)
-                    }
-                    
-                    Button("with Pawns") {
-                        loadPosition(for: .pawn)
-                    }
-                    
-                    Button("with Kings") {
-                        loadPosition(for: .king)
-                    }
-                    
-                    Button("with Queens") {
-                        loadPosition(for: .queen)
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        Button("Switch turn") {
+                            chessboardVM.whiteTurn.toggle()
+                        }
                     }
                 }
                 .padding()
