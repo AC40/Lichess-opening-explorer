@@ -118,18 +118,20 @@ class ChessboardViewModel: ObservableObject {
         // Check sliding pieces with looping method
         if piece.isSlidingPiece() {
             
+            //TODO: Fix Queen error (Q on board outside)
+            
             for move in ReachableSquares.forPiece(piece) {
                 
                 var newI = i - move
                 
-                let rank = Int(Double(i/8).rounded())
+//                let rank = Int(Double(i/8).rounded())
                 let file = Int(Double(i%8))
                 
                 while squareIsEmpty(newI) {
                     
                     
                     // Check, if bishop is on outside and eliminate corresponding moves
-                    if piece.type == .bishop {
+                    if piece.type != .rook {
                         if file == 0 && (move == 9 || move == -7 ) {
                             break
                         }
@@ -159,6 +161,8 @@ class ChessboardViewModel: ObservableObject {
         
         // Check other pieces (and pawns)
         } else {
+            
+            //TODO: Fix Knight error
         
             for move in ReachableSquares.forPiece(piece) {
                 

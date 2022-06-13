@@ -63,6 +63,13 @@ struct ContentView: View {
                     }
                     Spacer()
                     VStack(alignment: .trailing) {
+                        Button("Load default FEN") {
+                            chessboardVM.squares.loadDefaultFEN()
+                        }
+                        
+                        Button("Load mid-game FEN") {
+                            chessboardVM.squares.loadFEN("r1bq3r/4bppp/p1npkB2/1p1Np3/4P3/N3K3/PPP2PPP/R2Q1B1R b - - 4 1")
+                        }
                         Button("Switch turn") {
                             chessboardVM.whiteTurn.toggle()
                         }

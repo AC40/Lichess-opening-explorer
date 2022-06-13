@@ -15,6 +15,8 @@ extension Array where Element == Square {
             return
         }
         
+        self = Array(repeating: Square(), count: 64)
+        
         // Black pieces
         self[0].piece = Piece.rookB
         self[1].piece = Piece.knightB

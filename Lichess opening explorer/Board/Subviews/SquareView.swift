@@ -21,7 +21,7 @@ struct SquareView: View {
                 Group {
                     if chessboardVM.squares[i].isLegal && chessboardVM.pieceIsOppositeColor(at: i) {
                         Rectangle()
-                            .stroke(lineWidth: 3)
+                            .strokeBorder(lineWidth: 2.5)
                             .foregroundColor(.teal)
                     } else if chessboardVM.squares[i].isLegal {
                         Circle()

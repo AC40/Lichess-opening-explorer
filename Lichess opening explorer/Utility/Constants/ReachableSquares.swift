@@ -17,7 +17,7 @@ struct ReachableSquares {
         case .king:
             return [1, 7, 8, 9, -1, -7, -8, -9]
         case .queen:
-            return [1, -1, 8, -8]
+            return [1, -1, 8, -8, 7, -7, 9, -9]
         case .rook:
             return [1, -1, 8, -8]
         case .bishop:
