@@ -9,7 +9,8 @@ import SwiftUI
 
 struct Chessboard: View {
     
-    @StateObject private var vm = ChessboardViewModel()
+    @ObservedObject var vm: ChessboardViewModel
+//    @StateObject private var vm = ChessboardViewModel()
     @StateObject private var foo = ChessboardViewModel()
     
     var body: some View {
@@ -33,16 +34,10 @@ struct Chessboard: View {
                     }
                 }
             }
-            Button("Load") {
-                vm.squares.loadFEN("r1bq3r/4bppp/p1npkB2/1p1Np3/4P3/N3K3/PPP2PPP/R2Q1B1R b - - 4 12")
-            }
+//            Button("Load") {
+//                vm.squares.loadFEN("r1bq3r/4bppp/p1npkB2/1p1Np3/4P3/N3K3/PPP2PPP/R2Q1B1R b - - 4 12")
+//            }
         }
     }
 }
 
-struct Chessboard_Previews: PreviewProvider {
-    static var previews: some View {
-        Chessboard()
-            .previewInterfaceOrientation(.portrait)
-    }
-}

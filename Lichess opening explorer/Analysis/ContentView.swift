@@ -12,13 +12,14 @@ struct ContentView: View {
     @ObserveInjection var inject
     
     @StateObject private var vm = ContentViewModel()
+    @StateObject private var chessboardVM = ChessboardViewModel()
     
     @State private var foo = Foo.player
     
     var body: some View {
         VStack(spacing: 0) {
             
-            Chessboard()
+            Chessboard(vm: chessboardVM)
             
             Picker("", selection: $foo) {
                 Text("OTB")
@@ -30,45 +31,42 @@ struct ContentView: View {
             }
             .pickerStyle(.segmented)
             
-            if vm.currentResponse != nil {
-                List {
-                    ForEach(0..<vm.currentResponse!.recentGames.count) { i in
-                        
-                        let game = vm.currentResponse!.recentGames[i]
-                        
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(game.white.name)
-                                Text(String(game.white.rating))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            Text(" vs. ")
-                            VStack(alignment: .leading) {
-                                Text(game.black.name)
-                                Text(String(game.black.rating))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            
-                            Spacer()
-                            
-                            Text(game.winner ?? "Draw")
-                                .foregroundColor(foreColor(with: game.winner, at: i))
-                                .padding(10)
-                                .background(backColor(with: game.winner, at: i))
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
-                        .listRowBackground((((i % 2) != 0)) ? Color.secondary : Color(uiColor: .tertiaryLabel))
+            ScrollView {
+                VStack (alignment: .leading) {
+                    Text("Load Position:")
+                        .font(.headline)
+                    
+                    Button("with Bishops") {
+                        loadPosition(for: .bishop)
+                    }
+                    
+                    Button("with Rooks") {
+                        loadPosition(for: .rook)
+                    }
+                    
+                    Button("with Knights") {
+                        loadPosition(for: .knight)
+                    }
+                    
+                    Button("with Pawns") {
+                        loadPosition(for: .pawn)
+                    }
+                    
+                    Button("with Kings") {
+                        loadPosition(for: .king)
+                    }
+                    
+                    Button("with Queens") {
+                        loadPosition(for: .queen)
                     }
                 }
-                .listStyle(.plain)
-            } else {
-                Text("No recent games could be found")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding()
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.roundedRectangle)
+                .tint(.pink)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
-//        .background(Color.gray.edgesIgnoringSafeArea(.all))
         .task {
             await vm.getPlayerGames()
         }
@@ -109,6 +107,25 @@ struct ContentView: View {
             return Color(uiColor: .tertiaryLabel)
         }
 //        return Color.black
+    }
+    
+    func loadPosition(for piece: PieceType) {
+        switch piece {
+        case .none:
+            break
+        case .king:
+            chessboardVM.squares.loadFEN("8/8/8/5k2/8/2K5/8/8 w - - 0 1")
+        case .queen:
+            chessboardVM.squares.loadFEN("8/8/8/5q2/8/2Q5/8/8 w - - 0 1")
+        case .rook:
+            chessboardVM.squares.loadFEN("8/8/8/5r2/8/2R5/8/8 w - - 0 1")
+        case .bishop:
+            chessboardVM.squares.loadFEN("8/8/8/5b2/8/2B5/8/8 w - - 0 1")
+        case .knight:
+            chessboardVM.squares.loadFEN("8/8/8/5n2/8/2N5/8/8 w - - 0 1")
+        case .pawn:
+            chessboardVM.squares.loadFEN("8/8/8/5p2/8/2P5/8/8 w - - 0 1")
+        }
     }
 }
 

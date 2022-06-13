@@ -15,7 +15,7 @@ extension Array where Element == Square {
         // Clear board
         self = Array(repeating: Square(), count: 64)
         
-        let pieceTypeForSymbol: [String: PieceType] = ["k": .king, "q": .queen, "r": .rook, "b": .bishop, "p": .pawn]
+        let pieceTypeForSymbol: [String: PieceType] = ["k": .king, "q": .queen, "r": .rook, "b": .bishop, "p": .pawn, "n": .knight]
         
         let parts = fen.split(separator: " ")
         let fenBoard = [Character](String(parts[0].description).replacingOccurrences(of: "/", with: ""))
