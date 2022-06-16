@@ -19,11 +19,11 @@ struct SquareView: View {
             .aspectRatio(1, contentMode: .fill)
             .overlay(
                 Group {
-                    if chessboardVM.squares[i].isLegal && chessboardVM.pieceIsOppositeColor(at: i) {
+                    if chessboardVM.squares[i].canBeTaken {
                         Rectangle()
                             .strokeBorder(lineWidth: 2.5)
                             .foregroundColor(.teal)
-                    } else if chessboardVM.squares[i].isLegal {
+                    } else if chessboardVM.squares[i].canBeMovedTo {
                         Circle()
                             .foregroundColor(.teal.opacity(0.8))
                             .padding()

@@ -107,24 +107,21 @@ class ChessboardViewModel: ObservableObject {
         selectedSquare = i
         
         // Display legal moves
-        for legalSquare in legalSquares(for: squares[i].piece, at: i) {
-            squares[legalSquare].isLegal = true
-        }
+        legalSquares(for: squares[i].piece, at: i)
     }
     
-    func legalSquares(for piece: Piece, at i: Int) -> [Int] {
-        var legalSquares: [Int] = []
+    func legalSquares(for piece: Piece, at i: Int) {
+//        var legalSquares: [Int] = []
         
         // Check sliding pieces with looping method
         if piece.isSlidingPiece() {
             
-            //TODO: Fix Queen error (Q on board outside)
+            //TODO: Fix Queen/Rook error (Q/R on board outside)
             
             for move in ReachableSquares.forPiece(piece) {
                 
                 var newI = i - move
                 
-//                let rank = Int(Double(i/8).rounded())
                 let file = Int(Double(i%8))
                 
                 while squareIsEmpty(newI) {
@@ -141,7 +138,7 @@ class ChessboardViewModel: ObservableObject {
                         }
                     }
                     
-                    legalSquares.append(newI)
+                    squares[newI].canBeMovedTo = true
                     
                     // Check, if side of board was reached
                     let newRank = Int(Double(newI/8).rounded())
@@ -154,43 +151,82 @@ class ChessboardViewModel: ObservableObject {
                 }
                 
                 if pieceIsOppositeColor(at: newI) {
-                    legalSquares.append(newI)
+                    squares[newI].canBeTaken = true
                 }
                 
             }
-        
-        // Check other pieces (and pawns)
-        } else {
+            
+            // Check for knight
+        } else if piece.type == .knight {
             
             //TODO: Fix Knight error
-        
+            
             for move in ReachableSquares.forPiece(piece) {
                 
                 let newI = i - move
                 
-                if squareIsEmpty(newI) || pieceIsOppositeColor(at: newI) {
-                    legalSquares.append(newI)
+                if squareIsEmpty(newI) {
+                    squares[newI].canBeMovedTo = true
+                } else if pieceIsOppositeColor(at: newI) {
+                    squares[newI].canBeTaken = true
+                }
+            }
+            // Check for pawns
+        } else {
+            
+            let moves = ReachableSquares.forPiece(piece)
+            for move in moves {
+                
+                let newI = i - move
+                
+                if squareIsEmpty(newI) {
+                    squares[newI].canBeMovedTo = true
+                }
+            }
+            
+            //MARK: Special rules
+            // Initial "double-step"
+            if piece.type == .pawn {
+                if piece.color == .white && Constants.pawnRankW.contains(i) {
+                    squares[i-16].canBeMovedTo = true
+                } else if piece.color == .black && Constants.pawnRankB.contains(i) {
+                    squares[i+16].canBeMovedTo = true
+                }
+            }
+            
+            // Allow pawns to take diagonally
+            let diagonalLeft = i - moves[0] - 1
+            let diagonalRight = i - moves[0] + 1
+            if pieceIsOppositeColor(at: diagonalLeft) {
+                squares[diagonalLeft].canBeTaken = true
+            }
+            
+            if pieceIsOppositeColor(at: diagonalRight) {
+                squares[diagonalRight].canBeTaken = true
+            }
+            
+            // Allow En passant
+            if piece.color == .white {
+                if Constants.enPassantRankW.contains(i) {
+                    if squares[i-1].piece != Piece.none {
+                        squares[i-9].canBeTaken = true
+                    }
+                    if squares[i+1].piece != Piece.none {
+                        squares[i-7].canBeTaken = true
+                    }
+                }
+            } else if piece.color == .black {
+                if Constants.enPassantRankB.contains(i) {
+                    if squares[i-1].piece != Piece.none {
+                        squares[i+7].canBeTaken = true
+                    }
+                    if squares[i+1].piece != Piece.none {
+                        squares[i+9].canBeTaken = true
+                    }
                 }
             }
         }
         
-        //MARK: Special rules
-        // Check Pawns initial "double-step"
-        if piece.type == .pawn {
-            if piece.color == .white && Constants.pawnRankW().contains(i) {
-                legalSquares.append(i-16)
-            } else if piece.color == .black && Constants.pawnRankB().contains(i) {
-                legalSquares.append(i+16)
-            }
-        }
-        
-        //TODO: Check for En passant
-        
-        //TODO: Allow pawns to take diagonally
-        
-        //TODO: Allow pawns to promote
-        
-        return legalSquares
     }
     
     func moveChangesBoardSize(start: Int, end: Int) -> Bool {
@@ -198,9 +234,6 @@ class ChessboardViewModel: ObservableObject {
         guard end >= 0 && end <= 63 else {
             return false
         }
-        
-        let rank = Int(Double(start/8).rounded())
-        let file = Int(Double(start%8))
         
         return (start/8 != end/8) && (start%8 != end%8)
     }

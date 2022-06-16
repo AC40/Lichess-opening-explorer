@@ -13,6 +13,8 @@ extension Array where Element == Square {
         
         for i in 0..<self.count {
             self[i].isLegal = false
+            self[i].canBeMovedTo = false
+            self[i].canBeTaken = false
         }
     }
 }
