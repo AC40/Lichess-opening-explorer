@@ -1,5 +1,5 @@
 //
-//  ReachableSquares.swift
+//  Moves.swift
 //  Lichess opening explorer
 //
 //  Created by AC Richter on 06.06.22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ReachableSquares {
+struct Moves {
     
     static func forPiece(_ piece: Piece) -> [Tile] {
         
@@ -30,6 +30,17 @@ struct ReachableSquares {
             } else {
                 return [(-1, 0)]
             }
+        }
+    }
+    
+    static func pawnDiagonals(for color: ChessColor) -> [Tile] {
+        switch color {
+        case .white:
+            return [(1, 1), (1, -1)]
+        case .black:
+            return [(-1, 1), (-1, -1)]
+        case .none:
+            return []
         }
     }
 }

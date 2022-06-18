@@ -15,10 +15,11 @@ struct Square {
         didSet {
             if !canBeMovedTo {
                 canBeTaken = false
-                canBeTakenWithEnPassant = false
+//                canBeTakenWithEnPassant = false
             }
         }
     }
+    
     var canBeTaken = false {
         didSet {
             if canBeTaken {
@@ -26,11 +27,11 @@ struct Square {
             }
         }
     }
+    
     var canBeTakenWithEnPassant = false {
         didSet {
             if canBeTakenWithEnPassant {
                 canBeMovedTo = canBeTakenWithEnPassant
-                canBeTaken = canBeTakenWithEnPassant
             }
         }
     }

@@ -17,7 +17,7 @@
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
 		DB98B4F92847C59200BB466E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98B4F82847C59200BB466E /* Square.swift */; };
 		DBAB9F93284E007600E1CFE4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F92284E007600E1CFE4 /* Constants.swift */; };
-		DBAB9F95284E06F400E1CFE4 /* ReachableSquares.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */; };
+		DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* Moves.swift */; };
 		DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */; };
 		DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */; };
 		DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */; };
@@ -43,7 +43,7 @@
 		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		DB98B4F82847C59200BB466E /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		DBAB9F92284E007600E1CFE4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachableSquares.swift; sourceTree = "<group>"; };
+		DBAB9F94284E06F400E1CFE4 /* Moves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moves.swift; sourceTree = "<group>"; };
 		DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + allIllegal.swift"; sourceTree = "<group>"; };
 		DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
 		DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadFEN.swift"; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 		DBAB9F91284E006A00E1CFE4 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */,
+				DBAB9F94284E06F400E1CFE4 /* Moves.swift */,
 				DBAB9F92284E007600E1CFE4 /* Constants.swift */,
 			);
 			path = Constants;
@@ -261,7 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */,
-				DBAB9F95284E06F400E1CFE4 /* ReachableSquares.swift in Sources */,
+				DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */,
 				DB664D1728427BEC0088749A /* ContentView.swift in Sources */,
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,

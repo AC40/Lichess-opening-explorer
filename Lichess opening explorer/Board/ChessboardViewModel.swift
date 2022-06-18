@@ -16,6 +16,9 @@ class ChessboardViewModel: ObservableObject {
     @Published var squareFrames = Array(repeating: Array(repeating: CGRect.zero, count: 8), count: 8)
     @Published var boardRect = CGRect.zero
     
+    @Published var whiteEnPassants: [Tile] = []
+    @Published var blackEnPassants: [Tile] = []
+    
     let colorLight = Color(red: 235/255, green: 217/255, blue: 184/255)
     let colorDark = Color(red: 172/255, green: 136/255, blue: 104/255)
     let foo = Color.green
@@ -78,15 +81,43 @@ class ChessboardViewModel: ObservableObject {
             return
         }
         
+        if piece.type == .pawn && abs(endFile-startFile) == 2 {
+            if piece.color == .white {
+                squares[endFile+1][endRank].canBeTakenWithEnPassant = true
+                whiteEnPassants.append((endFile+1, endRank))
+            } else {
+                squares[endFile-1][endRank].canBeTakenWithEnPassant = true
+                blackEnPassants.append((endFile-1, endRank))
+            }
+        }
+        
         squares[startFile][startRank].piece = Piece.none
         squares[endFile][endRank].piece = piece
+        
+        //TODO: Promote pawn
         
         endTurn()
     }
     
     func endTurn() {
         resetSelection()
+        
+        // Switch turn
         whiteTurn.toggle()
+        
+        //TODO: Remove previous en passants
+        if whiteTurn {
+            for (file, rank) in whiteEnPassants {
+                squares[file][rank].canBeTakenWithEnPassant = false
+            }
+            whiteEnPassants = []
+        } else {
+            for (file, rank) in blackEnPassants {
+                squares[file][rank].canBeTakenWithEnPassant = false
+            }
+            blackEnPassants = []
+        }
+        
     }
     
     func select(_ square: Tile) {
@@ -126,7 +157,7 @@ class ChessboardViewModel: ObservableObject {
         
         // Long range sliding pieces
         if piece.isSlidingPiece() {
-            for legalMove in ReachableSquares.forPiece(piece) {
+            for legalMove in Moves.forPiece(piece) {
                 let (fileMove, rankMove) = legalMove
                 
                 var endFile = file - fileMove
@@ -179,11 +210,28 @@ class ChessboardViewModel: ObservableObject {
                 }
             }
             
-            //TODO: En passant
-            //TODO: Take diagonally
-            
+            // Take diagonally
+            for diagonalMove in Moves.pawnDiagonals(for: piece.color) {
+                let (fileMove, rankMove) = diagonalMove
+                
+                let endFile = file - fileMove
+                let endRank = rank - rankMove
+                
+                guard endFile.isOnBoard() && endRank.isOnBoard() else {
+                    return
+                }
+                
+                if pieceIsOppositeColor(at: (file - fileMove, rank - rankMove)) {
+                    squares[endFile][endRank].canBeTaken = true
+                    
+                    // En passant
+                } else if squares[endFile][endRank].canBeTakenWithEnPassant {
+                    squares[endFile][endRank].canBeTaken = true
+                }
+                
+            }
         } else {
-            for legalMove in ReachableSquares.forPiece(piece) {
+            for legalMove in Moves.forPiece(piece) {
                 let (fileMove, rankMove) = legalMove
                 
                 let endFile = file - fileMove
@@ -195,13 +243,11 @@ class ChessboardViewModel: ObservableObject {
                 
                 if pieceIsOppositeColor(at: (endFile, endRank)) {
                     squares[endFile][endRank].canBeTaken = true
+                } else if squareIsEmpty((endFile, endRank)) {
+                    squares[endFile][endRank].canBeMovedTo = true
                 }
-                
-                squares[endFile][endRank].canBeMovedTo = true
             }
         }
-        
-        
     }
     
     func squareIsEmpty(_ square: Tile) -> Bool {
@@ -243,12 +289,5 @@ class ChessboardViewModel: ObservableObject {
                 break
             }
         }
-    }
-    
-    func prepareNewTurn() {
-        //TODO: Remove previous en passants
-        
-        // Switch turn
-        whiteTurn.toggle()
     }
 }
