@@ -7,14 +7,16 @@
 
 import Foundation
 
-extension Array where Element == Square {
+extension Array where Element == Array<Square> {
     
     mutating func makeAllIllegal() {
         
         for i in 0..<self.count {
-            self[i].isLegal = false
-            self[i].canBeMovedTo = false
-            self[i].canBeTaken = false
+            self[i] = self[i].map { square in
+                var transformed = square
+                transformed.isLegal = false
+                return transformed
+            }
         }
     }
 }

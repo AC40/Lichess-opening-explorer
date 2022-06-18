@@ -7,29 +7,22 @@
 
 import SwiftUI
 
-struct CenterPreferenceKey: PreferenceKey {
-    typealias Value = Anchor<CGPoint>?
-    
-    static var defaultValue: Value = nil
-    
-    static func reduce(value: inout Value, nextValue: () -> Value) {
-        value = nextValue()
-    }
-}
-
 struct PieceView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
-    var i: Int
     
     @State private var offset: CGSize = .zero
     @State private var isDragging = false
     
+    var file: Int
+    var rank: Int
+    
     var body: some View {
-        VStack {
+        let square = (file, rank)
+        return VStack {
             
-            if chessboardVM.squares[i].piece.color != .none {
-                let piece = chessboardVM.squares[i].piece
+            if chessboardVM.squares[file][rank].piece.color != .none {
+                let piece = chessboardVM.squares[file][rank].piece
                 Image(piece.type.rawValue + piece.color.rawValue)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
@@ -40,13 +33,17 @@ struct PieceView: View {
                         .onChanged({ value in
                             
                             if !isDragging {
-//                                chessboardVM.select(i)
-                                chessboardVM.handleTap(at: i)
+                                chessboardVM.handleTap(at: square)
                             }
                             
                             guard chessboardVM.whiteTurn == (piece.color == .white) else {
                                 return
                             }
+                            
+//                            guard chessboardVM.boardRect.contains(value.location) else {
+//                                offset.width = value.translation.width
+//                                return
+//                            }
                             
                             withAnimation(.linear.speed(10)) {
                                 isDragging = true
@@ -55,11 +52,10 @@ struct PieceView: View {
                         })
                         .onEnded({ value in
                             
-                            
-//                            withAnimation {
-                                chessboardVM.onDrop(location: value.location, i: i)
+                            withAnimation(.default.speed(4)) {
+                                chessboardVM.onDrop(location: value.location, square: square)
                                 offset = .zero
-//                            }
+                            }
                             
                             isDragging = false
                         })
@@ -71,8 +67,7 @@ struct PieceView: View {
             }
         }
         .onTapGesture {
-//            chessboardVM.select(i)
-            chessboardVM.handleTap(at: i)
+            chessboardVM.handleTap(at: square)
         }
     }
 }

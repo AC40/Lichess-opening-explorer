@@ -9,11 +9,12 @@ import SwiftUI
 
 class ChessboardViewModel: ObservableObject {
     
-    @Published var squares = Array(repeating: Square(), count: 64)
-    @Published var squareFrames = Array(repeating: CGRect.zero, count: 64)
-    
-    @Published var selectedSquare: Int? = nil
+    @Published var squares = Array(repeating: Array(repeating: Square(), count: 8), count: 8)
+    @Published var selectedSquare: (Int, Int)? = nil
     @Published var whiteTurn = true
+    
+    @Published var squareFrames = Array(repeating: Array(repeating: CGRect.zero, count: 8), count: 8)
+    @Published var boardRect = CGRect.zero
     
     let colorLight = Color(red: 235/255, green: 217/255, blue: 184/255)
     let colorDark = Color(red: 172/255, green: 136/255, blue: 104/255)
@@ -31,76 +32,56 @@ class ChessboardViewModel: ObservableObject {
     ]
     
     init() {
-        squares.loadDefaultFEN()
+//        squares.loadDefaultFEN()
+        squares.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
     }
     
-    func handleTap(at i: Int) {
+    func handleTap(at tile: (Int, Int)) {
+        let (file, rank) = tile
         
         if whiteTurn {
-            if squares[i].piece.color == .white {
-                select(i)
+            if squares[file][rank].piece.color == .white {
+                select(tile)
             } else if selectedSquare != nil {
-                movePiece(from: selectedSquare!, to: i)
+                movePiece(from: selectedSquare!, to: tile)
             } else {
                 resetSelection()
             }
         } else {
-            if squares[i].piece.color == .black {
-                select(i)
+            if squares[file][rank].piece.color == .black {
+                select(tile)
             } else if selectedSquare != nil {
-                movePiece(from: selectedSquare!, to: i)
+                movePiece(from: selectedSquare!, to: tile)
             } else {
                 resetSelection()
             }
         }
     }
     
-    func movePiece(from start: Int, to end: Int) {
+    func movePiece(from start: Tile, to end: Tile) {
+        let (startFile, startRank) = start
+        let (endFile, endRank) = end
         
-        guard squares[end].isLegal else {
-            resetSelection()
-            return
-        }
         
-        let piece = squares[start].piece
-        
-        if piece.type == .pawn {
-            if piece.color == .white && Constants.pawnRankW.contains(start) && Constants.enPassantRankW.contains(end) {
-                
+    }
+    
+    func select(_ square: Tile) {
+        let (file, rank) = square
+        // Check if square was already selected
+        if selectedSquare != nil {
+            if selectedSquare! == square {
+                return
             }
         }
         
-        guard piece != .none else {
-            resetSelection()
-            return
-        }
-        
-        squares[start].piece = Piece.none
-        squares[end].piece = piece
-        
-        resetSelection()
-        
-        // Prepare new Turn
-        prepareNewTurn()
-    }
-    
-    func select(_ i: Int) {
-        
-        // Check if square was already selected
-        guard selectedSquare != i else {
-            return
-        }
-        
-
-        
         // Check player is allowed to select
         if whiteTurn {
-            guard squares[i].piece.color == .white else {
+            guard squares[file][rank].piece.color == .white else {
                 resetSelection()
                 return
             }
         } else {
-            guard squares[i].piece.color == .black else {
+            guard squares[file][rank].piece.color == .black else {
                 resetSelection()
                 return
             }
@@ -110,159 +91,30 @@ class ChessboardViewModel: ObservableObject {
         squares.makeAllIllegal()
         
         // Select square
-        selectedSquare = i
+        selectedSquare = square
         
         // Display legal moves
-        legalSquares(for: squares[i].piece, at: i)
+        legalSquares(for: squares[file][rank].piece, at: square)
     }
     
-    func legalSquares(for piece: Piece, at i: Int) {
-//        var legalSquares: [Int] = []
-        
-        // Check sliding pieces with looping method
-        if piece.isSlidingPiece() {
-            
-            //TODO: Fix Queen/Rook error (Q/R on board outside)
-            
-            for move in ReachableSquares.forPiece(piece) {
-                
-                var newI = i - move
-                
-                let file = Int(Double(i%8))
-                
-                while squareIsEmpty(newI) {
-                    
-                    
-                    // Check, if bishop is on outside and eliminate corresponding moves
-                    if piece.type != .rook {
-                        if file == 0 && (move == 9 || move == -7 ) {
-                            break
-                        }
-                        
-                        if file == 7 && (move == -9 || move == 7) {
-                            break
-                        }
-                    }
-                    
-                    squares[newI].canBeMovedTo = true
-                    
-                    // Check, if side of board was reached
-                    let newRank = Int(Double(newI/8).rounded())
-                    let newFile = newI % 8
-                    if newRank == 0 || newRank == 7 || newFile == 0 || newFile == 7 {
-                        break
-                    }
-                    
-                    newI -= move
-                }
-                
-                if pieceIsOppositeColor(at: newI) {
-                    squares[newI].canBeTaken = true
-                }
-                
-            }
-            
-            // Check for knight
-        } else if piece.type == .knight {
-            
-            //TODO: Fix Knight error
-            
-            for move in ReachableSquares.forPiece(piece) {
-                
-                let newI = i - move
-                
-                if squareIsEmpty(newI) {
-                    squares[newI].canBeMovedTo = true
-                } else if pieceIsOppositeColor(at: newI) {
-                    squares[newI].canBeTaken = true
-                }
-            }
-            // Check for pawns
-        } else {
-            
-            let moves = ReachableSquares.forPiece(piece)
-            for move in moves {
-                
-                let newI = i - move
-                
-                if squareIsEmpty(newI) {
-                    squares[newI].canBeMovedTo = true
-                }
-            }
-            
-            //MARK: Special rules
-            // Initial "double-step"
-            if piece.type == .pawn {
-                if piece.color == .white && Constants.pawnRankW.contains(i) {
-                    squares[i-16].canBeMovedTo = true
-                } else if piece.color == .black && Constants.pawnRankB.contains(i) {
-                    squares[i+16].canBeMovedTo = true
-                }
-            }
-            
-            // Allow pawns to take diagonally
-            let diagonalLeft = i - moves[0] - 1
-            let diagonalRight = i - moves[0] + 1
-            if pieceIsOppositeColor(at: diagonalLeft) {
-                squares[diagonalLeft].canBeTaken = true
-            }
-            
-            if pieceIsOppositeColor(at: diagonalRight) {
-                squares[diagonalRight].canBeTaken = true
-            }
-            
-            // Allow En passant
-//            if piece.color == .white {
-//                if Constants.enPassantRankW.contains(i) {
-//                    if squares[i-1].piece.type == .pawn && i != 31{
-//                        squares[i-9].canBeTakenWithEnPassant = true
-//                    }
-//                    if squares[i+1].piece.type == .pawn && i != 31 {
-//                        squares[i-7].canBeTakenWithEnPassant = true
-//                    }
-//                }
-//            } else if piece.color == .black {
-//                if Constants.enPassantRankB.contains(i) {
-//                    if squares[i-1].piece.type == .pawn && i != 32 {
-//                        squares[i+7].canBeTakenWithEnPassant = true
-//                    }
-//                    if squares[i+1].piece.type == .pawn && i != 39 {
-//                        squares[i+9].canBeTakenWithEnPassant = true
-//                    }
-//                }
-//            }
-        }
+    func legalSquares(for piece: Piece, at square: Tile) {
+        let (file, rank) = square
         
     }
     
-    func moveChangesBoardSize(start: Int, end: Int) -> Bool {
+    func squareIsEmpty(_ square: Tile) -> Bool {
+        let (file, rank) = square
         
-        guard end >= 0 && end <= 63 else {
-            return false
-        }
-        
-        return (start/8 != end/8) && (start%8 != end%8)
+        return squares[file][rank].piece == Piece.none
     }
     
-    func squareIsEmpty(_ i: Int) -> Bool {
-        
-        guard i >= 0 && i <= 63 else {
-            return false
-        }
-        
-        return squares[i].piece == Piece.none
-    }
-    
-    func pieceIsOppositeColor(at i: Int) -> Bool {
-        
-        guard i >= 0 && i <= 63 else {
-            return false
-        }
+    func pieceIsOppositeColor(at square: Tile) -> Bool {
+        let (file, rank) = square
         
         if whiteTurn {
-            return squares[i].piece.color == .black
+            return squares[file][rank].piece.color == .black
         } else {
-            return squares[i].piece.color == .white
+            return squares[file][rank].piece.color == .white
         }
     }
     
@@ -271,22 +123,21 @@ class ChessboardViewModel: ObservableObject {
         selectedSquare = nil
         
         // Reset all squares legality status
-        squares.makeAllIllegal()
+//        squares.makeAllIllegal()
     }
     
-    func onDrop(location: CGPoint, i: Int) {
-        if let end = squareFrames.firstIndex(where: { $0.contains(location) }) {
-            movePiece(from: i, to: end)
+    func onDrop(location: CGPoint, square: Tile) {
+        for subArray in squareFrames {
+            for rect in subArray {
+                if rect.contains(location) {
+                    movePiece(from: selectedSquare!, to: square)
+                }
+            }
         }
     }
     
     func prepareNewTurn() {
-        // Remove previous en passants
-        for i in 0..<squares.count {
-            if squares[i].canBeTakenWithEnPassant {
-                squares[i].canBeTakenWithEnPassant = false
-            }
-        }
+        //TODO: Remove previous en passants
         
         // Switch turn
         whiteTurn.toggle()

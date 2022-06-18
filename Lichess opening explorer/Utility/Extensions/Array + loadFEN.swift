@@ -7,40 +7,40 @@
 
 import Foundation
 
-extension Array where Element == Square {
+extension Array where Element == Array<Square> {
     
     mutating func loadFEN(_ fen: String) {
         // Store incase FEN is invalid
         let backup = self
         // Clear board
-        self = Array(repeating: Square(), count: 64)
+        self = Array(repeating: Array<Square>(repeating: Square(), count: 8), count: 8)
         
         let pieceTypeForSymbol: [String: PieceType] = ["k": .king, "q": .queen, "r": .rook, "b": .bishop, "p": .pawn, "n": .knight]
         
         let parts = fen.split(separator: " ")
-        let fenBoard = [Character](String(parts[0].description).replacingOccurrences(of: "/", with: ""))
-        var i = 0
+        let ranks = parts[0].split(separator: "/")
         
-        for char in fenBoard {
+        var rank = 0
+        
+        for rankString in ranks {
+            let chars = [Character](rankString)
+            var file = 0
             
-            if let pieceType = pieceTypeForSymbol[char.lowercased()] {
-                let pieceColor = char.isUppercase ? ChessColor.white : ChessColor.black
-                
-                guard i < self.count else {
-                    //TODO: Potentially notify about invalid FEN
-                    self = backup
-                    return
+            for char in chars {
+                if char.isNumber {
+                    file += char.wholeNumberValue!
+                } else if char.isLetter{
+                    guard let pieceType = pieceTypeForSymbol[char.lowercased()] else {
+                        self = backup
+                        return
+                    }
+                    let pieceColor = char.isUppercase ? ChessColor.white : ChessColor.black
+                    self[rank][file].piece = Piece(color: pieceColor, type: pieceType)
+                    file += 1
                 }
-                
-                self[i].piece = Piece(color: pieceColor, type: pieceType)
-                
             }
             
-            if char.isNumber {
-                i += char.wholeNumberValue!
-            } else {
-                i += 1
-            }
+            rank += 1
         }
     }
 }
