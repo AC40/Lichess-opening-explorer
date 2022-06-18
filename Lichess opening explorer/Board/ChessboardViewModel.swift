@@ -147,6 +147,41 @@ class ChessboardViewModel: ObservableObject {
                     squares[endFile][endRank].canBeTaken = true
                 }
             }
+        } else if piece.type == .pawn {
+            
+            if piece.color == .white {
+                let endFile = file - 1
+                
+                // Single step
+                guard endFile.isOnBoard() && squareIsEmpty((endFile, rank)) else {
+                    return
+                }
+                
+                squares[endFile][rank].canBeMovedTo = true
+                
+                // Initial double step
+                if file == 6 && squareIsEmpty((4, rank)) {
+                    squares[4][rank].canBeMovedTo = true
+                }
+            } else if piece.color == .black {
+                let endFile = file + 1
+                
+                // Single step
+                guard endFile.isOnBoard() && squareIsEmpty((endFile, rank)) else {
+                    return
+                }
+                
+                squares[endFile][rank].canBeMovedTo = true
+                
+                // Initial double step
+                if file == 1 && squareIsEmpty((3, rank)) {
+                    squares[3][rank].canBeMovedTo = true
+                }
+            }
+            
+            //TODO: En passant
+            //TODO: Take diagonally
+            
         } else {
             for legalMove in ReachableSquares.forPiece(piece) {
                 let (fileMove, rankMove) = legalMove
@@ -165,6 +200,8 @@ class ChessboardViewModel: ObservableObject {
                 squares[endFile][endRank].canBeMovedTo = true
             }
         }
+        
+        
     }
     
     func squareIsEmpty(_ square: Tile) -> Bool {

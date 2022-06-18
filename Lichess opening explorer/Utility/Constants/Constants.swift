@@ -9,13 +9,13 @@ import Foundation
 
 struct Constants {
     
-    static let pawnRankW: [Int] = [55, 54, 53, 52, 51, 50, 49, 48]
+    static let pawnRankW = 7
     
-    static let pawnRankB: [Int] = [8, 9, 10, 11, 12, 13, 14, 15]
+    static let pawnRankB = 2
     
-    static let enPassantRankW: [Int] = [24, 25, 26, 27, 28, 29, 30, 31]
+    static let enPassantRankW = 4
     
-    static let enPassantRankB: [Int] = [32, 33, 34, 35, 36, 37, 38, 39]
+    static let enPassantRankB = 5
     
     static let backRankW: [Int] = [0, 1, 2, 3, 4, 5, 6, 7]
     
