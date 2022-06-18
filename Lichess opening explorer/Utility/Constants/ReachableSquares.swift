@@ -9,26 +9,26 @@ import Foundation
 
 struct ReachableSquares {
     
-    static func forPiece(_ piece: Piece) -> [Int] {
+    static func forPiece(_ piece: Piece) -> [Tile] {
         
         switch piece.type {
         case .none:
             return []
         case .king:
-            return [1, 7, 8, 9, -1, -7, -8, -9]
+            return [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         case .queen:
-            return [1, -1, 8, -8, 7, -7, 9, -9]
+            return [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         case .rook:
-            return [1, -1, 8, -8]
+            return [(1, 0), (0, 1), (-1, 0), (0, -1)]
         case .bishop:
-            return [7, -7, 9, -9]
+            return [(1, 1), (1, -1), (-1, 1), (-1, -1)]
         case .knight:
-            return [6, 10, 15, 17, -6, -10, -15, -17]
+            return [(1, 2), (2, 1), (-1, 2), (-2, 1), (1, -2), (2, -1), (-1, -2), (-2, -1)]
         case .pawn:
             if piece.color == .white {
-                return [8]
+                return [(1, 0)]
             } else {
-                return [-8]
+                return [(-1, 0)]
             }
         }
     }

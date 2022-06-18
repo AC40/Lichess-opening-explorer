@@ -27,6 +27,7 @@
 		DBAE5744284530D600B72B8C /* PieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE5743284530D600B72B8C /* PieceView.swift */; };
 		DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */; };
 		DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */; };
+		DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */; };
 		DBC0C07C28429B31006AA61A /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = DBC0C07B28429B31006AA61A /* Inject */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		DBAE5743284530D600B72B8C /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
 		DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadDefaultFEN.swift"; sourceTree = "<group>"; };
 		DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessboardViewModel.swift; sourceTree = "<group>"; };
+		DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + isOnBoard.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 			children = (
 				DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */,
 				DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */,
+				DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */,
 				DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */,
 			);
 			path = Extensions;
@@ -272,6 +275,7 @@
 				DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */,
 				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
 				DBAB9F93284E007600E1CFE4 /* Constants.swift in Sources */,
+				DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */,
 				DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */,
 				DBAE573D28451A6300B72B8C /* OpeningDatabase.swift in Sources */,
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,

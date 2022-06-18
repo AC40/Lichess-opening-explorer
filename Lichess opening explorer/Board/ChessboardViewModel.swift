@@ -32,8 +32,7 @@ class ChessboardViewModel: ObservableObject {
     ]
     
     init() {
-//        squares.loadDefaultFEN()
-        squares.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+        squares.loadDefaultFEN()
     }
     
     func handleTap(at tile: (Int, Int)) {
@@ -62,7 +61,32 @@ class ChessboardViewModel: ObservableObject {
         let (startFile, startRank) = start
         let (endFile, endRank) = end
         
+        guard endFile.isOnBoard() && endRank.isOnBoard() else {
+            resetSelection()
+            return
+        }
         
+        let piece = squares[startFile][startRank].piece
+        
+        guard piece.type != .none else {
+            resetSelection()
+            return
+        }
+        
+        guard squares[endFile][endRank].canBeMovedTo else {
+            resetSelection()
+            return
+        }
+        
+        squares[startFile][startRank].piece = Piece.none
+        squares[endFile][endRank].piece = piece
+        
+        endTurn()
+    }
+    
+    func endTurn() {
+        resetSelection()
+        whiteTurn.toggle()
     }
     
     func select(_ square: Tile) {
@@ -100,16 +124,65 @@ class ChessboardViewModel: ObservableObject {
     func legalSquares(for piece: Piece, at square: Tile) {
         let (file, rank) = square
         
+        // Long range sliding pieces
+        if piece.isSlidingPiece() {
+            for legalMove in ReachableSquares.forPiece(piece) {
+                let (fileMove, rankMove) = legalMove
+                
+                var endFile = file - fileMove
+                var endRank = rank - rankMove
+                
+                guard endFile.isOnBoard() && endRank.isOnBoard() else {
+                    continue
+                }
+                
+                while squareIsEmpty((endFile, endRank)) {
+                    squares[endFile][endRank].canBeMovedTo = true
+                    
+                    endFile -= fileMove
+                    endRank -= rankMove
+                }
+                
+                if pieceIsOppositeColor(at: (endFile, endRank)) {
+                    squares[endFile][endRank].canBeTaken = true
+                }
+            }
+        } else {
+            for legalMove in ReachableSquares.forPiece(piece) {
+                let (fileMove, rankMove) = legalMove
+                
+                let endFile = file - fileMove
+                let endRank = rank - rankMove
+                
+                guard endFile.isOnBoard() && endRank.isOnBoard() else {
+                    continue
+                }
+                
+                if pieceIsOppositeColor(at: (endFile, endRank)) {
+                    squares[endFile][endRank].canBeTaken = true
+                }
+                
+                squares[endFile][endRank].canBeMovedTo = true
+            }
+        }
     }
     
     func squareIsEmpty(_ square: Tile) -> Bool {
         let (file, rank) = square
+        
+        guard file.isOnBoard() && rank.isOnBoard() else {
+            return false
+        }
         
         return squares[file][rank].piece == Piece.none
     }
     
     func pieceIsOppositeColor(at square: Tile) -> Bool {
         let (file, rank) = square
+        
+        guard file.isOnBoard() && rank.isOnBoard() else {
+            return false
+        }
         
         if whiteTurn {
             return squares[file][rank].piece.color == .black
@@ -123,15 +196,14 @@ class ChessboardViewModel: ObservableObject {
         selectedSquare = nil
         
         // Reset all squares legality status
-//        squares.makeAllIllegal()
+        squares.makeAllIllegal()
     }
     
     func onDrop(location: CGPoint, square: Tile) {
-        for subArray in squareFrames {
-            for rect in subArray {
-                if rect.contains(location) {
-                    movePiece(from: selectedSquare!, to: square)
-                }
+        for i in 0..<squareFrames.count {
+            if let i2 = squareFrames[i].firstIndex(where: { $0.contains(location)}) {
+                movePiece(from: square, to: (i, i2))
+                break
             }
         }
     }
