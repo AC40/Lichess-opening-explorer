@@ -15,7 +15,7 @@ struct Constants {
     
     static let enPassantRankW: [Int] = [24, 25, 26, 27, 28, 29, 30, 31]
     
-    static let enPassantRankB: [Int] = [39, 40, 41, 42, 43, 44, 45, 46]
+    static let enPassantRankB: [Int] = [32, 33, 34, 35, 36, 37, 38, 39]
     
     static let backRankW: [Int] = [0, 1, 2, 3, 4, 5, 6, 7]
     

@@ -23,6 +23,13 @@ struct Square {
             isLegal = canBeTaken
         }
     }
+    var canBeTakenWithEnPassant = false {
+        didSet {
+            canBeMovedTo = canBeTakenWithEnPassant
+            canBeTaken = canBeTakenWithEnPassant
+            isLegal = canBeTakenWithEnPassant
+        }
+    }
     
     init(_ piece: Piece = Piece.none, isLegal: Bool = false) {
         self.piece = piece

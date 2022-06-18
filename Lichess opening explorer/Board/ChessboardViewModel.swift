@@ -64,6 +64,12 @@ class ChessboardViewModel: ObservableObject {
         
         let piece = squares[start].piece
         
+        if piece.type == .pawn {
+            if piece.color == .white && Constants.pawnRankW.contains(start) && Constants.enPassantRankW.contains(end) {
+                
+            }
+        }
+        
         guard piece != .none else {
             resetSelection()
             return
@@ -74,8 +80,8 @@ class ChessboardViewModel: ObservableObject {
         
         resetSelection()
         
-        // Switch turn
-        whiteTurn.toggle()
+        // Prepare new Turn
+        prepareNewTurn()
     }
     
     func select(_ i: Int) {
@@ -206,25 +212,25 @@ class ChessboardViewModel: ObservableObject {
             }
             
             // Allow En passant
-            if piece.color == .white {
-                if Constants.enPassantRankW.contains(i) {
-                    if squares[i-1].piece != Piece.none {
-                        squares[i-9].canBeTaken = true
-                    }
-                    if squares[i+1].piece != Piece.none {
-                        squares[i-7].canBeTaken = true
-                    }
-                }
-            } else if piece.color == .black {
-                if Constants.enPassantRankB.contains(i) {
-                    if squares[i-1].piece != Piece.none {
-                        squares[i+7].canBeTaken = true
-                    }
-                    if squares[i+1].piece != Piece.none {
-                        squares[i+9].canBeTaken = true
-                    }
-                }
-            }
+//            if piece.color == .white {
+//                if Constants.enPassantRankW.contains(i) {
+//                    if squares[i-1].piece.type == .pawn && i != 31{
+//                        squares[i-9].canBeTakenWithEnPassant = true
+//                    }
+//                    if squares[i+1].piece.type == .pawn && i != 31 {
+//                        squares[i-7].canBeTakenWithEnPassant = true
+//                    }
+//                }
+//            } else if piece.color == .black {
+//                if Constants.enPassantRankB.contains(i) {
+//                    if squares[i-1].piece.type == .pawn && i != 32 {
+//                        squares[i+7].canBeTakenWithEnPassant = true
+//                    }
+//                    if squares[i+1].piece.type == .pawn && i != 39 {
+//                        squares[i+9].canBeTakenWithEnPassant = true
+//                    }
+//                }
+//            }
         }
         
     }
@@ -272,5 +278,17 @@ class ChessboardViewModel: ObservableObject {
         if let end = squareFrames.firstIndex(where: { $0.contains(location) }) {
             movePiece(from: i, to: end)
         }
+    }
+    
+    func prepareNewTurn() {
+        // Remove previous en passants
+        for i in 0..<squares.count {
+            if squares[i].canBeTakenWithEnPassant {
+                squares[i].canBeTakenWithEnPassant = false
+            }
+        }
+        
+        // Switch turn
+        whiteTurn.toggle()
     }
 }
