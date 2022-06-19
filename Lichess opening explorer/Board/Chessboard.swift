@@ -10,8 +10,6 @@ import SwiftUI
 struct Chessboard: View {
     
     @ObservedObject var vm: ChessboardViewModel
-//    @StateObject private var vm = ChessboardViewModel()
-    @StateObject private var foo = ChessboardViewModel()
     
     var body: some View {
         
@@ -35,16 +33,12 @@ struct Chessboard: View {
                         
                     }
                 }
-                .background(
-                    Group {
-                        GeometryReader { geo in
-                            Color.clear
-                                .onAppear {
-                                    vm.boardRect = geo.frame(in: .global)
-                                }
+                .background(Group {GeometryReader { geo in
+                    Color.clear
+                        .onAppear {
+                            vm.boardRect = geo.frame(in: .global)
                         }
-                    }
-                )
+                }})
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<8) { file in
                         ForEach(0..<8) { rank in
@@ -55,6 +49,40 @@ struct Chessboard: View {
                 }
             }
         }
+        .overlay(
+            Group {
+                if vm.promotionSquare != nil {
+                    HStack {
+                        Image("queen\(vm.whiteTurn ? "B" : "W")")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .onTapGesture {
+                                vm.promotePawn(to: .queen)
+                            }
+                        Image("rook\(vm.whiteTurn ? "B" : "W")")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .onTapGesture {
+                                vm.promotePawn(to: .rook)
+                            }
+                        Image("bishop\(vm.whiteTurn ? "B" : "W")")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .onTapGesture {
+                                vm.promotePawn(to: .bishop)
+                            }
+                        Image("knight\(vm.whiteTurn ? "B" : "W")")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .onTapGesture {
+                                vm.promotePawn(to: .knight)
+                            }
+                    }
+                        .padding()
+                        .background(Color.black.opacity(0.5))
+                }
+            }
+        )
     }
     
     func isSelected(at square: Tile) -> Bool {

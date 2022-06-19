@@ -75,6 +75,9 @@ struct ContentView: View {
                         Button("Switch turn") {
                             chessboardVM.whiteTurn.toggle()
                         }
+                        Button("Promote Pawns") {
+                            chessboardVM.squares.loadFEN("8/PPPPPPPP/8/8/8/8/pppppppp/8 w - - 0 1")
+                        }
                     }
                 }
                 .padding()

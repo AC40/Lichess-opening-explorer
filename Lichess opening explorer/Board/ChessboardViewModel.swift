@@ -12,6 +12,7 @@ class ChessboardViewModel: ObservableObject {
     @Published var squares = Array(repeating: Array(repeating: Square(), count: 8), count: 8)
     @Published var selectedSquare: (Int, Int)? = nil
     @Published var whiteTurn = true
+    @Published var promotionSquare: Tile? = nil
     
     @Published var squareFrames = Array(repeating: Array(repeating: CGRect.zero, count: 8), count: 8)
     @Published var boardRect = CGRect.zero
@@ -81,6 +82,7 @@ class ChessboardViewModel: ObservableObject {
             return
         }
         
+        // Check, if pawns moves two squares
         if piece.type == .pawn && abs(endFile-startFile) == 2 {
             if piece.color == .white {
                 squares[endFile+1][endRank].canBeTakenWithEnPassant = true
@@ -91,10 +93,25 @@ class ChessboardViewModel: ObservableObject {
             }
         }
         
+        // Promote pawn
+        if whiteTurn ? (endFile == 0) : (endFile == 7) {
+            promotionSquare = end
+            
+            //TODO: Pause game while player selects piece
+        }
+        
+        // Move piece from start to end square
         squares[startFile][startRank].piece = Piece.none
         squares[endFile][endRank].piece = piece
         
-        //TODO: Promote pawn
+        // Take pawn when taken with en passant
+        if squares[endFile][endRank].canBeTakenWithEnPassant {
+            if whiteTurn {
+                squares[endFile+1][endRank].piece = Piece.none
+            } else {
+                squares[endFile-1][endRank].piece = Piece.none
+            }
+        }
         
         endTurn()
     }
@@ -184,11 +201,9 @@ class ChessboardViewModel: ObservableObject {
                 let endFile = file - 1
                 
                 // Single step
-                guard endFile.isOnBoard() && squareIsEmpty((endFile, rank)) else {
-                    return
+                if endFile.isOnBoard() && squareIsEmpty((endFile, rank)) {
+                    squares[endFile][rank].canBeMovedTo = true
                 }
-                
-                squares[endFile][rank].canBeMovedTo = true
                 
                 // Initial double step
                 if file == 6 && squareIsEmpty((4, rank)) {
@@ -198,11 +213,9 @@ class ChessboardViewModel: ObservableObject {
                 let endFile = file + 1
                 
                 // Single step
-                guard endFile.isOnBoard() && squareIsEmpty((endFile, rank)) else {
-                    return
+                if endFile.isOnBoard() && squareIsEmpty((endFile, rank)) {
+                    squares[endFile][rank].canBeMovedTo = true
                 }
-                
-                squares[endFile][rank].canBeMovedTo = true
                 
                 // Initial double step
                 if file == 1 && squareIsEmpty((3, rank)) {
@@ -218,10 +231,10 @@ class ChessboardViewModel: ObservableObject {
                 let endRank = rank - rankMove
                 
                 guard endFile.isOnBoard() && endRank.isOnBoard() else {
-                    return
+                    continue
                 }
                 
-                if pieceIsOppositeColor(at: (file - fileMove, rank - rankMove)) {
+                if pieceIsOppositeColor(at: (endFile, endRank)) {
                     squares[endFile][endRank].canBeTaken = true
                     
                     // En passant
@@ -247,6 +260,8 @@ class ChessboardViewModel: ObservableObject {
                     squares[endFile][endRank].canBeMovedTo = true
                 }
             }
+            
+            //TODO: Castling
         }
     }
     
@@ -289,5 +304,16 @@ class ChessboardViewModel: ObservableObject {
                 break
             }
         }
+    }
+    
+    func promotePawn(to pieceType: PieceType) {
+        guard let promotionSquare = promotionSquare else {
+            return
+        }
+        
+        let (file, rank) = promotionSquare
+        
+        squares[file][rank].piece = Piece(color: whiteTurn ? .black : .white, type: pieceType)
+        self.promotionSquare = nil
     }
 }
