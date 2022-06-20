@@ -9,8 +9,7 @@ import SwiftUI
 
 struct Chessboard: View {
     
-    @StateObject private var vm = ChessboardViewModel()
-    @StateObject private var foo = ChessboardViewModel()
+    @ObservedObject var vm: ChessboardViewModel
     
     var body: some View {
         
@@ -21,28 +20,86 @@ struct Chessboard: View {
             
             ZStack {
                 LazyVGrid(columns: vm.layout, spacing: 0) {
-                    ForEach(0..<64) { i in
-                        
-                        SquareView(chessboardVM: vm, i: i)
-                    }
-                }
-                LazyVGrid(columns: vm.layout, spacing: 0) {
-                    ForEach(0..<64) { i in
-                        PieceView(chessboardVM: vm, i: i)
+                    ForEach(0..<8) { file in
+                        ForEach(0..<8) { rank in
+                            SquareView(chessboardVM: vm, file: file, rank: rank)
                             
+
+                        }
+                        
                     }
                 }
-            }
-            Button("Load") {
-                vm.squares.loadFEN("r1bq3r/4bppp/p1npkB2/1p1Np3/4P3/N3K3/PPP2PPP/R2Q1B1R b - - 4 12")
+                .background(Group {GeometryReader { geo in
+                    Color.clear
+                        .onAppear {
+                            vm.boardRect = geo.frame(in: .global)
+                        }
+                }})
+                LazyVGrid(columns: vm.layout, spacing: 0) {
+                    ForEach(0..<8) { file in
+                        ForEach(0..<8) { rank in
+                            PieceView(chessboardVM: vm, file: file, rank: rank)
+                                .zIndex(isSelected(at: (file, rank)) ? 100 : 90)
+                        }
+                    }
+                }
             }
         }
+        .onTapGesture {
+            if vm.pauseGame {
+                vm.cancelPromotion()
+            }
+        }
+//        .overlay(Group {
+//            if vm.pauseGame {
+//                Rectangle()
+//                    .foregroundColor(.clear)
+//                    .onTapGesture { vm.cancelPromotion() }
+//
+//            }
+//        })
+        .overlay(
+            Group {
+                if vm.promotionSquare != nil {
+                    HStack {
+                        Image("queen\(vm.whiteTurn ? "W" : "B")")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .onTapGesture {
+                                vm.promotePawn(to: .queen)
+                            }
+                        Image("rook\(vm.whiteTurn ? "W" : "B")")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .onTapGesture {
+                                vm.promotePawn(to: .rook)
+                            }
+                        Image("bishop\(vm.whiteTurn ? "W" : "B")")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .onTapGesture {
+                                vm.promotePawn(to: .bishop)
+                            }
+                        Image("knight\(vm.whiteTurn ? "W" : "B")")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .onTapGesture {
+                                vm.promotePawn(to: .knight)
+                            }
+                    }
+                        .padding()
+                        .background(Color.black.opacity(0.5))
+                }
+            }
+        )
+    }
+    
+    func isSelected(at square: Tile) -> Bool {
+        guard vm.selectedSquare != nil else {
+            return false
+        }
+        
+        return vm.selectedSquare! == square
     }
 }
 
-struct Chessboard_Previews: PreviewProvider {
-    static var previews: some View {
-        Chessboard()
-            .previewInterfaceOrientation(.portrait)
-    }
-}

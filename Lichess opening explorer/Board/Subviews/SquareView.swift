@@ -7,23 +7,26 @@
 
 import SwiftUI
 
+typealias Tile = (Int, Int)
+
 struct SquareView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
-    var i: Int
+    var file: Int
+    var rank: Int
+    
     
     var body: some View {
-        
         Rectangle()
-            .foregroundColor(chessboardVM.selectedSquare == i ? .teal : isLight() ? chessboardVM.colorLight : chessboardVM.colorDark)
+            .foregroundColor(foregroundColor())
             .aspectRatio(1, contentMode: .fill)
             .overlay(
                 Group {
-                    if chessboardVM.squares[i].isLegal && chessboardVM.pieceIsOppositeColor(at: i) {
+                    if chessboardVM.squares[file][rank].canBeTaken {
                         Rectangle()
-                            .stroke(lineWidth: 3)
+                            .strokeBorder(lineWidth: 2.5)
                             .foregroundColor(.teal)
-                    } else if chessboardVM.squares[i].isLegal {
+                    } else if chessboardVM.squares[file][rank].canBeMovedTo {
                         Circle()
                             .foregroundColor(.teal.opacity(0.8))
                             .padding()
@@ -34,16 +37,36 @@ struct SquareView: View {
                 GeometryReader { geo in
                     Color.clear
                         .onAppear {
-                            chessboardVM.squareFrames[i] = geo.frame(in: .global)
+                            chessboardVM.squareFrames[file][rank] = geo.frame(in: .global)
                         }
                 }
             )
             .onTapGesture {
-                chessboardVM.handleTap(at: i)
+                if chessboardVM.pauseGame {
+                    chessboardVM.cancelPromotion()
+                } else {
+                    chessboardVM.handleTap(at: (file, rank))
+                }
             }
     }
     
+    func foregroundColor() -> Color {
+        
+        if chessboardVM.selectedSquare != nil {
+            if chessboardVM.selectedSquare! == (file, rank) {
+                return .teal
+            }
+        }
+        
+        if isLight() {
+            return chessboardVM.colorLight
+        } else {
+            return chessboardVM.colorDark
+        }
+    }
+    
     func isLight() -> Bool {
-        return ((((i / 8) + (i % 8)) % 2) == 0)
+        return (file + rank) % 2 == 0
+        
     }
 }

@@ -31,6 +31,10 @@ struct Piece: Equatable {
     static func == (lhs: Piece, rhs: Piece) -> Bool {
         return lhs.color == rhs.color && lhs.type == rhs.type
     }
+    
+    func isSlidingPiece() -> Bool {
+        return type == .rook || type == .bishop || type == .queen
+    }
 }
 
 enum PieceType: String {

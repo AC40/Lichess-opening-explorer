@@ -17,7 +17,7 @@
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
 		DB98B4F92847C59200BB466E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98B4F82847C59200BB466E /* Square.swift */; };
 		DBAB9F93284E007600E1CFE4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F92284E007600E1CFE4 /* Constants.swift */; };
-		DBAB9F95284E06F400E1CFE4 /* ReachableSquares.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */; };
+		DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* Moves.swift */; };
 		DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */; };
 		DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */; };
 		DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */; };
@@ -27,6 +27,7 @@
 		DBAE5744284530D600B72B8C /* PieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE5743284530D600B72B8C /* PieceView.swift */; };
 		DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */; };
 		DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */; };
+		DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */; };
 		DBC0C07C28429B31006AA61A /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = DBC0C07B28429B31006AA61A /* Inject */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +43,7 @@
 		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		DB98B4F82847C59200BB466E /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		DBAB9F92284E007600E1CFE4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachableSquares.swift; sourceTree = "<group>"; };
+		DBAB9F94284E06F400E1CFE4 /* Moves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moves.swift; sourceTree = "<group>"; };
 		DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + allIllegal.swift"; sourceTree = "<group>"; };
 		DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
 		DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadFEN.swift"; sourceTree = "<group>"; };
@@ -52,6 +53,7 @@
 		DBAE5743284530D600B72B8C /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
 		DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadDefaultFEN.swift"; sourceTree = "<group>"; };
 		DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessboardViewModel.swift; sourceTree = "<group>"; };
+		DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + isOnBoard.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +110,7 @@
 		DBAB9F91284E006A00E1CFE4 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				DBAB9F94284E06F400E1CFE4 /* ReachableSquares.swift */,
+				DBAB9F94284E06F400E1CFE4 /* Moves.swift */,
 				DBAB9F92284E007600E1CFE4 /* Constants.swift */,
 			);
 			path = Constants;
@@ -176,6 +178,7 @@
 			children = (
 				DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */,
 				DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */,
+				DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */,
 				DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */,
 			);
 			path = Extensions;
@@ -258,7 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */,
-				DBAB9F95284E06F400E1CFE4 /* ReachableSquares.swift in Sources */,
+				DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */,
 				DB664D1728427BEC0088749A /* ContentView.swift in Sources */,
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
@@ -272,6 +275,7 @@
 				DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */,
 				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
 				DBAB9F93284E007600E1CFE4 /* Constants.swift in Sources */,
+				DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */,
 				DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */,
 				DBAE573D28451A6300B72B8C /* OpeningDatabase.swift in Sources */,
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
@@ -417,10 +421,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				"OTHER_LDFLAGS[arch=*]" = (
-					"-Xlinker",
-					"-interposable",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AcRichter.Lichess-opening-explorer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

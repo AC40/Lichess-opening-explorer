@@ -11,10 +11,32 @@ struct Square {
     
     var piece = Piece.none
     
-    var isLegal = false
+    var canBeMovedTo = false {
+        didSet {
+            if !canBeMovedTo {
+                canBeTaken = false
+//                canBeTakenWithEnPassant = false
+            }
+        }
+    }
     
-    init(_ piece: Piece = Piece.none, isLegal: Bool = false) {
+    var canBeTaken = false {
+        didSet {
+            if canBeTaken {
+                canBeMovedTo = canBeTaken
+            }
+        }
+    }
+    
+    var canBeTakenWithEnPassant = false {
+        didSet {
+            if canBeTakenWithEnPassant {
+                canBeMovedTo = canBeTakenWithEnPassant
+            }
+        }
+    }
+    
+    init(_ piece: Piece = Piece.none) {
         self.piece = piece
-        self.isLegal = isLegal
     }
 }
