@@ -16,12 +16,11 @@
 		DB664D2728427D290088749A /* NeworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2628427D290088749A /* NeworkingError.swift */; };
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
 		DB98B4F92847C59200BB466E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98B4F82847C59200BB466E /* Square.swift */; };
-		DBAB9F93284E007600E1CFE4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F92284E007600E1CFE4 /* Constants.swift */; };
 		DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* Moves.swift */; };
 		DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */; };
 		DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */; };
 		DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */; };
-		DBAE573D28451A6300B72B8C /* OpeningDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573C28451A6300B72B8C /* OpeningDatabase.swift */; };
+		DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573C28451A6300B72B8C /* DatabaseType.swift */; };
 		DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573E28451A8500B72B8C /* Chessboard.swift */; };
 		DBAE57412845302300B72B8C /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57402845302300B72B8C /* Piece.swift */; };
 		DBAE5744284530D600B72B8C /* PieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE5743284530D600B72B8C /* PieceView.swift */; };
@@ -29,6 +28,7 @@
 		DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */; };
 		DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */; };
 		DBC0C07C28429B31006AA61A /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = DBC0C07B28429B31006AA61A /* Inject */; };
+		DBFCFF992860C857005626C6 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFCFF982860C857005626C6 /* Tile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,18 +42,18 @@
 		DB664D2628427D290088749A /* NeworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeworkingError.swift; sourceTree = "<group>"; };
 		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		DB98B4F82847C59200BB466E /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
-		DBAB9F92284E007600E1CFE4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DBAB9F94284E06F400E1CFE4 /* Moves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moves.swift; sourceTree = "<group>"; };
 		DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + allIllegal.swift"; sourceTree = "<group>"; };
 		DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
 		DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadFEN.swift"; sourceTree = "<group>"; };
-		DBAE573C28451A6300B72B8C /* OpeningDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningDatabase.swift; sourceTree = "<group>"; };
+		DBAE573C28451A6300B72B8C /* DatabaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseType.swift; sourceTree = "<group>"; };
 		DBAE573E28451A8500B72B8C /* Chessboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chessboard.swift; sourceTree = "<group>"; };
 		DBAE57402845302300B72B8C /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		DBAE5743284530D600B72B8C /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
 		DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadDefaultFEN.swift"; sourceTree = "<group>"; };
 		DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessboardViewModel.swift; sourceTree = "<group>"; };
 		DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + isOnBoard.swift"; sourceTree = "<group>"; };
+		DBFCFF982860C857005626C6 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				DBAB9F94284E06F400E1CFE4 /* Moves.swift */,
-				DBAB9F92284E007600E1CFE4 /* Constants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -140,8 +139,9 @@
 			children = (
 				DB664D2228427CA10088749A /* PlayerGameResponse.swift */,
 				DB664D2628427D290088749A /* NeworkingError.swift */,
-				DBAE573C28451A6300B72B8C /* OpeningDatabase.swift */,
+				DBAE573C28451A6300B72B8C /* DatabaseType.swift */,
 				DBAE57402845302300B72B8C /* Piece.swift */,
+				DBFCFF982860C857005626C6 /* Tile.swift */,
 				DB98B4F82847C59200BB466E /* Square.swift */,
 			);
 			path = Models;
@@ -267,6 +267,7 @@
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
 				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
 				DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */,
+				DBFCFF992860C857005626C6 /* Tile.swift in Sources */,
 				DB664D1528427BEC0088749A /* Lichess_opening_explorerApp.swift in Sources */,
 				DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */,
 				DB98B4F92847C59200BB466E /* Square.swift in Sources */,
@@ -274,10 +275,9 @@
 				DBAE57412845302300B72B8C /* Piece.swift in Sources */,
 				DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */,
 				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
-				DBAB9F93284E007600E1CFE4 /* Constants.swift in Sources */,
 				DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */,
 				DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */,
-				DBAE573D28451A6300B72B8C /* OpeningDatabase.swift in Sources */,
+				DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */,
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

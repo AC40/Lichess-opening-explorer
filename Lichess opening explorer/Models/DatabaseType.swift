@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Foo {
+enum DatabaseType {
     case player
     case lichess
     case otb

@@ -7,14 +7,12 @@
 
 import SwiftUI
 
-typealias Tile = (Int, Int)
-
 struct SquareView: View {
     
-    @ObservedObject var chessboardVM: ChessboardViewModel
     var file: Int
     var rank: Int
     
+    @ObservedObject var chessboardVM: ChessboardViewModel
     
     var body: some View {
         Rectangle()

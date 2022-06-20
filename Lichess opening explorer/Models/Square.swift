@@ -15,7 +15,6 @@ struct Square {
         didSet {
             if !canBeMovedTo {
                 canBeTaken = false
-//                canBeTakenWithEnPassant = false
             }
         }
     }

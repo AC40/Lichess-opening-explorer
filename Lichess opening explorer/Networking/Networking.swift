@@ -18,7 +18,6 @@ struct Networking {
         print((response as! HTTPURLResponse).statusCode)
         
         let playerGameResponse = try JSONDecoder().decode(PlayerGameResponse.self, from: data)
-//        print(playerGameResponse)
         
         return playerGameResponse
     }

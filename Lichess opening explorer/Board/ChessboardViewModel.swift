@@ -18,7 +18,6 @@ class ChessboardViewModel: ObservableObject {
     @Published var pauseGame = false
     
     @Published var squareFrames = Array(repeating: Array(repeating: CGRect.zero, count: 8), count: 8)
-    @Published var boardRect = CGRect.zero
     
     @Published var whiteEnPassants: [Tile] = []
     @Published var blackEnPassants: [Tile] = []
