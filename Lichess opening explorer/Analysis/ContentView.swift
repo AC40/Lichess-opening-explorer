@@ -14,7 +14,7 @@ struct ContentView: View {
     @StateObject private var vm = ContentViewModel()
     @StateObject private var chessboardVM = ChessboardViewModel()
     
-    @State private var foo = DatabaseType.player
+    @State private var databaseType = DatabaseType.player
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -22,7 +22,7 @@ struct ContentView: View {
             Chessboard(vm: chessboardVM)
                 .zIndex(10)
             
-            Picker("", selection: $foo) {
+            Picker("", selection: $databaseType) {
                 Text("OTB")
                     .tag(DatabaseType.otb)
                 Text("Lichess")

@@ -18,29 +18,29 @@ extension Array where Element == Array<Square> {
         let pieceTypeForSymbol: [String: PieceType] = ["k": .king, "q": .queen, "r": .rook, "b": .bishop, "p": .pawn, "n": .knight]
         
         let parts = fen.split(separator: " ")
-        let ranks = parts[0].split(separator: "/")
+        let files = parts[0].split(separator: "/")
         
-        var rank = 0
+        var file = 0
         
-        for rankString in ranks {
-            let chars = [Character](rankString)
-            var file = 0
+        for fileString in files {
+            let chars = [Character](fileString)
+            var rank = 0
             
             for char in chars {
                 if char.isNumber {
-                    file += char.wholeNumberValue!
+                    rank += char.wholeNumberValue!
                 } else if char.isLetter{
                     guard let pieceType = pieceTypeForSymbol[char.lowercased()] else {
                         self = backup
                         return
                     }
                     let pieceColor = char.isUppercase ? ChessColor.white : ChessColor.black
-                    self[rank][file].piece = Piece(color: pieceColor, type: pieceType)
-                    file += 1
+                    self[file][rank].piece = Piece(color: pieceColor, type: pieceType)
+                    rank += 1
                 }
             }
             
-            rank += 1
+            file += 1
         }
     }
 }

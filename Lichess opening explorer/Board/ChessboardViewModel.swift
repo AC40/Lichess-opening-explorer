@@ -24,7 +24,6 @@ class ChessboardViewModel: ObservableObject {
     
     let colorLight = Color(red: 235/255, green: 217/255, blue: 184/255)
     let colorDark = Color(red: 172/255, green: 136/255, blue: 104/255)
-    let foo = Color.green
     
     let layout = [
         GridItem(.flexible(), spacing: 0),
@@ -42,10 +41,10 @@ class ChessboardViewModel: ObservableObject {
     }
     
     func handleTap(at tile: (Int, Int)) {
-        let (file, rank) = tile
+        let (rank, file) = tile
         
         if whiteTurn {
-            if squares[file][rank].piece.color == .white {
+            if squares[rank][file].piece.color == .white {
                 select(tile)
             } else if selectedSquare != nil {
                 movePiece(from: selectedSquare!, to: tile)
@@ -53,7 +52,7 @@ class ChessboardViewModel: ObservableObject {
                 resetSelection()
             }
         } else {
-            if squares[file][rank].piece.color == .black {
+            if squares[rank][file].piece.color == .black {
                 select(tile)
             } else if selectedSquare != nil {
                 movePiece(from: selectedSquare!, to: tile)
@@ -64,39 +63,39 @@ class ChessboardViewModel: ObservableObject {
     }
     
     func movePiece(from start: Tile, to end: Tile) {
-        let (startFile, startRank) = start
-        let (endFile, endRank) = end
+        let (startRank, startFile) = start
+        let (endRank, endFile) = end
         
-        guard endFile.isOnBoard() && endRank.isOnBoard() else {
+        guard endRank.isOnBoard() && endFile.isOnBoard() else {
             resetSelection()
             return
         }
         
-        let piece = squares[startFile][startRank].piece
+        let piece = squares[startRank][startFile].piece
         
         guard piece.type != .none else {
             resetSelection()
             return
         }
         
-        guard squares[endFile][endRank].canBeMovedTo else {
+        guard squares[endRank][endFile].canBeMovedTo else {
             resetSelection()
             return
         }
         
         // Check, if pawns moves two squares
-        if piece.type == .pawn && abs(endFile-startFile) == 2 {
+        if piece.type == .pawn && abs(endRank-startRank) == 2 {
             if piece.color == .white {
-                squares[endFile+1][endRank].canBeTakenWithEnPassant = true
-                whiteEnPassants.append((endFile+1, endRank))
+                squares[endRank+1][endFile].canBeTakenWithEnPassant = true
+                whiteEnPassants.append((endRank+1, endFile))
             } else {
-                squares[endFile-1][endRank].canBeTakenWithEnPassant = true
-                blackEnPassants.append((endFile-1, endRank))
+                squares[endRank-1][endFile].canBeTakenWithEnPassant = true
+                blackEnPassants.append((endRank-1, endFile))
             }
         }
         
         // Promote pawn
-        if (whiteTurn ? (endFile == 0) : (endFile == 7)) && piece.type == .pawn {
+        if (whiteTurn ? (endRank == 0) : (endRank == 7)) && piece.type == .pawn {
             promotionSquare = end
             promotingPawnSquare = start
             pauseGame = true
@@ -105,15 +104,15 @@ class ChessboardViewModel: ObservableObject {
         }
         
         // Move piece from start to end square
-        squares[startFile][startRank].piece = Piece.none
-        squares[endFile][endRank].piece = piece
+        squares[startRank][startFile].piece = Piece.none
+        squares[endRank][endFile].piece = piece
         
         // Take pawn when taken with en passant
-        if squares[endFile][endRank].canBeTakenWithEnPassant {
+        if squares[endRank][endFile].canBeTakenWithEnPassant {
             if whiteTurn {
-                squares[endFile+1][endRank].piece = Piece.none
+                squares[endRank+1][endFile].piece = Piece.none
             } else {
-                squares[endFile-1][endRank].piece = Piece.none
+                squares[endRank-1][endFile].piece = Piece.none
             }
         }
         
@@ -128,13 +127,13 @@ class ChessboardViewModel: ObservableObject {
         
         //TODO: Remove previous en passants
         if whiteTurn {
-            for (file, rank) in whiteEnPassants {
-                squares[file][rank].canBeTakenWithEnPassant = false
+            for (rank, file) in whiteEnPassants {
+                squares[rank][file].canBeTakenWithEnPassant = false
             }
             whiteEnPassants = []
         } else {
-            for (file, rank) in blackEnPassants {
-                squares[file][rank].canBeTakenWithEnPassant = false
+            for (rank, file) in blackEnPassants {
+                squares[rank][file].canBeTakenWithEnPassant = false
             }
             blackEnPassants = []
         }
@@ -142,7 +141,7 @@ class ChessboardViewModel: ObservableObject {
     }
     
     func select(_ square: Tile) {
-        let (file, rank) = square
+        let (rank, file) = square
         // Check if square was already selected
         if selectedSquare != nil {
             if selectedSquare! == square {
@@ -152,12 +151,12 @@ class ChessboardViewModel: ObservableObject {
         
         // Check player is allowed to select
         if whiteTurn {
-            guard squares[file][rank].piece.color == .white else {
+            guard squares[rank][file].piece.color == .white else {
                 resetSelection()
                 return
             }
         } else {
-            guard squares[file][rank].piece.color == .black else {
+            guard squares[rank][file].piece.color == .black else {
                 resetSelection()
                 return
             }
@@ -170,98 +169,98 @@ class ChessboardViewModel: ObservableObject {
         selectedSquare = square
         
         // Display legal moves
-        legalSquares(for: squares[file][rank].piece, at: square)
+        legalSquares(for: squares[rank][file].piece, at: square)
     }
     
     func legalSquares(for piece: Piece, at square: Tile) {
-        let (file, rank) = square
+        let (rank, file) = square
         
         // Long range sliding pieces
         if piece.isSlidingPiece() {
             for legalMove in Moves.forPiece(piece) {
-                let (fileMove, rankMove) = legalMove
+                let (rankMove, fileMove) = legalMove
                 
-                var endFile = file - fileMove
                 var endRank = rank - rankMove
+                var endFile = file - fileMove
                 
-                guard endFile.isOnBoard() && endRank.isOnBoard() else {
+                guard endRank.isOnBoard() && endFile.isOnBoard() else {
                     continue
                 }
                 
-                while squareIsEmpty((endFile, endRank)) {
-                    squares[endFile][endRank].canBeMovedTo = true
+                while squareIsEmpty((endRank, endFile)) {
+                    squares[endRank][endFile].canBeMovedTo = true
                     
-                    endFile -= fileMove
                     endRank -= rankMove
+                    endFile -= fileMove
                 }
                 
-                if pieceIsOppositeColor(at: (endFile, endRank)) {
-                    squares[endFile][endRank].canBeTaken = true
+                if pieceIsOppositeColor(at: (endRank, endFile)) {
+                    squares[endRank][endFile].canBeTaken = true
                 }
             }
         } else if piece.type == .pawn {
             
             if piece.color == .white {
-                let endFile = file - 1
+                let endRank = rank - 1
                 
                 // Single step
-                if endFile.isOnBoard() && squareIsEmpty((endFile, rank)) {
-                    squares[endFile][rank].canBeMovedTo = true
+                if endRank.isOnBoard() && squareIsEmpty((endRank, file)) {
+                    squares[endRank][file].canBeMovedTo = true
                 }
                 
                 // Initial double step
-                if file == 6 && squareIsEmpty((4, rank)) {
-                    squares[4][rank].canBeMovedTo = true
+                if rank == 6 && squareIsEmpty((4, file)) {
+                    squares[4][file].canBeMovedTo = true
                 }
             } else if piece.color == .black {
-                let endFile = file + 1
+                let endRank = rank + 1
                 
                 // Single step
-                if endFile.isOnBoard() && squareIsEmpty((endFile, rank)) {
-                    squares[endFile][rank].canBeMovedTo = true
+                if endRank.isOnBoard() && squareIsEmpty((endRank, file)) {
+                    squares[endRank][file].canBeMovedTo = true
                 }
                 
                 // Initial double step
-                if file == 1 && squareIsEmpty((3, rank)) {
-                    squares[3][rank].canBeMovedTo = true
+                if rank == 1 && squareIsEmpty((3, file)) {
+                    squares[3][file].canBeMovedTo = true
                 }
             }
             
             // Take diagonally
             for diagonalMove in Moves.pawnDiagonals(for: piece.color) {
-                let (fileMove, rankMove) = diagonalMove
+                let (rankMove, fileMove) = diagonalMove
                 
-                let endFile = file - fileMove
                 let endRank = rank - rankMove
+                let endFile = file - fileMove
                 
-                guard endFile.isOnBoard() && endRank.isOnBoard() else {
+                guard endRank.isOnBoard() && endFile.isOnBoard() else {
                     continue
                 }
                 
-                if pieceIsOppositeColor(at: (endFile, endRank)) {
-                    squares[endFile][endRank].canBeTaken = true
+                if pieceIsOppositeColor(at: (endRank, endFile)) {
+                    squares[endRank][endFile].canBeTaken = true
                     
                     // En passant
-                } else if squares[endFile][endRank].canBeTakenWithEnPassant {
-                    squares[endFile][endRank].canBeTaken = true
+                } else if squares[endRank][endFile].canBeTakenWithEnPassant {
+                    squares[endRank][endFile].canBeTaken = true
                 }
                 
             }
         } else {
             for legalMove in Moves.forPiece(piece) {
-                let (fileMove, rankMove) = legalMove
+                let (rankMove, fileMove) = legalMove
                 
-                let endFile = file - fileMove
                 let endRank = rank - rankMove
+                let endFile = file - fileMove
                 
-                guard endFile.isOnBoard() && endRank.isOnBoard() else {
+                guard endRank.isOnBoard() && endFile.isOnBoard() else {
                     continue
                 }
                 
-                if pieceIsOppositeColor(at: (endFile, endRank)) {
-                    squares[endFile][endRank].canBeTaken = true
-                } else if squareIsEmpty((endFile, endRank)) {
-                    squares[endFile][endRank].canBeMovedTo = true
+                if pieceIsOppositeColor(at: (endRank, endFile)) {
+                    squares[endRank][endFile].canBeTaken = true
+                } else if squareIsEmpty((endRank, endFile)) {
+                    squares[endRank][endFile].canBeMovedTo = true
                 }
             }
             
@@ -270,26 +269,26 @@ class ChessboardViewModel: ObservableObject {
     }
     
     func squareIsEmpty(_ square: Tile) -> Bool {
-        let (file, rank) = square
+        let (rank, file) = square
         
-        guard file.isOnBoard() && rank.isOnBoard() else {
+        guard rank.isOnBoard() && file.isOnBoard() else {
             return false
         }
         
-        return squares[file][rank].piece == Piece.none
+        return squares[rank][file].piece == Piece.none
     }
     
     func pieceIsOppositeColor(at square: Tile) -> Bool {
-        let (file, rank) = square
+        let (rank, file) = square
         
-        guard file.isOnBoard() && rank.isOnBoard() else {
+        guard rank.isOnBoard() && file.isOnBoard() else {
             return false
         }
         
         if whiteTurn {
-            return squares[file][rank].piece.color == .black
+            return squares[rank][file].piece.color == .black
         } else {
-            return squares[file][rank].piece.color == .white
+            return squares[rank][file].piece.color == .white
         }
     }
     
@@ -325,11 +324,11 @@ class ChessboardViewModel: ObservableObject {
             return
         }
         
-        let (endFile, endRank) = promotionSquare
-        let (startFile, startRank) = startSquare
+        let (endRank, endFile) = promotionSquare
+        let (startRank, startFile) = startSquare
         
-        squares[startFile][startRank].piece = .none
-        squares[endFile][endRank].piece = Piece(color: whiteTurn ? .white : .black, type: pieceType)
+        squares[startRank][startFile].piece = .none
+        squares[endRank][endFile].piece = Piece(color: whiteTurn ? .white : .black, type: pieceType)
         
         self.promotionSquare = nil
         pauseGame = false

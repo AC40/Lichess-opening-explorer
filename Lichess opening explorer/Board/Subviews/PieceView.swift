@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PieceView: View {
     
-    var file: Int
     var rank: Int
+    var file: Int
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
@@ -18,10 +18,10 @@ struct PieceView: View {
     @State private var isDragging = false
     
     var body: some View {
-        let square = (file, rank)
+        let square = (rank, file)
         return VStack {
-            if chessboardVM.squares[file][rank].piece.color != .none {
-                let piece = chessboardVM.squares[file][rank].piece
+            if chessboardVM.squares[rank][file].piece.color != .none {
+                let piece = chessboardVM.squares[rank][file].piece
                 Image(piece.type.rawValue + piece.color.rawValue)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)

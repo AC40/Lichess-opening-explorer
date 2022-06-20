@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SquareView: View {
     
-    var file: Int
     var rank: Int
+    var file: Int
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
@@ -20,11 +20,11 @@ struct SquareView: View {
             .aspectRatio(1, contentMode: .fill)
             .overlay(
                 Group {
-                    if chessboardVM.squares[file][rank].canBeTaken {
+                    if chessboardVM.squares[rank][file].canBeTaken {
                         Rectangle()
                             .strokeBorder(lineWidth: 2.5)
                             .foregroundColor(.teal)
-                    } else if chessboardVM.squares[file][rank].canBeMovedTo {
+                    } else if chessboardVM.squares[rank][file].canBeMovedTo {
                         Circle()
                             .foregroundColor(.teal.opacity(0.8))
                             .padding()
@@ -35,7 +35,7 @@ struct SquareView: View {
                 GeometryReader { geo in
                     Color.clear
                         .onAppear {
-                            chessboardVM.squareFrames[file][rank] = geo.frame(in: .global)
+                            chessboardVM.squareFrames[rank][file] = geo.frame(in: .global)
                         }
                 }
             )
@@ -43,7 +43,7 @@ struct SquareView: View {
                 if chessboardVM.pauseGame {
                     chessboardVM.cancelPromotion()
                 } else {
-                    chessboardVM.handleTap(at: (file, rank))
+                    chessboardVM.handleTap(at: (rank, file))
                 }
             }
     }
@@ -51,7 +51,7 @@ struct SquareView: View {
     func foregroundColor() -> Color {
         
         if chessboardVM.selectedSquare != nil {
-            if chessboardVM.selectedSquare! == (file, rank) {
+            if chessboardVM.selectedSquare! == (rank, file) {
                 return .teal
             }
         }
@@ -64,7 +64,7 @@ struct SquareView: View {
     }
     
     func isLight() -> Bool {
-        return (file + rank) % 2 == 0
+        return (rank + file) % 2 == 0
         
     }
 }

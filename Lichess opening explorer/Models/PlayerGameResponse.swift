@@ -4,8 +4,8 @@
 //
 //  Created by AC Richter on 28.05.22.
 //
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
+// This rank was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this rank to your project and do:
 //
 //   let playerGameResponse = try? newJSONDecoder().decode(PlayerGameResponse.self, from: jsonData)
 

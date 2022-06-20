@@ -20,19 +20,19 @@ struct Chessboard: View {
             
             ZStack {
                 LazyVGrid(columns: vm.layout, spacing: 0) {
-                    ForEach(0..<8) { file in
-                        ForEach(0..<8) { rank in
-                            SquareView(file: file, rank: rank, chessboardVM: vm)
+                    ForEach(0..<8) { rank in
+                        ForEach(0..<8) { file in
+                            SquareView(rank: rank, file: file, chessboardVM: vm)
                         }
                         
                     }
                 }
                 
                 LazyVGrid(columns: vm.layout, spacing: 0) {
-                    ForEach(0..<8) { file in
-                        ForEach(0..<8) { rank in
-                            PieceView(file: file, rank: rank, chessboardVM: vm)
-                                .zIndex(isSelected(at: (file, rank)) ? 100 : 90)
+                    ForEach(0..<8) { rank in
+                        ForEach(0..<8) { file in
+                            PieceView(rank: rank, file: file, chessboardVM: vm)
+                                .zIndex(isSelected(at: (rank, file)) ? 100 : 90)
                         }
                     }
                 }
