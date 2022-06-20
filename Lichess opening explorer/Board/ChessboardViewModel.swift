@@ -11,8 +11,11 @@ class ChessboardViewModel: ObservableObject {
     
     @Published var squares = Array(repeating: Array(repeating: Square(), count: 8), count: 8)
     @Published var selectedSquare: (Int, Int)? = nil
-    @Published var whiteTurn = true
     @Published var promotionSquare: Tile? = nil
+    @Published var promotingPawnSquare: Tile? = nil
+    
+    @Published var whiteTurn = true
+    @Published var pauseGame = false
     
     @Published var squareFrames = Array(repeating: Array(repeating: CGRect.zero, count: 8), count: 8)
     @Published var boardRect = CGRect.zero
@@ -94,9 +97,11 @@ class ChessboardViewModel: ObservableObject {
         }
         
         // Promote pawn
-        if whiteTurn ? (endFile == 0) : (endFile == 7) {
+        if (whiteTurn ? (endFile == 0) : (endFile == 7)) && piece.type == .pawn {
             promotionSquare = end
-            
+            promotingPawnSquare = start
+            pauseGame = true
+            return
             //TODO: Pause game while player selects piece
         }
         
@@ -306,14 +311,29 @@ class ChessboardViewModel: ObservableObject {
         }
     }
     
+    func cancelPromotion() {
+        pauseGame = false
+        promotionSquare = nil
+        resetSelection()
+    }
+    
     func promotePawn(to pieceType: PieceType) {
         guard let promotionSquare = promotionSquare else {
             return
         }
         
-        let (file, rank) = promotionSquare
+        guard let startSquare = promotingPawnSquare else {
+            return
+        }
         
-        squares[file][rank].piece = Piece(color: whiteTurn ? .black : .white, type: pieceType)
+        let (endFile, endRank) = promotionSquare
+        let (startFile, startRank) = startSquare
+        
+        squares[startFile][startRank].piece = .none
+        squares[endFile][endRank].piece = Piece(color: whiteTurn ? .white : .black, type: pieceType)
+        
         self.promotionSquare = nil
+        pauseGame = false
+        endTurn()
     }
 }

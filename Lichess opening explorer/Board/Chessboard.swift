@@ -22,13 +22,9 @@ struct Chessboard: View {
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<8) { file in
                         ForEach(0..<8) { rank in
-                            
-//                            let sum = file + rank
-//                            Rectangle()
-//                                .foregroundColor(sum % 2 == 0 ? .brown : .black)
-//                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                                .aspectRatio(1, contentMode: .fill)
                             SquareView(chessboardVM: vm, file: file, rank: rank)
+                            
+
                         }
                         
                     }
@@ -49,29 +45,42 @@ struct Chessboard: View {
                 }
             }
         }
+        .onTapGesture {
+            if vm.pauseGame {
+                vm.cancelPromotion()
+            }
+        }
+//        .overlay(Group {
+//            if vm.pauseGame {
+//                Rectangle()
+//                    .foregroundColor(.clear)
+//                    .onTapGesture { vm.cancelPromotion() }
+//
+//            }
+//        })
         .overlay(
             Group {
                 if vm.promotionSquare != nil {
                     HStack {
-                        Image("queen\(vm.whiteTurn ? "B" : "W")")
+                        Image("queen\(vm.whiteTurn ? "W" : "B")")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .onTapGesture {
                                 vm.promotePawn(to: .queen)
                             }
-                        Image("rook\(vm.whiteTurn ? "B" : "W")")
+                        Image("rook\(vm.whiteTurn ? "W" : "B")")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .onTapGesture {
                                 vm.promotePawn(to: .rook)
                             }
-                        Image("bishop\(vm.whiteTurn ? "B" : "W")")
+                        Image("bishop\(vm.whiteTurn ? "W" : "B")")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .onTapGesture {
                                 vm.promotePawn(to: .bishop)
                             }
-                        Image("knight\(vm.whiteTurn ? "B" : "W")")
+                        Image("knight\(vm.whiteTurn ? "W" : "B")")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .onTapGesture {

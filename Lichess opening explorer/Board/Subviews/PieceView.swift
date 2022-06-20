@@ -32,18 +32,18 @@ struct PieceView: View {
                     .gesture(DragGesture(coordinateSpace: .global)
                         .onChanged({ value in
                             
-                            if !isDragging {
-                                chessboardVM.handleTap(at: square)
+                            guard !chessboardVM.pauseGame else {
+                                chessboardVM.cancelPromotion()
+                                return
                             }
                             
                             guard chessboardVM.whiteTurn == (piece.color == .white) else {
                                 return
                             }
                             
-//                            guard chessboardVM.boardRect.contains(value.location) else {
-//                                offset.width = value.translation.width
-//                                return
-//                            }
+                            if !isDragging {
+                                chessboardVM.handleTap(at: square)
+                            }
                             
                             withAnimation(.linear.speed(10)) {
                                 isDragging = true
@@ -52,8 +52,9 @@ struct PieceView: View {
                         })
                         .onEnded({ value in
                             
+                            chessboardVM.onDrop(location: value.location, square: square)
+                            
                             withAnimation(.default.speed(4)) {
-                                chessboardVM.onDrop(location: value.location, square: square)
                                 offset = .zero
                             }
                             
@@ -67,7 +68,11 @@ struct PieceView: View {
             }
         }
         .onTapGesture {
-            chessboardVM.handleTap(at: square)
+            if chessboardVM.pauseGame {
+                chessboardVM.cancelPromotion()
+            } else {
+                chessboardVM.handleTap(at: square)
+            }
         }
     }
 }

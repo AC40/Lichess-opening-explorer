@@ -42,7 +42,11 @@ struct SquareView: View {
                 }
             )
             .onTapGesture {
-                chessboardVM.handleTap(at: (file, rank))
+                if chessboardVM.pauseGame {
+                    chessboardVM.cancelPromotion()
+                } else {
+                    chessboardVM.handleTap(at: (file, rank))
+                }
             }
     }
     
