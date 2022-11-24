@@ -20,14 +20,16 @@ struct SquareView: View {
             .aspectRatio(1, contentMode: .fill)
             .overlay(
                 Group {
-                    if chessboardVM.squares[rank][file].canBeTaken {
-                        Rectangle()
-                            .strokeBorder(lineWidth: 2.5)
-                            .foregroundColor(.teal)
-                    } else if chessboardVM.squares[rank][file].canBeMovedTo {
-                        Circle()
-                            .foregroundColor(.teal.opacity(0.8))
-                            .padding()
+                    if !kingIsInCheck() {
+                        if chessboardVM.squares[rank][file].canBeTaken {
+                            Rectangle()
+                                .strokeBorder(lineWidth: 2.5)
+                                .foregroundColor(.teal)
+                        } else if chessboardVM.squares[rank][file].canBeMovedTo {
+                            Circle()
+                                .foregroundColor(.teal.opacity(0.8))
+                                .padding()
+                        }
                     }
                 }
             )
@@ -48,7 +50,32 @@ struct SquareView: View {
             }
     }
     
+    func squareHasKing() -> ChessColor {
+        if chessboardVM.whiteKingSquare == (file, rank) {
+            return .white
+        } else if chessboardVM.blackKingSquare == (file, rank) {
+            return .black
+        }
+        
+        return .none
+    }
+    
+    func kingIsInCheck() -> Bool {
+        switch squareHasKing() {
+        case .white:
+            return chessboardVM.whiteIsInCheck
+        case .black:
+            return chessboardVM.blackisInCheck
+        case .none:
+            return false
+        }
+    }
+    
     func foregroundColor() -> Color {
+        
+        if kingIsInCheck() {
+            return .red
+        }
         
         if chessboardVM.selectedSquare != nil {
             if chessboardVM.selectedSquare! == (rank, file) {
