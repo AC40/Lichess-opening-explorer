@@ -9,6 +9,7 @@ import Foundation
 
 struct Piece: Equatable {
     
+    //MARK: Variables
     static let none = Piece(color: .none, type: .none)
     
     static let kingW = Piece(color: .white, type: .king)
@@ -28,12 +29,48 @@ struct Piece: Equatable {
     var color: ChessColor
     var type: PieceType
     
+    var square: Tile?
+    
+    //MARK: Functions
+    
     static func == (lhs: Piece, rhs: Piece) -> Bool {
         return lhs.color == rhs.color && lhs.type == rhs.type
     }
     
     func isSlidingPiece() -> Bool {
         return type == .rook || type == .bishop || type == .queen
+    }
+    
+    func isKing() -> Bool {
+        return type == .king
+    }
+    
+    func isBishop() -> Bool {
+        return type == .bishop
+    }
+    
+    func isRook() -> Bool {
+        return type == .rook
+    }
+    
+    func isQueen() -> Bool {
+        return type == .queen
+    }
+    
+    func isKnight() -> Bool {
+        return type == .knight
+    }
+    
+    func isPawn() -> Bool {
+        return type == .pawn
+    }
+    
+    func isWhite() -> Bool {
+        return color == .white
+    }
+    
+    func isBlack() -> Bool {
+        return color == .black
     }
 }
 

@@ -20,17 +20,20 @@ struct SquareView: View {
             .aspectRatio(1, contentMode: .fill)
             .overlay(
                 Group {
-                    if !kingIsInCheck() {
-                        if chessboardVM.squares[rank][file].canBeTaken {
-                            Rectangle()
-                                .strokeBorder(lineWidth: 2.5)
-                                .foregroundColor(.teal)
-                        } else if chessboardVM.squares[rank][file].canBeMovedTo {
-                            Circle()
-                                .foregroundColor(.teal.opacity(0.8))
-                                .padding()
-                        }
+                    if chessboardVM.squares[rank][file].canBeTaken {
+                        Rectangle()
+                            .strokeBorder(lineWidth: 2.5)
+                            .foregroundColor(.teal)
+                    } else if chessboardVM.squares[rank][file].canBeMovedTo {
+                        Circle()
+                            .foregroundColor(.teal.opacity(0.8))
+                            .padding()
                     }
+                    #if (DEBUG)
+                    Text("\(rank), \(file)")
+                        .font(.caption2)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    #endif
                 }
             )
             .overlay(
@@ -41,6 +44,7 @@ struct SquareView: View {
                         }
                 }
             )
+            
             .onTapGesture {
                 if chessboardVM.pauseGame {
                     chessboardVM.cancelPromotion()
@@ -51,9 +55,9 @@ struct SquareView: View {
     }
     
     func squareHasKing() -> ChessColor {
-        if chessboardVM.whiteKingSquare == (file, rank) {
+        if chessboardVM.whiteKingSquare == (rank, file) {
             return .white
-        } else if chessboardVM.blackKingSquare == (file, rank) {
+        } else if chessboardVM.blackKingSquare == (rank, file) {
             return .black
         }
         
@@ -62,13 +66,14 @@ struct SquareView: View {
     
     func kingIsInCheck() -> Bool {
         switch squareHasKing() {
-        case .white:
-            return chessboardVM.whiteIsInCheck
-        case .black:
-            return chessboardVM.blackisInCheck
-        case .none:
-            return false
-        }
+            case .none:
+                return false
+            case .white:
+                return chessboardVM.whiteIsInCheck
+            case .black:
+                return chessboardVM.blackisInCheck
+            
+            }
     }
     
     func foregroundColor() -> Color {
