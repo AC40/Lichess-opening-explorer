@@ -307,17 +307,49 @@ class ChessboardViewModel: ObservableObject {
         return (canBeMovedTo, canBeTaken)
     }
     
-    func positionHasCheck(_ pos: [[Square]], color: ChessColor) -> Bool {
+    // Working implementation (woop woo)
+    func positionHasCheck(_ position: [[Square]], color: ChessColor) -> Bool {
         
-        // Copy current position
-//        var tempPos = pos
+        // In explation, it is assumed white just made a move, thus color = .white
+        // Generate pieces from side
+        var pieces = [Piece]()
         
+        for rank in 0..<position.count {
+            for file in 0..<position[rank].count {
+                
+                var piece = position[rank][file].piece
+                
+                if piece != .none && piece.color == color {
+                    piece.square = (rank, file)
+                    pieces.append(piece)
+                }
+            }
+        }
+        print(pieces)
         
-        // Generate all legal moves by opposing side (If blacks turn, generate White's moves)
-        
-        // Check, if any of the moves takes the black king
-        
-        return true
+        // For each piece:
+        for piece in pieces {
+            
+            guard piece.square != nil else {
+                continue
+            }
+            
+            // generate all moves
+            let (_, pseudoCanBeTaken) = legalSquares(for: piece, at: piece.square!)
+            
+            // for each move
+            for move in pseudoCanBeTaken {
+                
+                // Check, if the moves takes the color's king
+                if position[move.0][move.1].piece.type == .king && position[move.0][move.1].piece.color != color {
+                    
+                    // if it does, return true
+                    return true
+                }
+            }
+        }
+                    
+        return false
     }
     
     func promotePawn(to pieceType: PieceType) {

@@ -28,6 +28,8 @@ struct Piece: Equatable {
     var color: ChessColor
     var type: PieceType
     
+    var square: Tile?
+    
     static func == (lhs: Piece, rhs: Piece) -> Bool {
         return lhs.color == rhs.color && lhs.type == rhs.type
     }
@@ -35,6 +37,38 @@ struct Piece: Equatable {
     func isSlidingPiece() -> Bool {
         return type == .rook || type == .bishop || type == .queen
     }
+    
+    func isKing() -> Bool {
+            return type == .king
+        }
+        
+        func isBishop() -> Bool {
+            return type == .bishop
+        }
+        
+        func isRook() -> Bool {
+            return type == .rook
+        }
+        
+        func isQueen() -> Bool {
+            return type == .queen
+        }
+        
+        func isKnight() -> Bool {
+            return type == .knight
+        }
+        
+        func isPawn() -> Bool {
+            return type == .pawn
+        }
+        
+        func isWhite() -> Bool {
+            return color == .white
+        }
+        
+        func isBlack() -> Bool {
+            return color == .black
+        }
 }
 
 enum PieceType: String {
