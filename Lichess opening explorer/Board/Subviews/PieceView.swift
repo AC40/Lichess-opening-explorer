@@ -20,8 +20,8 @@ struct PieceView: View {
     var body: some View {
         let square = (rank, file)
         return VStack {
-            if chessboardVM.squares[rank][file].piece.color != .none {
-                let piece = chessboardVM.squares[rank][file].piece
+            if chessboardVM.board[rank, file].piece.color != .none {
+                let piece = chessboardVM.board[rank, file].piece
                 Image(piece.type.rawValue + piece.color.rawValue)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
@@ -55,7 +55,7 @@ struct PieceView: View {
             return
         }
         
-        guard chessboardVM.whiteTurn == (piece.color == .white) else {
+        guard chessboardVM.board.whiteTurn == (piece.color == .white) else {
             return
         }
         

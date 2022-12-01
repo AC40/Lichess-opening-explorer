@@ -7,13 +7,13 @@
 
 import Foundation
 
-extension Array where Element == Array<Square> {
+extension Board {
     
     mutating func loadFEN(_ fen: String) {
         // Store incase FEN is invalid
         let backup = self
         // Clear board
-        self = Array(repeating: Array<Square>(repeating: Square(), count: 8), count: 8)
+        self.squares = Array(repeating: Array<Square>(repeating: Square(), count: 8), count: 8)
         
         let pieceTypeForSymbol: [String: PieceType] = ["k": .king, "q": .queen, "r": .rook, "b": .bishop, "p": .pawn, "n": .knight]
         
@@ -35,7 +35,7 @@ extension Array where Element == Array<Square> {
                         return
                     }
                     let pieceColor = char.isUppercase ? ChessColor.white : ChessColor.black
-                    self[file][rank].piece = Piece(color: pieceColor, type: pieceType)
+                    self[file, rank].piece = Piece(color: pieceColor, type: pieceType)
                     rank += 1
                 }
             }

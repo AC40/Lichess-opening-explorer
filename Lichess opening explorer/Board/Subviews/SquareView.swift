@@ -19,13 +19,13 @@ struct SquareView: View {
             .foregroundColor(foregroundColor())
             .aspectRatio(1, contentMode: .fill)
             .overlay(
-                Group {
+                VStack {
                     if !kingIsInCheck() {
-                        if chessboardVM.squares[rank][file].canBeTaken {
+                        if chessboardVM.board[rank, file].canBeTaken {
                             Rectangle()
                                 .strokeBorder(lineWidth: 2.5)
                                 .foregroundColor(.teal)
-                        } else if chessboardVM.squares[rank][file].canBeMovedTo {
+                        } else if chessboardVM.board[rank, file].canBeMovedTo {
                             Circle()
                                 .foregroundColor(.teal.opacity(0.8))
                                 .padding()
@@ -51,21 +51,22 @@ struct SquareView: View {
     }
     
     func squareHasKing() -> ChessColor {
-        if chessboardVM.whiteKingSquare == (file, rank) {
+        if chessboardVM.board.whiteKingSquare == (file, rank) {
             return .white
-        } else if chessboardVM.blackKingSquare == (file, rank) {
+        } else if chessboardVM.board.blackKingSquare == (file, rank) {
             return .black
         }
         
         return .none
     }
     
+    #warning("This needs to be fixed")
     func kingIsInCheck() -> Bool {
         switch squareHasKing() {
         case .white:
-            return chessboardVM.whiteIsInCheck
+            return false
         case .black:
-            return chessboardVM.blackisInCheck
+            return false
         case .none:
             return false
         }
