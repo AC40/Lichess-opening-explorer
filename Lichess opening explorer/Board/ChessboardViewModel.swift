@@ -79,7 +79,7 @@ class ChessboardViewModel: ObservableObject {
             return
         }
         
-        // Check, if pawns moves two board
+        // Check, if pawns moves two squares (initial double step)
         if piece.type == .pawn && abs(endRank-startRank) == 2 {
             if piece.color == .white {
                 board[endRank+1, endFile].canBeTakenWithEnPassant = true
@@ -102,8 +102,51 @@ class ChessboardViewModel: ObservableObject {
         // King Move
         if piece == .kingW {
             board.whiteKingSquare = end
+            board.whiteKingHasMoved = true
+            
+            // Move rook in castling
+            if end == (7, 2) {
+                board[7, 0].piece = Piece.none
+                board[7, 3].piece = .rookW
+                board.whiteQueensRookHasMoved = true
+                
+            } else if end == (7, 6) {
+                board[7, 7].piece = Piece.none
+                board[7, 5].piece = .rookW
+                board.whiteKingsRookHasMoved = true
+            }
         } else if piece == .kingB {
             board.blackKingSquare = end
+            board.blackKingHasMoved = true
+            
+            // Move rook in castling
+            if end == (0, 2) {
+                board[0, 0].piece = Piece.none
+                board[0, 3].piece = .rookB
+                board.blackQueensRookHasMoved = true
+                
+            } else if end == (0, 6) {
+                movePiece(from: (0, 7), to: (0, 5))
+                board[0, 7].piece = .none
+                board[0, 5].piece = .rookB
+                board.whiteKingsRookHasMoved = true
+            }
+        }
+        
+        
+        // Rook move
+        if piece == .rookW {
+            if start == (7, 0) {
+                board.whiteQueensRookHasMoved = true
+            } else if start == (7, 7) {
+                board.whiteKingsRookHasMoved = true
+            }
+        } else if piece == .rookB {
+            if start == (0, 0) {
+                board.blackQueensRookHasMoved = true
+            } else if start == (0, 7) {
+                board.blackKingsRookHasMoved = true
+            }
         }
         
         // Move piece from start to end square
@@ -119,8 +162,7 @@ class ChessboardViewModel: ObservableObject {
             }
         }
         
-        print("Turn: \(board.whiteTurn)")
-        print("Check: \(arbiter.positionHasCheck(board.squares, color: board.whiteTurn ? .white : .black))")
+        print("Check: \(arbiter.positionHasCheck(board, color: board.whiteTurn ? .white : .black))")
         
         endTurn()
         
@@ -181,7 +223,6 @@ class ChessboardViewModel: ObservableObject {
         displayLegalMoves(move: canBeMovedTo, take: canBeTaken)
         
     }
-    
     
     
     func promotePawn(to pieceType: PieceType) {

@@ -19,7 +19,7 @@ struct SquareView: View {
             .foregroundColor(foregroundColor())
             .aspectRatio(1, contentMode: .fill)
             .overlay(
-                VStack {
+                Group {
                     if !kingIsInCheck() {
                         if chessboardVM.board[rank, file].canBeTaken {
                             Rectangle()
@@ -31,6 +31,12 @@ struct SquareView: View {
                                 .padding()
                         }
                     }
+                    
+                    #if (DEBUG)
+                    Text("\(rank), \(file)")
+                        .font(.caption2)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    #endif
                 }
             )
             .overlay(

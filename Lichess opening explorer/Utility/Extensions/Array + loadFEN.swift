@@ -10,6 +10,10 @@ import Foundation
 extension Board {
     
     mutating func loadFEN(_ fen: String) {
+        
+        // Reset board (castling right, etc.)
+        self.reset()
+        
         // Store incase FEN is invalid
         let backup = self
         // Clear board

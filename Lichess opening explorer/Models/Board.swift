@@ -20,6 +20,14 @@ struct Board {
     var whiteEnPassants: [Tile] = []
     var blackEnPassants: [Tile] = []
     
+    var whiteKingHasMoved: Bool = false
+    var blackKingHasMoved: Bool = false
+    
+    var whiteQueensRookHasMoved = false
+    var whiteKingsRookHasMoved = false
+    var blackQueensRookHasMoved = false
+    var blackKingsRookHasMoved = false
+    
     var whiteTurn = true
     
     //MARK: Functions
@@ -34,6 +42,22 @@ struct Board {
         
         whiteKingSquare = (whiteKingRank, whiteKingFile)
         blackKingSquare = (blackKingRank, blackKingFile)
+    }
+    
+     mutating func reset() {
+        promotionSquare = nil
+        promotingPawnSquare = nil
+        
+        whiteEnPassants = []
+        blackEnPassants = []
+        
+        whiteKingHasMoved = false
+        blackKingHasMoved = false
+        
+        whiteQueensRookHasMoved = false
+        whiteKingsRookHasMoved = false
+        blackQueensRookHasMoved = false
+        blackKingsRookHasMoved = false
     }
     
     subscript(square: Tile) -> Square {

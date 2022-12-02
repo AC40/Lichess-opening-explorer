@@ -15,6 +15,7 @@
 		DB664D2528427CBD0088749A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2428427CBD0088749A /* Networking.swift */; };
 		DB664D2728427D290088749A /* NeworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2628427D290088749A /* NeworkingError.swift */; };
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
+		DB8EE625293A460600BD24A8 /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = DB8EE624293A460600BD24A8 /* TODO.md */; };
 		DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DB29392A4E00E0F335 /* Arbiter.swift */; };
 		DB9413DE29392D7F00E0F335 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DD29392D7F00E0F335 /* Board.swift */; };
 		DB98B4F92847C59200BB466E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98B4F82847C59200BB466E /* Square.swift */; };
@@ -29,7 +30,6 @@
 		DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */; };
 		DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */; };
 		DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */; };
-		DBC0C07C28429B31006AA61A /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = DBC0C07B28429B31006AA61A /* Inject */; };
 		DBFCFF992860C857005626C6 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFCFF982860C857005626C6 /* Tile.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +43,7 @@
 		DB664D2428427CBD0088749A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		DB664D2628427D290088749A /* NeworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeworkingError.swift; sourceTree = "<group>"; };
 		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		DB8EE624293A460600BD24A8 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		DB9413DB29392A4E00E0F335 /* Arbiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arbiter.swift; sourceTree = "<group>"; };
 		DB9413DD29392D7F00E0F335 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		DB98B4F82847C59200BB466E /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBC0C07C28429B31006AA61A /* Inject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +75,7 @@
 		DB664D0828427BEC0088749A = {
 			isa = PBXGroup;
 			children = (
+				DB8EE624293A460600BD24A8 /* TODO.md */,
 				DB664D1328427BEC0088749A /* Lichess opening explorer */,
 				DB664D1228427BEC0088749A /* Products */,
 			);
@@ -207,7 +208,6 @@
 			);
 			name = "Lichess opening explorer";
 			packageProductDependencies = (
-				DBC0C07B28429B31006AA61A /* Inject */,
 			);
 			productName = "Lichess opening explorer";
 			productReference = DB664D1128427BEC0088749A /* Lichess opening explorer.app */;
@@ -238,7 +238,6 @@
 			);
 			mainGroup = DB664D0828427BEC0088749A;
 			packageReferences = (
-				DBC0C07A28429B31006AA61A /* XCRemoteSwiftPackageReference "Inject" */,
 			);
 			productRefGroup = DB664D1228427BEC0088749A /* Products */;
 			projectDirPath = "";
@@ -254,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB8EE625293A460600BD24A8 /* TODO.md in Resources */,
 				DB664D1C28427BEE0088749A /* Preview Assets.xcassets in Resources */,
 				DB664D1928427BEE0088749A /* Assets.xcassets in Resources */,
 			);
@@ -432,6 +432,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AcRichter.Lichess-opening-explorer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -489,25 +490,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		DBC0C07A28429B31006AA61A /* XCRemoteSwiftPackageReference "Inject" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		DBC0C07B28429B31006AA61A /* Inject */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DBC0C07A28429B31006AA61A /* XCRemoteSwiftPackageReference "Inject" */;
-			productName = Inject;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DB664D0928427BEC0088749A /* Project object */;
 }
