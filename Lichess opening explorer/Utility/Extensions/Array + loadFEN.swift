@@ -46,5 +46,7 @@ extension Board {
             
             file += 1
         }
+        
+        getKingPosition()
     }
 }

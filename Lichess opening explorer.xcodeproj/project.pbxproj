@@ -15,6 +15,9 @@
 		DB664D2528427CBD0088749A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2428427CBD0088749A /* Networking.swift */; };
 		DB664D2728427D290088749A /* NeworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2628427D290088749A /* NeworkingError.swift */; };
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
+		DB866671293A6E6500761F95 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866670293A6E6500761F95 /* ThemeManager.swift */; };
+		DB866673293A6EAF00761F95 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866672293A6EAF00761F95 /* Theme.swift */; };
+		DB866675293A6EF200761F95 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866674293A6EF200761F95 /* Themes.swift */; };
 		DB8EE625293A460600BD24A8 /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = DB8EE624293A460600BD24A8 /* TODO.md */; };
 		DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DB29392A4E00E0F335 /* Arbiter.swift */; };
 		DB9413DE29392D7F00E0F335 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DD29392D7F00E0F335 /* Board.swift */; };
@@ -43,6 +46,9 @@
 		DB664D2428427CBD0088749A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		DB664D2628427D290088749A /* NeworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeworkingError.swift; sourceTree = "<group>"; };
 		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		DB866670293A6E6500761F95 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		DB866672293A6EAF00761F95 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		DB866674293A6EF200761F95 /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		DB8EE624293A460600BD24A8 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		DB9413DB29392A4E00E0F335 /* Arbiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arbiter.swift; sourceTree = "<group>"; };
 		DB9413DD29392D7F00E0F335 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
@@ -116,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				DBAB9F94284E06F400E1CFE4 /* Moves.swift */,
+				DB866674293A6EF200761F95 /* Themes.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -143,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				DB664D2228427CA10088749A /* PlayerGameResponse.swift */,
+				DB866672293A6EAF00761F95 /* Theme.swift */,
 				DB664D2628427D290088749A /* NeworkingError.swift */,
 				DBAE573C28451A6300B72B8C /* DatabaseType.swift */,
 				DBAE57402845302300B72B8C /* Piece.swift */,
@@ -173,6 +181,7 @@
 		DBAE57462845341C00B72B8C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DB866670293A6E6500761F95 /* ThemeManager.swift */,
 				DB9413DB29392A4E00E0F335 /* Arbiter.swift */,
 				DBAB9F91284E006A00E1CFE4 /* Constants */,
 				DBAE57472845342400B72B8C /* Extensions */,
@@ -269,6 +278,7 @@
 				DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */,
 				DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */,
 				DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */,
+				DB866673293A6EAF00761F95 /* Theme.swift in Sources */,
 				DB664D1728427BEC0088749A /* ContentView.swift in Sources */,
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
@@ -278,6 +288,7 @@
 				DB664D1528427BEC0088749A /* Lichess_opening_explorerApp.swift in Sources */,
 				DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */,
 				DB9413DE29392D7F00E0F335 /* Board.swift in Sources */,
+				DB866675293A6EF200761F95 /* Themes.swift in Sources */,
 				DB98B4F92847C59200BB466E /* Square.swift in Sources */,
 				DBAE5744284530D600B72B8C /* PieceView.swift in Sources */,
 				DBAE57412845302300B72B8C /* Piece.swift in Sources */,
@@ -287,6 +298,7 @@
 				DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */,
 				DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */,
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
+				DB866671293A6E6500761F95 /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

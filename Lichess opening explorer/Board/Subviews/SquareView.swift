@@ -14,6 +14,8 @@ struct SquareView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
+    var theme: Theme
+    
     var body: some View {
         Rectangle()
             .foregroundColor(foregroundColor())
@@ -24,19 +26,20 @@ struct SquareView: View {
                         if chessboardVM.board[rank, file].canBeTaken {
                             Rectangle()
                                 .strokeBorder(lineWidth: 2.5)
-                                .foregroundColor(.teal)
+                                .foregroundColor(theme.highlight)
                         } else if chessboardVM.board[rank, file].canBeMovedTo {
                             Circle()
-                                .foregroundColor(.teal.opacity(0.8))
+                                .foregroundColor(theme.highlight)
                                 .padding()
                         }
                     }
                     
-                    #if (DEBUG)
-                    Text("\(rank), \(file)")
-                        .font(.caption2)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                    #endif
+                    if chessboardVM.showCoordinates {
+                        Text("\(rank), \(file)")
+                            .font(.caption2)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                            .foregroundColor(.black)
+                    }
                 }
             )
             .overlay(
@@ -84,19 +87,19 @@ struct SquareView: View {
     func foregroundColor() -> Color {
         
         if kingIsInCheck() {
-            return .red
+            return theme.check
         }
         
         if chessboardVM.selectedSquare != nil {
             if chessboardVM.selectedSquare! == (rank, file) {
-                return .teal
+                return theme.highlight
             }
         }
         
         if isLight() {
-            return chessboardVM.colorLight
+            return theme.lightSquare
         } else {
-            return chessboardVM.colorDark
+            return theme.darkSquare
         }
     }
     

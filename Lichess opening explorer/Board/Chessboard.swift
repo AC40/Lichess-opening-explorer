@@ -10,19 +10,20 @@ import SwiftUI
 struct Chessboard: View {
     
     @ObservedObject var vm: ChessboardViewModel
+    @ObservedObject var themeMg: ThemeManager
     
     var body: some View {
         
         ZStack {
             
-            Color.teal
-                .edgesIgnoringSafeArea(.all)
+//            Color.teal
+//                .edgesIgnoringSafeArea(.all)
             
             ZStack {
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<8) { rank in
                         ForEach(0..<8) { file in
-                            SquareView(rank: rank, file: file, chessboardVM: vm)
+                            SquareView(rank: rank, file: file, chessboardVM: vm, theme: themeMg.current)
                         }
                         
                     }

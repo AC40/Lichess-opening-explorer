@@ -14,6 +14,7 @@ class ChessboardViewModel: ObservableObject {
     @Published var board = Board()
     @Published var pauseGame = false
     @Published var whitePerspective = true
+    @Published var showCoordinates = true
     
     @Published var squareFrames = Array(repeating: Array(repeating: CGRect.zero, count: 8), count: 8)
     
@@ -21,8 +22,7 @@ class ChessboardViewModel: ObservableObject {
     
     let arbiter = Arbiter()
     
-    let colorLight = Color(red: 235/255, green: 217/255, blue: 184/255)
-    let colorDark = Color(red: 172/255, green: 136/255, blue: 104/255)
+    
     
     let layout = [
         GridItem(.flexible(), spacing: 0),

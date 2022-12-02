@@ -11,13 +11,14 @@ struct ContentView: View {
     
     @StateObject private var vm = ContentViewModel()
     @StateObject private var chessboardVM = ChessboardViewModel()
+    @StateObject private var themeMg = ThemeManager()
     
     @State private var databaseType = DatabaseType.player
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             
-            Chessboard(vm: chessboardVM)
+            Chessboard(vm: chessboardVM, themeMg: themeMg)
                 .zIndex(10)
                 .overlay(
                     Group {
@@ -66,6 +67,16 @@ struct ContentView: View {
                 }
                 Button("Swap perspective") {
                     chessboardVM.whitePerspective.toggle()
+                }
+                Button("Toggle Coordinates") {
+                    chessboardVM.showCoordinates.toggle()
+                }
+                Button("Swap Theme") {
+                    if themeMg.current == Themes.standard {
+                        themeMg.current = Themes.chessCom
+                    } else {
+                        themeMg.current = Themes.standard
+                    }
                 }
             }
             Spacer()

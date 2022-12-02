@@ -13,3 +13,20 @@
 ## Long term
 - add branches to move, recording system
 - 50 move rule
+
+
+----
+### Brainstorm Move struct
+struct Move {
+
+    var start: Tile
+    var end: Tile
+    
+    var piece: Piece?
+    
+    var flag: MoveFlag
+}
+
+enum MoveFlag {
+    case 
+}
