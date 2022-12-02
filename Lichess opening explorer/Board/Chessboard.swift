@@ -45,28 +45,28 @@ struct Chessboard: View {
     
     //MARK: View-related functions
     @ViewBuilder func pieceList() -> some View {
-        Group {
-            if vm.promotionSquare != nil {
+        HStack {
+            if vm.board.promotionSquare != nil {
                 HStack {
-                    Image("queen\(vm.whiteTurn ? "W" : "B")")
+                    Image("queen\(vm.board.whiteTurn ? "W" : "B")")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .onTapGesture {
                             vm.promotePawn(to: .queen)
                         }
-                    Image("rook\(vm.whiteTurn ? "W" : "B")")
+                    Image("rook\(vm.board.whiteTurn ? "W" : "B")")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .onTapGesture {
                             vm.promotePawn(to: .rook)
                         }
-                    Image("bishop\(vm.whiteTurn ? "W" : "B")")
+                    Image("bishop\(vm.board.whiteTurn ? "W" : "B")")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .onTapGesture {
                             vm.promotePawn(to: .bishop)
                         }
-                    Image("knight\(vm.whiteTurn ? "W" : "B")")
+                    Image("knight\(vm.board.whiteTurn ? "W" : "B")")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .onTapGesture {

@@ -6,10 +6,8 @@
 //
 
 import SwiftUI
-import Inject
 
 struct ContentView: View {
-    @ObserveInjection var inject
     
     @StateObject private var vm = ContentViewModel()
     @StateObject private var chessboardVM = ChessboardViewModel()
@@ -46,7 +44,6 @@ struct ContentView: View {
         .task {
             await vm.getPlayerGames()
         }
-        .enableInjection()
     }
     
     //MARK: View-related functions
@@ -83,17 +80,23 @@ struct ContentView: View {
             Spacer()
             VStack(alignment: .trailing, spacing: 10) {
                 Button("Load default FEN") {
-                    chessboardVM.squares.loadDefaultFEN()
+                    chessboardVM.board.loadDefaultFEN()
                 }
                 
                 Button("Load mid-game FEN") {
-                    chessboardVM.squares.loadFEN("r1bq3r/4bppp/p1npkB2/1p1Np3/4P3/N3K3/PPP2PPP/R2Q1B1R b - - 4 1")
+                    chessboardVM.board.loadFEN("r1bq3r/4bppp/p1npkB2/1p1Np3/4P3/N3K3/PPP2PPP/R2Q1B1R b - - 4 1")
                 }
                 Button("Switch turn") {
-                    chessboardVM.whiteTurn.toggle()
+                    chessboardVM.board.whiteTurn.toggle()
                 }
                 Button("Promote Pawns") {
-                    chessboardVM.squares.loadFEN("8/PPPPPPPP/8/8/8/8/pppppppp/8 w - - 0 1")
+                    chessboardVM.board.loadFEN("8/PPPPPPPP/8/8/8/8/pppppppp/8 w - - 0 1")
+                }
+                Button("Castling") {
+                    chessboardVM.board.loadFEN("r3k2r/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/R3K2R b KQkq - 0 1")
+                }
+                Button("Prevent Castling") {
+                    chessboardVM.board.loadFEN("rn2k2r/pppp1ppp/8/1b2p3/1B2P3/8/PPPP1PPP/RN2K2R w KQkq - 0 1")
                 }
             }
         }
@@ -105,17 +108,17 @@ struct ContentView: View {
         case .none:
             break
         case .king:
-            chessboardVM.squares.loadFEN("8/8/8/5k2/8/2K5/8/8 w - - 0 1")
+            chessboardVM.board.loadFEN("8/8/8/5k2/8/2K5/8/8 w - - 0 1")
         case .queen:
-            chessboardVM.squares.loadFEN("8/8/8/5q2/8/2Q5/8/8 w - - 0 1")
+            chessboardVM.board.loadFEN("8/8/8/5q2/8/2Q5/8/8 w - - 0 1")
         case .rook:
-            chessboardVM.squares.loadFEN("8/8/8/5r2/8/2R5/8/8 w - - 0 1")
+            chessboardVM.board.loadFEN("8/8/8/5r2/8/2R5/8/8 w - - 0 1")
         case .bishop:
-            chessboardVM.squares.loadFEN("8/8/8/5b2/8/2B5/8/8 w - - 0 1")
+            chessboardVM.board.loadFEN("8/8/8/5b2/8/2B5/8/8 w - - 0 1")
         case .knight:
-            chessboardVM.squares.loadFEN("8/8/8/5n2/8/2N5/8/8 w - - 0 1")
+            chessboardVM.board.loadFEN("8/8/8/5n2/8/2N5/8/8 w - - 0 1")
         case .pawn:
-            chessboardVM.squares.loadFEN("8/8/8/5p2/8/2P5/8/8 w - - 0 1")
+            chessboardVM.board.loadFEN("8/8/8/5p2/8/2P5/8/8 w - - 0 1")
         }
     }
 }

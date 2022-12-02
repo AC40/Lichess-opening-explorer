@@ -20,15 +20,23 @@ struct SquareView: View {
             .aspectRatio(1, contentMode: .fill)
             .overlay(
                 Group {
-                    if chessboardVM.squares[rank][file].canBeTaken {
-                        Rectangle()
-                            .strokeBorder(lineWidth: 2.5)
-                            .foregroundColor(.teal)
-                    } else if chessboardVM.squares[rank][file].canBeMovedTo {
-                        Circle()
-                            .foregroundColor(.teal.opacity(0.8))
-                            .padding()
+                    if !kingIsInCheck() {
+                        if chessboardVM.board[rank, file].canBeTaken {
+                            Rectangle()
+                                .strokeBorder(lineWidth: 2.5)
+                                .foregroundColor(.teal)
+                        } else if chessboardVM.board[rank, file].canBeMovedTo {
+                            Circle()
+                                .foregroundColor(.teal.opacity(0.8))
+                                .padding()
+                        }
                     }
+                    
+                    #if (DEBUG)
+                    Text("\(rank), \(file)")
+                        .font(.caption2)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    #endif
                 }
             )
             .overlay(
@@ -48,7 +56,33 @@ struct SquareView: View {
             }
     }
     
+    func squareHasKing() -> ChessColor {
+        if chessboardVM.board.whiteKingSquare == (file, rank) {
+            return .white
+        } else if chessboardVM.board.blackKingSquare == (file, rank) {
+            return .black
+        }
+        
+        return .none
+    }
+    
+    #warning("This needs to be fixed")
+    func kingIsInCheck() -> Bool {
+        switch squareHasKing() {
+        case .white:
+            return false
+        case .black:
+            return false
+        case .none:
+            return false
+        }
+    }
+    
     func foregroundColor() -> Color {
+        
+        if kingIsInCheck() {
+            return .red
+        }
         
         if chessboardVM.selectedSquare != nil {
             if chessboardVM.selectedSquare! == (rank, file) {

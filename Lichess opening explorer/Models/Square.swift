@@ -38,4 +38,8 @@ struct Square {
     init(_ piece: Piece = Piece.none) {
         self.piece = piece
     }
+    
+    func isEmpty() -> Bool {
+        return self.piece == .none
+    }
 }
