@@ -19,6 +19,13 @@ struct ContentView: View {
             
             Chessboard(vm: chessboardVM)
                 .zIndex(10)
+                .overlay(
+                    Group {
+                        if chessboardVM.board.checkmate {
+                            gameEndScreen()
+                        }
+                    }
+                )
             
             Picker("", selection: $databaseType) {
                 Text("OTB")
@@ -49,35 +56,20 @@ struct ContentView: View {
     //MARK: View-related functions
     @ViewBuilder func buttonList() -> some View {
         HStack(alignment: .center, spacing: 10) {
+            
             VStack(alignment: .leading) {
                 Text("Load Position:")
                     .font(.headline)
                 
-                Button("with Bishops") {
-                    loadPosition(for: .bishop)
+                Button("Checkmate") {
+                    chessboardVM.board.loadFEN("r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 0 1")
                 }
-                
-                Button("with Rooks") {
-                    loadPosition(for: .rook)
-                }
-                
-                Button("with Knights") {
-                    loadPosition(for: .knight)
-                }
-                
-                Button("with Pawns") {
-                    loadPosition(for: .pawn)
-                }
-                
-                Button("with Kings") {
-                    loadPosition(for: .king)
-                }
-                
-                Button("with Queens") {
-                    loadPosition(for: .queen)
+                Button("Swap perspective") {
+                    chessboardVM.whitePerspective.toggle()
                 }
             }
             Spacer()
+            
             VStack(alignment: .trailing, spacing: 10) {
                 Button("Load default FEN") {
                     chessboardVM.board.loadDefaultFEN()
@@ -100,6 +92,24 @@ struct ContentView: View {
                 }
             }
         }
+    }
+    
+    
+    @ViewBuilder func gameEndScreen() -> some View {
+        VStack {
+            Text("You Won! ... or lost :(")
+                .font(.title2)
+                .foregroundColor(.white)
+                .padding(.bottom, 20)
+            Button("Rematch") {
+                chessboardVM.board.loadDefaultFEN()
+            }
+            .buttonStyle(.bordered)
+            .buttonBorderShape(.roundedRectangle)
+            .tint(.teal)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .background(Color.black.opacity(0.75))
     }
     
     //MARK: Internal functions

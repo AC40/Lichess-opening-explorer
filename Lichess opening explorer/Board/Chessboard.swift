@@ -37,6 +37,7 @@ struct Chessboard: View {
                     }
                 }
             }
+            .rotationEffect(vm.whitePerspective ? .degrees(0) : .degrees(180))
         }
         .overlay(
             pieceList()

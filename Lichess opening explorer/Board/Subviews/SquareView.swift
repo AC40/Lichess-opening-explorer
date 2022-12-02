@@ -45,8 +45,12 @@ struct SquareView: View {
                         .onAppear {
                             chessboardVM.squareFrames[rank][file] = geo.frame(in: .global)
                         }
+                        .onChange(of: chessboardVM.whitePerspective, perform: { _ in
+                            chessboardVM.squareFrames[rank][file] = geo.frame(in: .global)
+                        })
                 }
             )
+            .rotationEffect(chessboardVM.whitePerspective ? .degrees(0) : .degrees(180))
             .onTapGesture {
                 if chessboardVM.pauseGame {
                     chessboardVM.cancelPromotion()
@@ -57,22 +61,21 @@ struct SquareView: View {
     }
     
     func squareHasKing() -> ChessColor {
-        if chessboardVM.board.whiteKingSquare == (file, rank) {
+        if chessboardVM.board.whiteKingSquare == (rank, file) {
             return .white
-        } else if chessboardVM.board.blackKingSquare == (file, rank) {
+        } else if chessboardVM.board.blackKingSquare == (rank, file) {
             return .black
         }
         
         return .none
     }
     
-    #warning("This needs to be fixed")
     func kingIsInCheck() -> Bool {
         switch squareHasKing() {
         case .white:
-            return false
+            return (chessboardVM.hasCheck() && chessboardVM.board.whiteTurn)
         case .black:
-            return false
+            return (chessboardVM.hasCheck() && !chessboardVM.board.whiteTurn)
         case .none:
             return false
         }

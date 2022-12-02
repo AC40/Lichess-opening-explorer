@@ -98,16 +98,6 @@ struct Arbiter {
             // for each move
             for move in pseudoCanBeTaken {
                 
-                // If alternative king square was passed in
-//                if let altKingSquare = altKingSquare {
-//                    if move == altKingSquare {
-//                        return true
-//                    }
-//
-//                    // Continues to next iteration, because it is not about actual king position, but passed in value
-//                    continue
-//                }
-                
                 // Check, if the moves takes the color's king
                 if board.squares[move.0][move.1].piece.type == .king && board.squares[move.0][move.1].piece.color != color {
                     
@@ -118,6 +108,45 @@ struct Arbiter {
         }
         
         return false
+    }
+    
+    func positionHasCheckmate(_ board: Board, color: ChessColor) -> Bool {
+        
+        var allCaptures: [Tile] = []
+        var allMoves: [Tile] = []
+        
+        var pieces = [Piece]()
+        
+        for rank in 0..<board.squares.count {
+            for file in 0..<board.squares[rank].count {
+                
+                var piece = board.squares[rank][file].piece
+                
+                if piece != .none && piece.color == color {
+                    piece.square = (rank, file)
+                    pieces.append(piece)
+                }
+            }
+        }
+        
+        // For each piece:
+        for piece in pieces {
+            
+            guard piece.square != nil else {
+                continue
+            }
+            
+            let (canBeMovedTo, canBeTaken) = legalSquares(for: piece, at: piece.square!, in: board, turn: color == .white)
+            
+            allMoves += canBeMovedTo
+            allCaptures += canBeTaken
+        }
+    
+        print(allMoves)
+        print("****")
+        print(allCaptures)
+        
+        return (allMoves.isEmpty && allCaptures.isEmpty)
     }
     
     //MARK: Private functions

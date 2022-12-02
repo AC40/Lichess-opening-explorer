@@ -29,22 +29,17 @@ struct Board {
     var blackKingsRookHasMoved = false
     
     var whiteTurn = true
+    var check = false
+    var checkmate = false
     
     //MARK: Functions
     init() {
         loadDefaultFEN()
         
-        let whiteKingRank: Int = squares.firstIndex(where: { $0.contains(where: { $0.piece == .kingW})}) ?? 7
-        let whiteKingFile: Int = squares[whiteKingRank].firstIndex(where: {$0.piece == .kingW }) ?? 4
-        
-        let blackKingRank: Int = squares.firstIndex(where: { $0.contains(where: { $0.piece == .kingB})}) ?? 0
-        let blackKingFile: Int = squares[blackKingRank].firstIndex(where: {$0.piece == .kingB }) ?? 4
-        
-        whiteKingSquare = (whiteKingRank, whiteKingFile)
-        blackKingSquare = (blackKingRank, blackKingFile)
+        getKingPosition()
     }
     
-     mutating func reset() {
+    mutating func reset() {
         promotionSquare = nil
         promotingPawnSquare = nil
         
@@ -58,6 +53,22 @@ struct Board {
         whiteKingsRookHasMoved = false
         blackQueensRookHasMoved = false
         blackKingsRookHasMoved = false
+        
+        whiteTurn = true
+        check = false
+        checkmate = false
+        
+    }
+    
+    mutating func getKingPosition() {
+        let whiteKingRank: Int = squares.firstIndex(where: { $0.contains(where: { $0.piece == .kingW})}) ?? 7
+        let whiteKingFile: Int = squares[whiteKingRank].firstIndex(where: {$0.piece == .kingW }) ?? 4
+        
+        let blackKingRank: Int = squares.firstIndex(where: { $0.contains(where: { $0.piece == .kingB})}) ?? 0
+        let blackKingFile: Int = squares[blackKingRank].firstIndex(where: {$0.piece == .kingB }) ?? 4
+        
+        whiteKingSquare = (whiteKingRank, whiteKingFile)
+        blackKingSquare = (blackKingRank, blackKingFile)
     }
     
     subscript(square: Tile) -> Square {

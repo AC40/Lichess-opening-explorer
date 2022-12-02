@@ -13,6 +13,7 @@ class ChessboardViewModel: ObservableObject {
     @Published var selectedSquare: (Int, Int)? = nil
     @Published var board = Board()
     @Published var pauseGame = false
+    @Published var whitePerspective = true
     
     @Published var squareFrames = Array(repeating: Array(repeating: CGRect.zero, count: 8), count: 8)
     
@@ -56,6 +57,10 @@ class ChessboardViewModel: ObservableObject {
                 resetSelection()
             }
         }
+    }
+    
+    func hasCheck() -> Bool {
+        return arbiter.positionHasCheck(board, color: board.whiteTurn ? .black : .white)
     }
     
     func movePiece(from start: Tile, to end: Tile) {
@@ -188,6 +193,15 @@ class ChessboardViewModel: ObservableObject {
             board.blackEnPassants = []
         }
         
+        // Check for check
+        board.check = arbiter.positionHasCheck(board, color: board.whiteTurn ? .black : .white)
+        
+        // Check for checkmate
+        if board.check {
+            board.checkmate = arbiter.positionHasCheckmate(board, color: board.whiteTurn ? .white : .black)
+        }
+        
+        // check for stalemate
     }
     
     func select(_ square: Tile) {
