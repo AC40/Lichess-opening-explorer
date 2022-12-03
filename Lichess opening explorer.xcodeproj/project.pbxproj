@@ -22,6 +22,8 @@
 		DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DB29392A4E00E0F335 /* Arbiter.swift */; };
 		DB9413DE29392D7F00E0F335 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DD29392D7F00E0F335 /* Board.swift */; };
 		DB98B4F92847C59200BB466E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98B4F82847C59200BB466E /* Square.swift */; };
+		DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA51AAF293BEACF00CC4BC3 /* AdaptiveStack.swift */; };
+		DBA51AB3293BEB7D00CC4BC3 /* StackDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA51AB2293BEB7D00CC4BC3 /* StackDirection.swift */; };
 		DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* Moves.swift */; };
 		DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */; };
 		DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */; };
@@ -53,6 +55,8 @@
 		DB9413DB29392A4E00E0F335 /* Arbiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arbiter.swift; sourceTree = "<group>"; };
 		DB9413DD29392D7F00E0F335 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		DB98B4F82847C59200BB466E /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
+		DBA51AAF293BEACF00CC4BC3 /* AdaptiveStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveStack.swift; sourceTree = "<group>"; };
+		DBA51AB2293BEB7D00CC4BC3 /* StackDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackDirection.swift; sourceTree = "<group>"; };
 		DBAB9F94284E06F400E1CFE4 /* Moves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moves.swift; sourceTree = "<group>"; };
 		DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + allIllegal.swift"; sourceTree = "<group>"; };
 		DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
@@ -118,6 +122,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		DBA51AB1293BEAD700CC4BC3 /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				DBA51AAF293BEACF00CC4BC3 /* AdaptiveStack.swift */,
+			);
+			path = Generic;
+			sourceTree = "<group>";
+		};
 		DBAB9F91284E006A00E1CFE4 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +164,7 @@
 				DB664D2228427CA10088749A /* PlayerGameResponse.swift */,
 				DB866672293A6EAF00761F95 /* Theme.swift */,
 				DB664D2628427D290088749A /* NeworkingError.swift */,
+				DBA51AB2293BEB7D00CC4BC3 /* StackDirection.swift */,
 				DBAE573C28451A6300B72B8C /* DatabaseType.swift */,
 				DBAE57402845302300B72B8C /* Piece.swift */,
 				DBFCFF982860C857005626C6 /* Tile.swift */,
@@ -181,6 +194,7 @@
 		DBAE57462845341C00B72B8C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DBA51AB1293BEAD700CC4BC3 /* Generic */,
 				DB866670293A6E6500761F95 /* ThemeManager.swift */,
 				DB9413DB29392A4E00E0F335 /* Arbiter.swift */,
 				DBAB9F91284E006A00E1CFE4 /* Constants */,
@@ -275,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */,
 				DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */,
 				DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */,
 				DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */,
@@ -284,6 +299,7 @@
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
 				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
 				DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */,
+				DBA51AB3293BEB7D00CC4BC3 /* StackDirection.swift in Sources */,
 				DBFCFF992860C857005626C6 /* Tile.swift in Sources */,
 				DB664D1528427BEC0088749A /* Lichess_opening_explorerApp.swift in Sources */,
 				DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */,

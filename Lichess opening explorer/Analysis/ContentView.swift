@@ -16,7 +16,7 @@ struct ContentView: View {
     @State private var databaseType = DatabaseType.player
     
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
+        AdaptiveStack(content: {
             
             Chessboard(vm: chessboardVM, themeMg: themeMg)
                 .zIndex(10)
@@ -28,27 +28,30 @@ struct ContentView: View {
                     }
                 )
             
-            Picker("", selection: $databaseType) {
-                Text("OTB")
-                    .tag(DatabaseType.otb)
-                Text("Lichess")
-                    .tag(DatabaseType.lichess)
-                Text("Player")
-                    .tag(DatabaseType.player)
+            VStack {
+                Picker("", selection: $databaseType) {
+                    Text("OTB")
+                        .tag(DatabaseType.otb)
+                    Text("Lichess")
+                        .tag(DatabaseType.lichess)
+                    Text("Player")
+                        .tag(DatabaseType.player)
+                }
+                .pickerStyle(.segmented)
+                .zIndex(9)
+                
+                ScrollView {
+                    buttonList()
+                        .padding()
+                        .buttonStyle(.bordered)
+                        .buttonBorderShape(.roundedRectangle)
+                        .tint(.pink)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .zIndex(8)
             }
-            .pickerStyle(.segmented)
-            .zIndex(9)
             
-            ScrollView {
-                buttonList()
-                    .padding()
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.roundedRectangle)
-                    .tint(.pink)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .zIndex(8)
-        }
+        })
         .task {
             await vm.getPlayerGames()
         }

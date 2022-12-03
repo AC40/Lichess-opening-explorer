@@ -142,10 +142,6 @@ struct Arbiter {
             allCaptures += canBeTaken
         }
     
-        print(allMoves)
-        print("****")
-        print(allCaptures)
-        
         return (allMoves.isEmpty && allCaptures.isEmpty)
     }
     

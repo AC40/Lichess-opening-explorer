@@ -18,8 +18,6 @@ class ChessboardViewModel: ObservableObject {
     
     @Published var squareFrames = Array(repeating: Array(repeating: CGRect.zero, count: 8), count: 8)
     
-
-    
     let arbiter = Arbiter()
     
     
@@ -107,35 +105,39 @@ class ChessboardViewModel: ObservableObject {
         // King Move
         if piece == .kingW {
             board.whiteKingSquare = end
-            board.whiteKingHasMoved = true
             
             // Move rook in castling
-            if end == (7, 2) {
+            if end == (7, 2) && !board.whiteKingHasMoved {
                 board[7, 0].piece = Piece.none
                 board[7, 3].piece = .rookW
                 board.whiteQueensRookHasMoved = true
                 
-            } else if end == (7, 6) {
+            } else if end == (7, 6) && !board.whiteKingHasMoved {
                 board[7, 7].piece = Piece.none
                 board[7, 5].piece = .rookW
                 board.whiteKingsRookHasMoved = true
             }
+            
+            board.whiteKingHasMoved = true
+            
         } else if piece == .kingB {
             board.blackKingSquare = end
-            board.blackKingHasMoved = true
             
             // Move rook in castling
-            if end == (0, 2) {
+            if end == (0, 2) && !board.blackKingHasMoved {
                 board[0, 0].piece = Piece.none
                 board[0, 3].piece = .rookB
                 board.blackQueensRookHasMoved = true
                 
-            } else if end == (0, 6) {
+            } else if end == (0, 6) && !board.blackKingHasMoved {
                 movePiece(from: (0, 7), to: (0, 5))
                 board[0, 7].piece = .none
                 board[0, 5].piece = .rookB
                 board.whiteKingsRookHasMoved = true
             }
+            
+            // Set last, so rooks can check if it has moved
+            board.blackKingHasMoved = true
         }
         
         
