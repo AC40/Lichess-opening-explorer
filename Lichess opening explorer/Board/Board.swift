@@ -10,12 +10,14 @@ import Foundation
 struct Board {
     
     var squares: [[Square]] = []
+    var moves: [[Move]] = []
+    var currentLine: Int = 0
     
     var promotionSquare: Tile? = nil
     var promotingPawnSquare: Tile? = nil
     
-    var whiteKingSquare: Tile = (7, 4)
-    var blackKingSquare: Tile = (0, 4)
+    var whiteKingSquare: Tile = Tile(7, 4)
+    var blackKingSquare: Tile = Tile(0, 4)
     
     var whiteEnPassants: [Tile] = []
     var blackEnPassants: [Tile] = []
@@ -66,8 +68,8 @@ struct Board {
         let blackKingRank: Int = squares.firstIndex(where: { $0.contains(where: { $0.piece == .kingB})}) ?? 0
         let blackKingFile: Int = squares[blackKingRank].firstIndex(where: {$0.piece == .kingB }) ?? 4
         
-        whiteKingSquare = (whiteKingRank, whiteKingFile)
-        blackKingSquare = (blackKingRank, blackKingFile)
+        whiteKingSquare = Tile(whiteKingRank, whiteKingFile)
+        blackKingSquare = Tile(blackKingRank, blackKingFile)
     }
     
     mutating func checkRookStatus() {
@@ -90,10 +92,10 @@ struct Board {
     
     subscript(square: Tile) -> Square {
         get {
-            squares[square.0][square.1]
+            squares[square.rank][square.file]
         }
         set {
-            squares[square.0][square.1] = newValue
+            squares[square.rank][square.file] = newValue
         }
     }
     

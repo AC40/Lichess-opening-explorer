@@ -21,7 +21,7 @@ struct Arbiter {
         
         // for each move
         for move in pseudoCanBeMovedTo {
-            mockMovePiece(from: square, to: move, in: &board)
+            makeMove(Move(from: square, to: move), in: &board)
             
             if !positionHasCheck(board, color: turn ? .black : .white) {
                 canBeMovedTo.append(move)
@@ -33,7 +33,7 @@ struct Arbiter {
         
         // for each capture
         for capture in pseudoCanBeTaken {
-            mockMovePiece(from: square, to: capture, in: &board)
+            makeMove(Move(from: square, to: capture), in: &board)
             
             if !positionHasCheck(board, color: turn ? .black : .white) {
                 canBeTaken.append(capture)
@@ -47,17 +47,17 @@ struct Arbiter {
         if piece.isKing() {
             if turn {
                 if canCastleShort(color: .white, in: board, moves: canBeMovedTo) {
-                    canBeMovedTo.append((7, 6))
+                    canBeMovedTo.append(Tile(7, 6))
                 }
                 if canCastleLong(color: .white, in: board, moves: canBeMovedTo) {
-                    canBeMovedTo.append((7, 2))
+                    canBeMovedTo.append(Tile(7, 2))
                 }
             } else {
                 if canCastleShort(color: .black, in: board, moves: canBeMovedTo) {
-                    canBeMovedTo.append((0, 6))
+                    canBeMovedTo.append(Tile(0, 6))
                 }
                 if canCastleLong(color: .black, in: board, moves: canBeMovedTo) {
-                    canBeMovedTo.append((0, 2))
+                    canBeMovedTo.append(Tile(0, 2))
                 }
             }
         }
@@ -76,10 +76,10 @@ struct Arbiter {
         for rank in 0..<board.squares.count {
             for file in 0..<board.squares[rank].count {
                 
-                var piece = board.squares[rank][file].piece
+                var piece = board.squares[rank, file].piece
                 
                 if piece != .none && piece.color == color {
-                    piece.square = (rank, file)
+                    piece.square = Tile(rank, file)
                     pieces.append(piece)
                 }
             }
@@ -99,7 +99,7 @@ struct Arbiter {
             for move in pseudoCanBeTaken {
                 
                 // Check, if the moves takes the color's king
-                if board.squares[move.0][move.1].piece.type == .king && board.squares[move.0][move.1].piece.color != color {
+                if board.squares[move].piece.type == .king && board.squares[move].piece.color != color {
                     
                     // if it does, return true
                     return true
@@ -120,10 +120,10 @@ struct Arbiter {
         for rank in 0..<board.squares.count {
             for file in 0..<board.squares[rank].count {
                 
-                var piece = board.squares[rank][file].piece
+                var piece = board.squares[rank, file].piece
                 
                 if piece != .none && piece.color == color {
-                    piece.square = (rank, file)
+                    piece.square = Tile(rank, file)
                     pieces.append(piece)
                 }
             }
@@ -155,7 +155,6 @@ struct Arbiter {
     
     //MARK: Private functions
     func pseudoLegalSquares(for piece: Piece, at square: Tile, in board: Board, turn: Bool) -> ([Tile], [Tile]) {
-        let (rank, file) = square
         
         var canBeMovedTo: [Tile] = []
         var canBeTaken: [Tile] = []
@@ -163,89 +162,83 @@ struct Arbiter {
         // Long range sliding pieces
         if piece.isSlidingPiece() {
             for legalMove in Moves.forPiece(piece) {
-                let (rankMove, fileMove) = legalMove
                 
-                var endRank = rank - rankMove
-                var endFile = file - fileMove
+                var end = Tile(square.rank - legalMove.rank, square.file - legalMove.file)
                 
-                guard endRank.isOnBoard() && endFile.isOnBoard() else {
+                guard end.rank.isOnBoard() && end.file.isOnBoard() else {
                     continue
                 }
                 
-                while squareIsEmpty((endRank, endFile), in: board.squares) {
-                    canBeMovedTo.append((endRank, endFile))
+                while squareIsEmpty((end), in: board.squares) {
+                    canBeMovedTo.append((end))
                     
-                    endRank -= rankMove
-                    endFile -= fileMove
+                    end.rank -= legalMove.rank
+                    end.file -= legalMove.file
                 }
                 
-                if pieceIsOppositeColor(at: (endRank, endFile), in: board.squares, turn: turn) {
-                    canBeTaken.append((endRank, endFile))
+                if pieceIsOppositeColor(at: (end), in: board.squares, turn: turn) {
+                    canBeTaken.append((end))
                 }
             }
         } else if piece.type == .pawn {
             
             if piece.color == .white {
-                let endRank = rank - 1
+                let endRank = square.rank - 1
                 
                 // Single step
-                if endRank.isOnBoard() && squareIsEmpty((endRank, file), in: board.squares) {
-                    canBeMovedTo.append((endRank, file))
+                if endRank.isOnBoard() && squareIsEmpty(Tile(endRank, square.file), in: board.squares) {
+                    canBeMovedTo.append(Tile(endRank, square.file))
                 }
                 
                 // Initial double step
-                if rank == 6 && squareIsEmpty((4, file), in: board.squares) {
-                    canBeMovedTo.append((4, file))
+                if square.rank == 6 && squareIsEmpty(Tile(4, square.file), in: board.squares) {
+                    canBeMovedTo.append(Tile(4, square.file))
                 }
             } else if piece.color == .black {
-                let endRank = rank + 1
+                let endRank = square.rank + 1
                 
                 // Single step
-                if endRank.isOnBoard() && squareIsEmpty((endRank, file), in: board.squares) {
-                    canBeMovedTo.append((endRank, file))
+                if endRank.isOnBoard() && squareIsEmpty(Tile(endRank, square.file), in: board.squares) {
+                    canBeMovedTo.append(Tile(endRank, square.file))
                 }
                 
                 // Initial double step
-                if rank == 1 && squareIsEmpty((3, file), in: board.squares) {
-                    canBeMovedTo.append((3, file))
+                if square.rank == 1 && squareIsEmpty(Tile(3, square.file), in: board.squares) {
+                    canBeMovedTo.append(Tile(3, square.file))
                 }
             }
             
             // Take diagonally
             for diagonalMove in Moves.pawnDiagonals(for: piece.color) {
-                let (rankMove, fileMove) = diagonalMove
                 
-                let endRank = rank - rankMove
-                let endFile = file - fileMove
+                let end = Tile(square.rank - diagonalMove.rank, square.file - diagonalMove.file)
                 
-                guard endRank.isOnBoard() && endFile.isOnBoard() else {
+                guard end.rank.isOnBoard() && end.file.isOnBoard() else {
                     continue
                 }
                 
-                if pieceIsOppositeColor(at: (endRank, endFile), in: board.squares, turn: turn) {
-                    canBeTaken.append((endRank, endFile))
+                if pieceIsOppositeColor(at: (end), in: board.squares, turn: turn) {
+                    canBeTaken.append((end))
                     
                     // En passant
-                } else if board.squares[endRank][endFile].canBeTakenWithEnPassant {
-                    canBeTaken.append((endRank, endFile))
+                } else if board.squares[end].canBeTakenWithEnPassant {
+                    canBeTaken.append((end))
                 }
                 
             }
         } else {
             for legalMove in Moves.forPiece(piece) {
-                let (rankMove, fileMove) = legalMove
                 
-                let endRank = rank - rankMove
-                let endFile = file - fileMove
+                let end = Tile(square.rank - legalMove.rank, square.file - legalMove.file)
                 
-                guard endRank.isOnBoard() && endFile.isOnBoard() else {
+                guard end.rank.isOnBoard() && end.file.isOnBoard() else {
                     continue
                 }
                 
-                if pieceIsOppositeColor(at: (endRank, endFile), in: board.squares, turn: turn) {
-                    canBeTaken.append((endRank, endFile))
-                } else if squareIsEmpty((endRank, endFile), in: board.squares) {
-                    canBeMovedTo.append((endRank, endFile))
+                if pieceIsOppositeColor(at: (end), in: board.squares, turn: turn) {
+                    canBeTaken.append((end))
+                } else if squareIsEmpty((end), in: board.squares) {
+                    canBeMovedTo.append((end))
                 }
             }
         }
@@ -253,68 +246,178 @@ struct Arbiter {
         return (canBeMovedTo, canBeTaken)
     }
     
+//    func makeMove(_ move: Move, in board: inout Board) {
+//        let startRank = move.start.rank
+//        let startFile = move.start.file
+//        let endRank = move.end.rank
+//        let endFile = move.end.file
+//
+//        guard endRank.isOnBoard() && endFile.isOnBoard() else {
+//            return
+//        }
+//
+//        let piece = board[move.start].piece
+//
+//        guard piece.type != .none else {
+//            return
+//        }
+//
+//        guard board[endRank, endFile].canBeMovedTo else {
+//            return
+//        }
+//
+//        // Check, if pawns moves two squares (initial double step)
+//        if piece.type == .pawn && abs(endRank-startRank) == 2 {
+//            if piece.color == .white {
+//                board[endRank+1, endFile].canBeTakenWithEnPassant = true
+//                board.whiteEnPassants.append(Tile(endRank+1, endFile))
+//            } else {
+//                board[endRank-1, endFile].canBeTakenWithEnPassant = true
+//                board.blackEnPassants.append(Tile(endRank-1, endFile))
+//            }
+//        }
+//
+//        // Promote pawn
+//        if (board.whiteTurn ? (endRank == 0) : (endRank == 7)) && piece.type == .pawn {
+//            board.promotionSquare = move.end
+//            board.promotingPawnSquare = move.start
+//            return
+//            //TODO: Pause game while player selects piece
+//        }
+//
+//        // King Move
+//        if piece == .kingW {
+//            board.whiteKingSquare = move.end
+//
+//            // Move rook in castling
+//            if move.end == (7, 2) && !board.whiteKingHasMoved {
+//                board[7, 0].piece = Piece.none
+//                board[7, 3].piece = .rookW
+//                board.whiteQueensRookHasMoved = true
+//
+//            } else if move.end == (7, 6) && !board.whiteKingHasMoved {
+//                board[7, 7].piece = Piece.none
+//                board[7, 5].piece = .rookW
+//                board.whiteKingsRookHasMoved = true
+//            }
+//
+//            board.whiteKingHasMoved = true
+//
+//        } else if piece == .kingB {
+//            board.blackKingSquare = move.end
+//
+//            // Move rook in castling
+//            if move.end == (0, 2) && !board.blackKingHasMoved {
+//                board[0, 0].piece = Piece.none
+//                board[0, 3].piece = .rookB
+//                board.blackQueensRookHasMoved = true
+//
+//            } else if move.end == (0, 6) && !board.blackKingHasMoved {
+//                makeMove(Move(from: Tile(0, 7), to: Tile(0, 5)), in: &board)
+//                board[0, 7].piece = .none
+//                board[0, 5].piece = .rookB
+//                board.whiteKingsRookHasMoved = true
+//            }
+//
+//            // Set last, so rooks can check if it has moved
+//            board.blackKingHasMoved = true
+//        }
+//
+//
+//        // Rook move
+//        if piece == .rookW {
+//            if move.start == (7, 0) {
+//                board.whiteQueensRookHasMoved = true
+//            } else if move.start == (7, 7) {
+//                board.whiteKingsRookHasMoved = true
+//            }
+//        } else if piece == .rookB {
+//            if move.start == (0, 0) {
+//                board.blackQueensRookHasMoved = true
+//            } else if move.start == (0, 7) {
+//                board.blackKingsRookHasMoved = true
+//            }
+//        }
+//
+//        // Move piece from start to end square
+//        board[move.start].piece = Piece.none
+//        board[move.end].piece = piece
+//
+//        // Take pawn when taken with en passant
+//        if board[move.end].canBeTakenWithEnPassant {
+//            if board.whiteTurn {
+//                board[endRank+1, endFile].piece = Piece.none
+//            } else {
+//                board[endRank-1, endFile].piece = Piece.none
+//            }
+//        }
+//    }
     
-    
-    private func mockMovePiece(from start: Tile, to end: Tile, in board: inout Board) {
-        let (startRank, startFile) = start
-        let (endRank, endFile) = end
-        
+    private func makeMove(_ move: Move, in board: inout Board) {
+        let startRank = move.start.rank
+        let startFile = move.start.file
+        let endRank = move.end.rank
+        let endFile = move.end.file
+
         guard endRank.isOnBoard() && endFile.isOnBoard() else {
             return
         }
-        
+
         let piece = board[startRank, startFile].piece
-        
+
         guard piece.type != .none else {
             return
         }
+        
+        // board.canBeMovedTo
+        // reset selection
         
         // Check, if pawns moves two squares
         if piece.type == .pawn && abs(endRank-startRank) == 2 {
             if piece.color == .white {
                 board[endRank+1, endFile].canBeTakenWithEnPassant = true
-                board.whiteEnPassants.append((endRank+1, endFile))
+                board.whiteEnPassants.append(Tile(endRank+1, endFile))
             } else {
                 board[endRank-1, endFile].canBeTakenWithEnPassant = true
-                board.blackEnPassants.append((endRank-1, endFile))
+                board.blackEnPassants.append(Tile(endRank-1, endFile))
             }
         }
-        
+
         // Promote pawn
         if (board.whiteTurn ? (endRank == 0) : (endRank == 7)) && piece.type == .pawn {
-            board.promotionSquare = end
-            board.promotingPawnSquare = start
+            board.promotionSquare = move.end
+            board.promotingPawnSquare = move.start
             return
             //TODO: Pause game while player selects piece
         }
-        
+
         // King Move
         if piece == .kingW {
-            board.whiteKingSquare = end
+            board.whiteKingSquare = move.end
             board.whiteKingHasMoved = true
         } else if piece == .kingB {
-            board.blackKingSquare = end
+            board.blackKingSquare = move.end
             board.blackKingHasMoved = true
         }
-        
+
         if piece == .rookW {
-            if start == (7, 0) {
+            if move.start == (7, 0) {
                 board.whiteQueensRookHasMoved = true
-            } else if start == (7, 7) {
+            } else if move.start == (7, 7) {
                 board.whiteKingsRookHasMoved = true
             }
         } else if piece == .rookB {
-            if start == (0, 0) {
+            if move.start == (0, 0) {
                 board.blackQueensRookHasMoved = true
-            } else if start == (7, 0) {
+            } else if move.start == (7, 0) {
                 board.blackKingsRookHasMoved = true
             }
         }
-        
+
         // Move piece from start to end square
         board[startRank, startFile].piece = Piece.none
         board[endRank, endFile].piece = piece
-        
+
         // Take pawn when taken with en passant
         if board[endRank, endFile].canBeTakenWithEnPassant {
             if board.whiteTurn {
@@ -324,71 +427,71 @@ struct Arbiter {
             }
         }
     }
-    
-    
+
+
     private func squareIsEmpty(_ square: Tile, in position: [[Square]]) -> Bool {
-        let (rank, file) = square
-        
-        guard rank.isOnBoard() && file.isOnBoard() else {
+
+        guard square.rank.isOnBoard() && square.file.isOnBoard() else {
             return false
         }
-        
-        return position[rank][file].piece == Piece.none
+
+        return position[square].piece == Piece.none
     }
-    
+
     private func pieceIsOppositeColor(at square: Tile, in position: [[Square]], turn: Bool) -> Bool {
-        let (rank, file) = square
-        
-        guard rank.isOnBoard() && file.isOnBoard() else {
+
+        guard square.rank.isOnBoard() && square.file.isOnBoard() else {
             return false
         }
-        
+
         if turn {
-            return position[rank][file].piece.color == .black
+            return position[square].piece.color == .black
         } else {
-            return position[rank][file].piece.color == .white
+            return position[square].piece.color == .white
         }
     }
-    
+
     private func canCastleLong(color: ChessColor, in board: Board, moves: [Tile]) -> Bool {
-        
+
         if color == .white {
             let haveNotMoved = (!board.whiteKingHasMoved && !board.whiteQueensRookHasMoved)
             let spaceIsEmpty = (board[7, 1].isEmpty() && board[7, 2].isEmpty() && board[7,3].isEmpty())
             let noChecks = moves.contains(where: { $0 == (7, 3) })
-            
+
             return (haveNotMoved && spaceIsEmpty && noChecks)
-            
+
         } else if color == .black {
             let haveNotMoved = (!board.blackKingHasMoved && !board.blackQueensRookHasMoved)
             let spaceIsEmpty = (board[0, 1].isEmpty() && board[0, 2].isEmpty() && board[0,3].isEmpty())
             let noChecks = moves.contains(where: { $0 == (0, 3) })
-            
+
             return (haveNotMoved && spaceIsEmpty && noChecks)
-            
+
         } else {
             return false
         }
     }
-    
+
     private func canCastleShort(color: ChessColor, in board: Board, moves: [Tile]) -> Bool {
-        
+
         if color == .white {
             let haveNotMoved = (!board.whiteKingHasMoved && !board.whiteKingsRookHasMoved)
             let spaceIsEmpty = (board[7, 5].isEmpty() && board[7, 6].isEmpty())
             let noChecks = moves.contains(where: { $0 == (7, 5) })
-            
+
             return (haveNotMoved && spaceIsEmpty && noChecks)
-            
+
         } else if color == .black {
             let haveNotMoved = (!board.blackKingHasMoved && !board.blackKingsRookHasMoved)
             let spaceIsEmpty = (board[0, 5].isEmpty() && board[0, 6].isEmpty())
             let noChecks = moves.contains(where: { $0 == (0, 5) })
-            
+
             return (haveNotMoved && spaceIsEmpty && noChecks)
-            
+
         } else {
             return false
         }
+        
+        
     }
 }

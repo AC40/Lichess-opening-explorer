@@ -23,7 +23,7 @@ struct Chessboard: View {
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<8) { rank in
                         ForEach(0..<8) { file in
-                            SquareView(rank: rank, file: file, chessboardVM: vm, theme: themeMg.current)
+                            SquareView(tile: Tile(rank, file), chessboardVM: vm, theme: themeMg.current)
                         }
                         
                     }
@@ -32,8 +32,8 @@ struct Chessboard: View {
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<8) { rank in
                         ForEach(0..<8) { file in
-                            PieceView(rank: rank, file: file, chessboardVM: vm)
-                                .zIndex(isSelected(at: (rank, file)) ? 100 : 90)
+                            PieceView(tile: Tile(rank, file), chessboardVM: vm)
+                                .zIndex(isSelected(at: Tile(rank, file)) ? 100 : 90)
                         }
                     }
                 }

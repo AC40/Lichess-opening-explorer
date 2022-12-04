@@ -13,6 +13,8 @@ struct ContentView: View {
     @StateObject private var chessboardVM = ChessboardViewModel()
     @StateObject private var themeMg = ThemeManager()
     
+    @State private var subView: Int = 0
+    
     @State private var databaseType = DatabaseType.player
     
     var body: some View {
@@ -29,26 +31,35 @@ struct ContentView: View {
                 )
             
             VStack {
-                Picker("", selection: $databaseType) {
-                    Text("OTB")
-                        .tag(DatabaseType.otb)
-                    Text("Lichess")
-                        .tag(DatabaseType.lichess)
-                    Text("Player")
-                        .tag(DatabaseType.player)
+                
+                Picker("View", selection: $subView) {
+                    Text("Variations")
+                        .tag(0)
+                    Text("Dev tools")
+                        .tag(1)
+                    
                 }
                 .pickerStyle(.segmented)
-                .zIndex(9)
                 
-                ScrollView {
-                    buttonList()
-                        .padding()
-                        .buttonStyle(.bordered)
-                        .buttonBorderShape(.roundedRectangle)
-                        .tint(.pink)
+                switch subView {
+                case 0:
+                    VariationView(chessboardVM: chessboardVM)
+                case 1:
+                    ScrollView {
+                        buttonList()
+                            .padding()
+                            .buttonStyle(.bordered)
+                            .buttonBorderShape(.roundedRectangle)
+                            .tint(.pink)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .zIndex(8)
+                default:
+                    VariationView(chessboardVM: chessboardVM)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .zIndex(8)
+                
+                
+                
             }
             
         })

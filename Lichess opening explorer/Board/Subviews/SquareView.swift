@@ -9,8 +9,7 @@ import SwiftUI
 
 struct SquareView: View {
     
-    var rank: Int
-    var file: Int
+    var tile: Tile
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
@@ -23,11 +22,11 @@ struct SquareView: View {
             .overlay(
                 Group {
                     if !kingIsInCheck() {
-                        if chessboardVM.board[rank, file].canBeTaken {
+                        if chessboardVM.board[tile].canBeTaken {
                             Rectangle()
                                 .strokeBorder(lineWidth: 2.5)
                                 .foregroundColor(theme.highlight)
-                        } else if chessboardVM.board[rank, file].canBeMovedTo {
+                        } else if chessboardVM.board[tile].canBeMovedTo {
                             Circle()
                                 .foregroundColor(theme.highlight)
                                 .padding()
@@ -35,7 +34,7 @@ struct SquareView: View {
                     }
                     
                     if chessboardVM.showCoordinates {
-                        Text("\(rank), \(file)")
+                        Text("\(tile.rank), \(tile.file)")
                             .font(.caption2)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                             .foregroundColor(.black)
@@ -46,10 +45,10 @@ struct SquareView: View {
                 GeometryReader { geo in
                     Color.clear
                         .onAppear {
-                            chessboardVM.squareFrames[rank][file] = geo.frame(in: .global)
+                            chessboardVM.squareFrames[tile.rank][tile.file] = geo.frame(in: .global)
                         }
                         .onChange(of: chessboardVM.whitePerspective, perform: { _ in
-                            chessboardVM.squareFrames[rank][file] = geo.frame(in: .global)
+                            chessboardVM.squareFrames[tile.rank][tile.file] = geo.frame(in: .global)
                         })
                 }
             )
@@ -58,15 +57,15 @@ struct SquareView: View {
                 if chessboardVM.pauseGame {
                     chessboardVM.cancelPromotion()
                 } else {
-                    chessboardVM.handleTap(at: (rank, file))
+                    chessboardVM.handleTap(at: tile)
                 }
             }
     }
     
     func squareHasKing() -> ChessColor {
-        if chessboardVM.board.whiteKingSquare == (rank, file) {
+        if chessboardVM.board.whiteKingSquare == tile {
             return .white
-        } else if chessboardVM.board.blackKingSquare == (rank, file) {
+        } else if chessboardVM.board.blackKingSquare == tile {
             return .black
         }
         
@@ -91,7 +90,7 @@ struct SquareView: View {
         }
         
         if chessboardVM.selectedSquare != nil {
-            if chessboardVM.selectedSquare! == (rank, file) {
+            if chessboardVM.selectedSquare! == tile {
                 return theme.highlight
             }
         }
@@ -104,7 +103,7 @@ struct SquareView: View {
     }
     
     func isLight() -> Bool {
-        return (rank + file) % 2 == 0
+        return (tile.rank + tile.file) % 2 == 0
         
     }
 }

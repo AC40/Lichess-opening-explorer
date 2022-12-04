@@ -15,20 +15,20 @@ struct Moves {
         case .none:
             return []
         case .king:
-            return [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+            return [Tile(1, 0), Tile(0, 1), Tile(-1, 0), Tile(0, -1), Tile(1, 1), Tile(1, -1), Tile(-1, 1), Tile(-1, -1)]
         case .queen:
-            return [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+            return [Tile(1, 0), Tile(0, 1), Tile(-1, 0), Tile(0, -1), Tile(1, 1), Tile(1, -1), Tile(-1, 1), Tile(-1, -1)]
         case .rook:
-            return [(1, 0), (0, 1), (-1, 0), (0, -1)]
+            return [Tile(1, 0), Tile(0, 1), Tile(-1, 0), Tile(0, -1)]
         case .bishop:
-            return [(1, 1), (1, -1), (-1, 1), (-1, -1)]
+            return [Tile(1, 1), Tile(1, -1), Tile(-1, 1), Tile(-1, -1)]
         case .knight:
-            return [(1, 2), (2, 1), (-1, 2), (-2, 1), (1, -2), (2, -1), (-1, -2), (-2, -1)]
+            return [Tile(1, 2), Tile(2, 1), Tile(-1, 2), Tile(-2, 1), Tile(1, -2), Tile(2, -1), Tile(-1, -2), Tile(-2, -1)]
         case .pawn:
             if piece.color == .white {
-                return [(1, 0)]
+                return [Tile(1, 0)]
             } else {
-                return [(-1, 0)]
+                return [Tile(-1, 0)]
             }
         }
     }
@@ -36,9 +36,9 @@ struct Moves {
     static func pawnDiagonals(for color: ChessColor) -> [Tile] {
         switch color {
         case .white:
-            return [(1, 1), (1, -1)]
+            return [Tile(1, 1), Tile(1, -1)]
         case .black:
-            return [(-1, 1), (-1, -1)]
+            return [Tile(-1, 1), Tile(-1, -1)]
         case .none:
             return []
         }

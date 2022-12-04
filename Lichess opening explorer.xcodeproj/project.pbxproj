@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		DB646A5C293D139100C56280 /* Termination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A5B293D139100C56280 /* Termination.swift */; };
 		DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A5D293D185500C56280 /* Array + subscripts.swift */; };
+		DB646A61293D1C8400C56280 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A60293D1C8400C56280 /* Move.swift */; };
+		DB646A63293D1D0300C56280 /* MoveFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A62293D1D0300C56280 /* MoveFlag.swift */; };
+		DB646A65293D495E00C56280 /* VariationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A64293D495E00C56280 /* VariationView.swift */; };
 		DB664D1528427BEC0088749A /* Lichess_opening_explorerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */; };
 		DB664D1728427BEC0088749A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1628427BEC0088749A /* ContentView.swift */; };
 		DB664D1928427BEE0088749A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB664D1828427BEE0088749A /* Assets.xcassets */; };
@@ -44,6 +47,9 @@
 /* Begin PBXFileReference section */
 		DB646A5B293D139100C56280 /* Termination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Termination.swift; sourceTree = "<group>"; };
 		DB646A5D293D185500C56280 /* Array + subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + subscripts.swift"; sourceTree = "<group>"; };
+		DB646A60293D1C8400C56280 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
+		DB646A62293D1D0300C56280 /* MoveFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveFlag.swift; sourceTree = "<group>"; };
+		DB646A64293D495E00C56280 /* VariationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariationView.swift; sourceTree = "<group>"; };
 		DB664D1128427BEC0088749A /* Lichess opening explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lichess opening explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lichess_opening_explorerApp.swift; sourceTree = "<group>"; };
 		DB664D1628427BEC0088749A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -88,6 +94,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB646A5F293D1C6300C56280 /* Chess logic */ = {
+			isa = PBXGroup;
+			children = (
+				DB646A5B293D139100C56280 /* Termination.swift */,
+				DBAE57402845302300B72B8C /* Piece.swift */,
+				DBFCFF982860C857005626C6 /* Tile.swift */,
+				DB98B4F82847C59200BB466E /* Square.swift */,
+				DB646A60293D1C8400C56280 /* Move.swift */,
+				DB646A62293D1D0300C56280 /* MoveFlag.swift */,
+			);
+			path = "Chess logic";
+			sourceTree = "<group>";
+		};
 		DB664D0828427BEC0088749A = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +169,7 @@
 			children = (
 				DBAE573E28451A8500B72B8C /* Chessboard.swift */,
 				DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */,
+				DB9413DD29392D7F00E0F335 /* Board.swift */,
 				DBAE5742284530CC00B72B8C /* Subviews */,
 			);
 			path = Board;
@@ -172,11 +192,7 @@
 				DB664D2628427D290088749A /* NeworkingError.swift */,
 				DBA51AB2293BEB7D00CC4BC3 /* StackDirection.swift */,
 				DBAE573C28451A6300B72B8C /* DatabaseType.swift */,
-				DBAE57402845302300B72B8C /* Piece.swift */,
-				DBFCFF982860C857005626C6 /* Tile.swift */,
-				DB646A5B293D139100C56280 /* Termination.swift */,
-				DB98B4F82847C59200BB466E /* Square.swift */,
-				DB9413DD29392D7F00E0F335 /* Board.swift */,
+				DB646A5F293D1C6300C56280 /* Chess logic */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,6 +202,7 @@
 			children = (
 				DBAE5743284530D600B72B8C /* PieceView.swift */,
 				DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */,
+				DB646A64293D495E00C56280 /* VariationView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -308,6 +325,7 @@
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
 				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
+				DB646A61293D1C8400C56280 /* Move.swift in Sources */,
 				DB646A5C293D139100C56280 /* Termination.swift in Sources */,
 				DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */,
 				DBA51AB3293BEB7D00CC4BC3 /* StackDirection.swift in Sources */,
@@ -319,6 +337,7 @@
 				DB98B4F92847C59200BB466E /* Square.swift in Sources */,
 				DBAE5744284530D600B72B8C /* PieceView.swift in Sources */,
 				DBAE57412845302300B72B8C /* Piece.swift in Sources */,
+				DB646A65293D495E00C56280 /* VariationView.swift in Sources */,
 				DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */,
 				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
 				DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */,
@@ -326,6 +345,7 @@
 				DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */,
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
 				DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */,
+				DB646A63293D1D0300C56280 /* MoveFlag.swift in Sources */,
 				DB866671293A6E6500761F95 /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
