@@ -199,9 +199,8 @@ class ChessboardViewModel: ObservableObject {
         board.check = arbiter.positionHasCheck(board, color: board.whiteTurn ? .black : .white)
         
         // Check for checkmate
-        if board.check {
-            board.checkmate = arbiter.positionHasCheckmate(board, color: board.whiteTurn ? .white : .black)
-        }
+        board.termination = arbiter.positionHasMate(board, color: board.whiteTurn ? .white : .black, check: board.check)
+        
         
         // check for stalemate
     }

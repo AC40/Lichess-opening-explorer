@@ -31,12 +31,11 @@ struct Board {
     var whiteTurn = true
     var check = false
     var checkmate = false
+    var termination: Termination = .none
     
     //MARK: Functions
     init() {
         loadDefaultFEN()
-        
-        getKingPosition()
     }
     
     mutating func reset() {
@@ -57,7 +56,7 @@ struct Board {
         whiteTurn = true
         check = false
         checkmate = false
-        
+        termination = .none
     }
     
     mutating func getKingPosition() {
@@ -69,6 +68,24 @@ struct Board {
         
         whiteKingSquare = (whiteKingRank, whiteKingFile)
         blackKingSquare = (blackKingRank, blackKingFile)
+    }
+    
+    mutating func checkRookStatus() {
+        if squares[7, 0].piece != .rookW {
+            whiteQueensRookHasMoved = true
+        }
+        
+        if squares[7, 7].piece != .rookW {
+            whiteKingsRookHasMoved = true
+        }
+        
+        if squares[0, 0].piece != .rookB {
+            blackQueensRookHasMoved = true
+        }
+        
+        if squares[0, 7].piece != .rookB {
+            blackKingsRookHasMoved = true
+        }
     }
     
     subscript(square: Tile) -> Square {

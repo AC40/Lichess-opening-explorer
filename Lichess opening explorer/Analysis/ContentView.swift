@@ -22,8 +22,8 @@ struct ContentView: View {
                 .zIndex(10)
                 .overlay(
                     Group {
-                        if chessboardVM.board.checkmate {
-                            gameEndScreen()
+                        if chessboardVM.board.termination != .none {
+                            gameTerminationOverlay()
                         }
                     }
                 )
@@ -94,6 +94,7 @@ struct ContentView: View {
                 }
                 Button("Switch turn") {
                     chessboardVM.board.whiteTurn.toggle()
+                    chessboardVM.board.squares.removeEnPassants()
                 }
                 Button("Promote Pawns") {
                     chessboardVM.board.loadFEN("8/PPPPPPPP/8/8/8/8/pppppppp/8 w - - 0 1")
@@ -101,20 +102,37 @@ struct ContentView: View {
                 Button("Castling") {
                     chessboardVM.board.loadFEN("r3k2r/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/R3K2R b KQkq - 0 1")
                 }
-                Button("Prevent Castling") {
-                    chessboardVM.board.loadFEN("rn2k2r/pppp1ppp/8/1b2p3/1B2P3/8/PPPP1PPP/RN2K2R w KQkq - 0 1")
+                Button("Stalemate") {
+                    chessboardVM.board.loadFEN("8/7k/7p/p6P/P7/8/4K1R1/8 w - - 0 1")
                 }
             }
         }
     }
     
     
-    @ViewBuilder func gameEndScreen() -> some View {
+    @ViewBuilder func gameTerminationOverlay() -> some View {
+        
         VStack {
-            Text("You Won! ... or lost :(")
+            Group {
+                switch chessboardVM.board.termination {
+                case .checkmate:
+                    Text("You Won! ... or lost :(")
+                    
+                case .stalemate:
+                    Text("Draw. Are you both GMs or what?")
+                case .fiftyMoveRule:
+                    Text("Draw. Did you forget how to mate w/Knight + Bishop?")
+                case .none:
+                    Text("Error. Something went wrong")
+                default:
+                    Text("The game ended")
+                }
+            
+            }
                 .font(.title2)
                 .foregroundColor(.white)
                 .padding(.bottom, 20)
+            
             Button("Rematch") {
                 chessboardVM.board.loadDefaultFEN()
             }

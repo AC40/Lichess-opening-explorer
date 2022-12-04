@@ -110,7 +110,7 @@ struct Arbiter {
         return false
     }
     
-    func positionHasCheckmate(_ board: Board, color: ChessColor) -> Bool {
+    func positionHasMate(_ board: Board, color: ChessColor, check: Bool) -> Termination {
         
         var allCaptures: [Tile] = []
         var allMoves: [Tile] = []
@@ -142,7 +142,15 @@ struct Arbiter {
             allCaptures += canBeTaken
         }
     
-        return (allMoves.isEmpty && allCaptures.isEmpty)
+        if (allMoves.isEmpty && allCaptures.isEmpty) {
+            if check {
+                return .checkmate
+            } else {
+                return .stalemate
+            }
+        }
+        
+        return .none
     }
     
     //MARK: Private functions

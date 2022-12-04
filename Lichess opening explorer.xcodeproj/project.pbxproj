@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB646A5C293D139100C56280 /* Termination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A5B293D139100C56280 /* Termination.swift */; };
+		DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A5D293D185500C56280 /* Array + subscripts.swift */; };
 		DB664D1528427BEC0088749A /* Lichess_opening_explorerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */; };
 		DB664D1728427BEC0088749A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1628427BEC0088749A /* ContentView.swift */; };
 		DB664D1928427BEE0088749A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB664D1828427BEE0088749A /* Assets.xcassets */; };
@@ -24,6 +26,7 @@
 		DB98B4F92847C59200BB466E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98B4F82847C59200BB466E /* Square.swift */; };
 		DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA51AAF293BEACF00CC4BC3 /* AdaptiveStack.swift */; };
 		DBA51AB3293BEB7D00CC4BC3 /* StackDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA51AB2293BEB7D00CC4BC3 /* StackDirection.swift */; };
+		DBA51AB5293BF44300CC4BC3 /* Array + removeEnPassants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA51AB4293BF44300CC4BC3 /* Array + removeEnPassants.swift */; };
 		DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* Moves.swift */; };
 		DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */; };
 		DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */; };
@@ -39,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB646A5B293D139100C56280 /* Termination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Termination.swift; sourceTree = "<group>"; };
+		DB646A5D293D185500C56280 /* Array + subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + subscripts.swift"; sourceTree = "<group>"; };
 		DB664D1128427BEC0088749A /* Lichess opening explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lichess opening explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lichess_opening_explorerApp.swift; sourceTree = "<group>"; };
 		DB664D1628427BEC0088749A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +62,7 @@
 		DB98B4F82847C59200BB466E /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		DBA51AAF293BEACF00CC4BC3 /* AdaptiveStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveStack.swift; sourceTree = "<group>"; };
 		DBA51AB2293BEB7D00CC4BC3 /* StackDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackDirection.swift; sourceTree = "<group>"; };
+		DBA51AB4293BF44300CC4BC3 /* Array + removeEnPassants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + removeEnPassants.swift"; sourceTree = "<group>"; };
 		DBAB9F94284E06F400E1CFE4 /* Moves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moves.swift; sourceTree = "<group>"; };
 		DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + allIllegal.swift"; sourceTree = "<group>"; };
 		DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
@@ -168,6 +174,7 @@
 				DBAE573C28451A6300B72B8C /* DatabaseType.swift */,
 				DBAE57402845302300B72B8C /* Piece.swift */,
 				DBFCFF982860C857005626C6 /* Tile.swift */,
+				DB646A5B293D139100C56280 /* Termination.swift */,
 				DB98B4F82847C59200BB466E /* Square.swift */,
 				DB9413DD29392D7F00E0F335 /* Board.swift */,
 			);
@@ -208,6 +215,8 @@
 			children = (
 				DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */,
 				DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */,
+				DBA51AB4293BF44300CC4BC3 /* Array + removeEnPassants.swift */,
+				DB646A5D293D185500C56280 /* Array + subscripts.swift */,
 				DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */,
 				DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */,
 			);
@@ -294,10 +303,12 @@
 				DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */,
 				DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */,
 				DB866673293A6EAF00761F95 /* Theme.swift in Sources */,
+				DBA51AB5293BF44300CC4BC3 /* Array + removeEnPassants.swift in Sources */,
 				DB664D1728427BEC0088749A /* ContentView.swift in Sources */,
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
 				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
+				DB646A5C293D139100C56280 /* Termination.swift in Sources */,
 				DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */,
 				DBA51AB3293BEB7D00CC4BC3 /* StackDirection.swift in Sources */,
 				DBFCFF992860C857005626C6 /* Tile.swift in Sources */,
@@ -314,6 +325,7 @@
 				DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */,
 				DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */,
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
+				DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */,
 				DB866671293A6E6500761F95 /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

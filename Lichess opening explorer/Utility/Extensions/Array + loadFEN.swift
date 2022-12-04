@@ -9,6 +9,8 @@ import Foundation
 
 extension Board {
     
+    /// Automatically converts a FEN string into a position
+    /// Also updates logic variables, such as rookHasMoved, kingSquare, etc.
     mutating func loadFEN(_ fen: String) {
         
         // Reset board (castling right, etc.)
@@ -47,6 +49,15 @@ extension Board {
             file += 1
         }
         
+        processFEN()
+    }
+    
+    /// Updates the relevant board variables after a FEN has been loaded into the board
+    mutating fileprivate func processFEN() {
+        // Get kings position
         getKingPosition()
+        
+        // See if rooks are on initial squares
+        checkRookStatus()
     }
 }

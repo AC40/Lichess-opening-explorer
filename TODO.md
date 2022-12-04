@@ -1,11 +1,9 @@
 # TODO
 
 ## Short Term
-- checkmate
-- stalemate
+- add move recording system
 
 ## Mid Term
-- add move recording system
 - combine both "movePiece" functions (from arbiter and chessboardVM) (too similar to be seperate)
 - make promotion animation prettier
 - make ChessColor and whiteTurn the same
