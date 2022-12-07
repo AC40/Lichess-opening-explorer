@@ -12,22 +12,39 @@ struct VariationView: View {
     @ObservedObject var chessboardVM: ChessboardViewModel
     
     var body: some View {
-        VStack {
-            HStack {
+        VStack(alignment: .leading) {
+            ScrollView {
                 ForEach(0..<chessboardVM.board.moves.count, id:\.self) { i in
-                    ForEach(0..<chessboardVM.board.moves[i].count, id:\.self) { j in
-                        var move = chessboardVM.board.moves[i][j]
-                        Text("\(move.start.rank),\(move.start.file) - \(move.end.rank),\(move.end.file) ")
-                    }
+                    
+                    WrappingHStack(items: stringsFromMoves(chessboardVM.board.moves[i]))
                 }
             }
         }
-        .frame(maxHeight: .infinity, alignment: .top)
+        .frame(maxHeight: .infinity, alignment: .topLeading)
+        .padding(5)
+        
     }
+    
+    func readableMove(_ move: Move, i: Int) -> AttributedString {
+        
+        // If move is divisible by 2 (white): Show move number + '.' + small space
+        let moveNumber = "\(((i % 2) == 0) ? String(abs((i/2))+1) + ". ": "")"
+        
+        let moveNumberAttr = AttributedString(moveNumber, attributes: .init([NSAttributedString.Key.foregroundColor: UIColor.gray]))
+        
+        let move = AttributedString(Convert.moveToShortAlgebra(move))
+        
+        return moveNumberAttr + move
+    }
+    
+    func stringsFromMoves(_ moves: [Move]) -> [AttributedString] {
+        var strings: [AttributedString] = []
+        
+        for i in 0..<moves.count {
+            strings.append(readableMove(moves[i], i: i))
+        }
+        
+        return strings
+    }
+    
 }
-
-//struct VariationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VariationView()
-//    }
-//}

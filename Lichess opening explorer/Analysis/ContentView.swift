@@ -30,7 +30,7 @@ struct ContentView: View {
                     }
                 )
             
-            VStack {
+            VStack(alignment: .leading) {
                 
                 Picker("View", selection: $subView) {
                     Text("Variations")
@@ -58,10 +58,7 @@ struct ContentView: View {
                     VariationView(chessboardVM: chessboardVM)
                 }
                 
-                
-                
             }
-            
         })
         .task {
             await vm.getPlayerGames()

@@ -1,8 +1,11 @@
 # TODO
 
 ## Short Term
-- add move recording system
 - consider pawn promotion in legal moves
+- move display system:
+    - display captures properly
+    - display en passant (and other move flags)
+    - display rank/file properly (if necessary: e.g. Nbd7, Rad1, etc.)
 
 ## Mid Term
 - combine both "movePiece" functions (from arbiter and chessboardVM) (too similar to be seperate)

@@ -282,7 +282,6 @@ struct Arbiter {
 //            board.promotionSquare = move.end
 //            board.promotingPawnSquare = move.start
 //            return
-//            //TODO: Pause game while player selects piece
 //        }
 //
 //        // King Move
@@ -388,7 +387,6 @@ struct Arbiter {
             board.promotionSquare = move.end
             board.promotingPawnSquare = move.start
             return
-            //TODO: Pause game while player selects piece
         }
 
         // King Move

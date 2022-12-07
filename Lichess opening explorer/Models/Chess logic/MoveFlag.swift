@@ -12,7 +12,7 @@ enum MoveFlag {
     case capture
     case shortCastle
     case longCastle
-    case promotion
+    case promotion(piece: PieceType)
     case enPassant
     case doubleStep
 }

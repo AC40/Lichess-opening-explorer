@@ -14,7 +14,7 @@ class ChessboardViewModel: ObservableObject {
     @Published var board = Board()
     @Published var pauseGame = false
     @Published var whitePerspective = true
-    @Published var showCoordinates = true
+    @Published var showCoordinates = false
     
     @Published var squareFrames = Array(repeating: Array(repeating: CGRect.zero, count: 8), count: 8)
     
@@ -59,6 +59,8 @@ class ChessboardViewModel: ObservableObject {
     }
     
     func makeMove(_ move: Move) {
+        var move = move
+        
         let startRank = move.start.rank
         let startFile = move.start.file
         let endRank = move.end.rank
@@ -98,7 +100,6 @@ class ChessboardViewModel: ObservableObject {
             board.promotingPawnSquare = move.start
             pauseGame = true
             return
-            //TODO: Pause game while player selects piece
         }
         
         // King Move
@@ -155,6 +156,11 @@ class ChessboardViewModel: ObservableObject {
             }
         }
         
+        // Add capture to move before is removed
+        if board[move.end].piece != .none {
+            move.capture = board[move.end].piece
+        }
+        
         // Move piece from start to end square
         board[move.start].piece = Piece.none
         board[move.end].piece = piece
@@ -168,20 +174,15 @@ class ChessboardViewModel: ObservableObject {
             }
         }
         
-        print("Check: \(arbiter.positionHasCheck(board, color: board.whiteTurn ? .white : .black))")
+        // Add important info to move
+        move.piece = piece
         
-        // Add move to history
-        if (board.currentLine >= 0 && board.moves.count > board.currentLine) {
-            board.moves[board.currentLine].append(move)
-        } else {
-            board.moves = [[move]]
-        }
-        
-        endTurn()
+        endTurn(with: move)
         
     }
     
-    func endTurn() {
+    func endTurn(with move: Move) {
+        var move = move
         resetSelection()
         
         // Switch turn
@@ -203,11 +204,19 @@ class ChessboardViewModel: ObservableObject {
         // Check for check
         board.check = arbiter.positionHasCheck(board, color: board.whiteTurn ? .black : .white)
         
-        // Check for checkmate
+        // Check for checkmate or stalemate
         board.termination = arbiter.positionHasMate(board, color: board.whiteTurn ? .white : .black, check: board.check)
+     
+        // Set move variables
+        move.check = board.check
+        move.termination = board.termination
         
-        
-        // check for stalemate
+        // Add move to history
+        if (board.currentLine >= 0 && board.moves.count > board.currentLine) {
+            board.moves[board.currentLine].append(move)
+        } else {
+            board.moves = [[move]]
+        }
     }
     
     func select(_ square: Tile) {
@@ -258,7 +267,9 @@ class ChessboardViewModel: ObservableObject {
         
         self.board.promotionSquare = nil
         pauseGame = false
-        endTurn()
+        
+        let move = Move(from: startSquare, to: promotionSquare, piece: board[promotionSquare].piece, flag: .promotion(piece: pieceType))
+        endTurn(with: move)
     }
     
     
