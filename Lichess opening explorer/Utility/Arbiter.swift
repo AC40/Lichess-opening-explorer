@@ -10,59 +10,68 @@ import Foundation
 struct Arbiter {
     
     //MARK: Public functions
-    func legalSquares(for piece: Piece, at square: Tile, in backupBoard: Board, turn: Bool) -> ([Tile], [Tile]) {
+    func legalMoves(for piece: Piece, at square: Tile, in backupBoard: Board, turn: Bool) -> [Move] {
         
         // copy position
         var board = backupBoard
         
-        let (pseudoCanBeMovedTo, pseudoCanBeTaken) = pseudoLegalSquares(for: piece, at: square, in: board, turn: turn)
-        var canBeMovedTo = [Tile]()
-        var canBeTaken = [Tile]()
+        let pseudoLegalMoves = pseudoLegalMoves(for: piece, at: square, in: board, turn: turn)
+        var moves: [Move] = []
         
         // for each move
-        for move in pseudoCanBeMovedTo {
-            makeMove(Move(from: square, to: move), in: &board)
+        for move in pseudoLegalMoves {
+            makeMove(move, in: &board)
             
             if !positionHasCheck(board, color: turn ? .black : .white) {
-                canBeMovedTo.append(move)
+                moves.append(move)
             }
             
             // Reset board
             board = backupBoard
         }
         
-        // for each capture
-        for capture in pseudoCanBeTaken {
-            makeMove(Move(from: square, to: capture), in: &board)
-            
-            if !positionHasCheck(board, color: turn ? .black : .white) {
-                canBeTaken.append(capture)
-            }
-            
-            // Reset board
-            board = backupBoard
-        }
+        //TODO: Remove castling rights if necessary ? (What do i mean by that
         
-        // Remove castling rights if necessary
         if piece.isKing() {
             if turn {
-                if canCastleShort(color: .white, in: board, moves: canBeMovedTo) {
-                    canBeMovedTo.append(Tile(7, 6))
+                if canCastleShort(color: .white, in: board, moves: moves) {
+                    let move = Move(from: square, to: Tile(7, 6), flag: .shortCastle)
+                    makeMove(move, in: &board)
+                    if !positionHasCheck(board, color: turn ? .black : .white) {
+                        moves.append(move)
+                    }
+                    board = backupBoard
                 }
-                if canCastleLong(color: .white, in: board, moves: canBeMovedTo) {
-                    canBeMovedTo.append(Tile(7, 2))
+                if canCastleLong(color: .white, in: board, moves: moves) {
+                    let move = Move(from: square, to: Tile(7, 2), flag: .shortCastle)
+                    makeMove(move, in: &board)
+                    if !positionHasCheck(board, color: turn ? .black : .white) {
+                        moves.append(move)
+                    }
+                    board = backupBoard
                 }
             } else {
-                if canCastleShort(color: .black, in: board, moves: canBeMovedTo) {
-                    canBeMovedTo.append(Tile(0, 6))
+                if canCastleShort(color: .black, in: board, moves: moves) {
+                    let move = Move(from: square, to: Tile(0, 6), flag: .shortCastle)
+                    makeMove(move, in: &board)
+                    if !positionHasCheck(board, color: turn ? .black : .white) {
+                        moves.append(move)
+                    }
+                    board = backupBoard
                 }
-                if canCastleLong(color: .black, in: board, moves: canBeMovedTo) {
-                    canBeMovedTo.append(Tile(0, 2))
+                if canCastleLong(color: .black, in: board, moves: moves) {
+                    let move = Move(from: square, to: Tile(0, 2), flag: .shortCastle)
+                    makeMove(move, in: &board)
+                    if !positionHasCheck(board, color: turn ? .black : .white) {
+                        moves.append(move)
+                    }
+                    board = backupBoard
+
                 }
             }
         }
         
-        return (canBeMovedTo, canBeTaken)
+        return moves
         
     }
     
@@ -93,13 +102,13 @@ struct Arbiter {
             }
             
             // generate all moves
-            let (_, pseudoCanBeTaken) = pseudoLegalSquares(for: piece, at: piece.square!, in: board, turn: color == .white ? true : false)
+            let pseudoLegalMoves = pseudoLegalMoves(for: piece, at: piece.square!, in: board, turn: color == .white ? true : false)
             
-            // for each move
-            for move in pseudoCanBeTaken {
+            // for each move that does not capture
+            for move in pseudoLegalMoves where move.flag == .capture || move.flag == .enPassant {
                 
                 // Check, if the moves takes the color's king
-                if board.squares[move].piece.type == .king && board.squares[move].piece.color != color {
+                if board.squares[move.end].piece.type == .king && board.squares[move.end].piece.color != color {
                     
                     // if it does, return true
                     return true
@@ -112,8 +121,7 @@ struct Arbiter {
     
     func positionHasMate(_ board: Board, color: ChessColor, check: Bool) -> Termination {
         
-        var allCaptures: [Tile] = []
-        var allMoves: [Tile] = []
+        var allMoves: [Move] = []
         
         var pieces = [Piece]()
         
@@ -136,13 +144,12 @@ struct Arbiter {
                 continue
             }
             
-            let (canBeMovedTo, canBeTaken) = legalSquares(for: piece, at: piece.square!, in: board, turn: color == .white)
+            let moves = legalMoves(for: piece, at: piece.square!, in: board, turn: color == .white)
             
-            allMoves += canBeMovedTo
-            allCaptures += canBeTaken
+            allMoves += moves
         }
     
-        if (allMoves.isEmpty && allCaptures.isEmpty) {
+        if allMoves.isEmpty {
             if check {
                 return .checkmate
             } else {
@@ -154,10 +161,9 @@ struct Arbiter {
     }
     
     //MARK: Private functions
-    func pseudoLegalSquares(for piece: Piece, at square: Tile, in board: Board, turn: Bool) -> ([Tile], [Tile]) {
+    func pseudoLegalMoves(for piece: Piece, at square: Tile, in board: Board, turn: Bool) -> [Move] {
         
-        var canBeMovedTo: [Tile] = []
-        var canBeTaken: [Tile] = []
+        var moves: [Move] = []
         
         // Long range sliding pieces
         if piece.isSlidingPiece() {
@@ -170,14 +176,14 @@ struct Arbiter {
                 }
                 
                 while squareIsEmpty((end), in: board.squares) {
-                    canBeMovedTo.append((end))
+                    moves.append((Move(from: square, to: end)))
                     
                     end.rank -= legalMove.rank
                     end.file -= legalMove.file
                 }
                 
                 if pieceIsOppositeColor(at: (end), in: board.squares, turn: turn) {
-                    canBeTaken.append((end))
+                    moves.append(Move(from: square, to: end, flag: .capture))
                 }
             }
         } else if piece.type == .pawn {
@@ -187,24 +193,24 @@ struct Arbiter {
                 
                 // Single step
                 if endRank.isOnBoard() && squareIsEmpty(Tile(endRank, square.file), in: board.squares) {
-                    canBeMovedTo.append(Tile(endRank, square.file))
+                    moves.append(Move(from: square, to: Tile(endRank, square.file)))
                 }
                 
                 // Initial double step
                 if square.rank == 6 && squareIsEmpty(Tile(4, square.file), in: board.squares) {
-                    canBeMovedTo.append(Tile(4, square.file))
+                    moves.append(Move(from: square, to: Tile(4, square.file), flag: .doubleStep))
                 }
             } else if piece.color == .black {
                 let endRank = square.rank + 1
                 
                 // Single step
                 if endRank.isOnBoard() && squareIsEmpty(Tile(endRank, square.file), in: board.squares) {
-                    canBeMovedTo.append(Tile(endRank, square.file))
+                    moves.append(Move(from: square, to: Tile(endRank, square.file)))
                 }
                 
                 // Initial double step
                 if square.rank == 1 && squareIsEmpty(Tile(3, square.file), in: board.squares) {
-                    canBeMovedTo.append(Tile(3, square.file))
+                    moves.append(Move(from: square, to: Tile(3, square.file), flag: .doubleStep))
                 }
             }
             
@@ -218,11 +224,11 @@ struct Arbiter {
                 }
                 
                 if pieceIsOppositeColor(at: (end), in: board.squares, turn: turn) {
-                    canBeTaken.append((end))
+                    moves.append(Move(from: square, to: end, flag: .capture))
                     
                     // En passant
                 } else if board.squares[end].canBeTakenWithEnPassant {
-                    canBeTaken.append((end))
+                    moves.append(Move(from: square, to: end, capture: board.squares[end].piece, flag: .enPassant))
                 }
                 
             }
@@ -236,121 +242,15 @@ struct Arbiter {
                 }
                 
                 if pieceIsOppositeColor(at: (end), in: board.squares, turn: turn) {
-                    canBeTaken.append((end))
+                    moves.append(Move(from: square, to: end, flag: .capture))
                 } else if squareIsEmpty((end), in: board.squares) {
-                    canBeMovedTo.append((end))
+                    moves.append(Move(from: square, to: end))
                 }
             }
         }
         
-        return (canBeMovedTo, canBeTaken)
+        return moves
     }
-    
-//    func makeMove(_ move: Move, in board: inout Board) {
-//        let startRank = move.start.rank
-//        let startFile = move.start.file
-//        let endRank = move.end.rank
-//        let endFile = move.end.file
-//
-//        guard endRank.isOnBoard() && endFile.isOnBoard() else {
-//            return
-//        }
-//
-//        let piece = board[move.start].piece
-//
-//        guard piece.type != .none else {
-//            return
-//        }
-//
-//        guard board[endRank, endFile].canBeMovedTo else {
-//            return
-//        }
-//
-//        // Check, if pawns moves two squares (initial double step)
-//        if piece.type == .pawn && abs(endRank-startRank) == 2 {
-//            if piece.color == .white {
-//                board[endRank+1, endFile].canBeTakenWithEnPassant = true
-//                board.whiteEnPassants.append(Tile(endRank+1, endFile))
-//            } else {
-//                board[endRank-1, endFile].canBeTakenWithEnPassant = true
-//                board.blackEnPassants.append(Tile(endRank-1, endFile))
-//            }
-//        }
-//
-//        // Promote pawn
-//        if (board.whiteTurn ? (endRank == 0) : (endRank == 7)) && piece.type == .pawn {
-//            board.promotionSquare = move.end
-//            board.promotingPawnSquare = move.start
-//            return
-//        }
-//
-//        // King Move
-//        if piece == .kingW {
-//            board.whiteKingSquare = move.end
-//
-//            // Move rook in castling
-//            if move.end == (7, 2) && !board.whiteKingHasMoved {
-//                board[7, 0].piece = Piece.none
-//                board[7, 3].piece = .rookW
-//                board.whiteQueensRookHasMoved = true
-//
-//            } else if move.end == (7, 6) && !board.whiteKingHasMoved {
-//                board[7, 7].piece = Piece.none
-//                board[7, 5].piece = .rookW
-//                board.whiteKingsRookHasMoved = true
-//            }
-//
-//            board.whiteKingHasMoved = true
-//
-//        } else if piece == .kingB {
-//            board.blackKingSquare = move.end
-//
-//            // Move rook in castling
-//            if move.end == (0, 2) && !board.blackKingHasMoved {
-//                board[0, 0].piece = Piece.none
-//                board[0, 3].piece = .rookB
-//                board.blackQueensRookHasMoved = true
-//
-//            } else if move.end == (0, 6) && !board.blackKingHasMoved {
-//                makeMove(Move(from: Tile(0, 7), to: Tile(0, 5)), in: &board)
-//                board[0, 7].piece = .none
-//                board[0, 5].piece = .rookB
-//                board.whiteKingsRookHasMoved = true
-//            }
-//
-//            // Set last, so rooks can check if it has moved
-//            board.blackKingHasMoved = true
-//        }
-//
-//
-//        // Rook move
-//        if piece == .rookW {
-//            if move.start == (7, 0) {
-//                board.whiteQueensRookHasMoved = true
-//            } else if move.start == (7, 7) {
-//                board.whiteKingsRookHasMoved = true
-//            }
-//        } else if piece == .rookB {
-//            if move.start == (0, 0) {
-//                board.blackQueensRookHasMoved = true
-//            } else if move.start == (0, 7) {
-//                board.blackKingsRookHasMoved = true
-//            }
-//        }
-//
-//        // Move piece from start to end square
-//        board[move.start].piece = Piece.none
-//        board[move.end].piece = piece
-//
-//        // Take pawn when taken with en passant
-//        if board[move.end].canBeTakenWithEnPassant {
-//            if board.whiteTurn {
-//                board[endRank+1, endFile].piece = Piece.none
-//            } else {
-//                board[endRank-1, endFile].piece = Piece.none
-//            }
-//        }
-//    }
     
     private func makeMove(_ move: Move, in board: inout Board) {
         let startRank = move.start.rank
@@ -449,42 +349,47 @@ struct Arbiter {
         }
     }
 
-    private func canCastleLong(color: ChessColor, in board: Board, moves: [Tile]) -> Bool {
+    private func canCastleLong(color: ChessColor, in board: Board, moves: [Move]) -> Bool {
 
         if color == .white {
             let haveNotMoved = (!board.whiteKingHasMoved && !board.whiteQueensRookHasMoved)
             let spaceIsEmpty = (board[7, 1].isEmpty() && board[7, 2].isEmpty() && board[7,3].isEmpty())
-            let noChecks = moves.contains(where: { $0 == (7, 3) })
+            let noChecksInBetween = moves.contains(where: { $0.end == (7, 3) })
+            let noChecksBefore = !board.check
 
-            return (haveNotMoved && spaceIsEmpty && noChecks)
+            return (haveNotMoved && spaceIsEmpty && noChecksInBetween && noChecksBefore)
 
         } else if color == .black {
             let haveNotMoved = (!board.blackKingHasMoved && !board.blackQueensRookHasMoved)
             let spaceIsEmpty = (board[0, 1].isEmpty() && board[0, 2].isEmpty() && board[0,3].isEmpty())
-            let noChecks = moves.contains(where: { $0 == (0, 3) })
+            let noChecksInBetween = moves.contains(where: { $0.end == (0, 3) })
+            let noChecksBefore = !board.check
+            
 
-            return (haveNotMoved && spaceIsEmpty && noChecks)
+            return (haveNotMoved && spaceIsEmpty && noChecksInBetween && noChecksBefore)
 
         } else {
             return false
         }
     }
 
-    private func canCastleShort(color: ChessColor, in board: Board, moves: [Tile]) -> Bool {
+    private func canCastleShort(color: ChessColor, in board: Board, moves: [Move]) -> Bool {
 
         if color == .white {
             let haveNotMoved = (!board.whiteKingHasMoved && !board.whiteKingsRookHasMoved)
             let spaceIsEmpty = (board[7, 5].isEmpty() && board[7, 6].isEmpty())
-            let noChecks = moves.contains(where: { $0 == (7, 5) })
+            let noChecksInBetween = moves.contains(where: { $0.end == (7, 5) })
+            let noChecksBefore = !board.check
 
-            return (haveNotMoved && spaceIsEmpty && noChecks)
+            return (haveNotMoved && spaceIsEmpty && noChecksInBetween && noChecksBefore )
 
         } else if color == .black {
             let haveNotMoved = (!board.blackKingHasMoved && !board.blackKingsRookHasMoved)
             let spaceIsEmpty = (board[0, 5].isEmpty() && board[0, 6].isEmpty())
-            let noChecks = moves.contains(where: { $0 == (0, 5) })
+            let noChecksInBetween = moves.contains(where: { $0.end == (0, 5) })
+            let noChecksBefore = !board.check
 
-            return (haveNotMoved && spaceIsEmpty && noChecks)
+            return (haveNotMoved && spaceIsEmpty && noChecksInBetween && noChecksBefore)
 
         } else {
             return false

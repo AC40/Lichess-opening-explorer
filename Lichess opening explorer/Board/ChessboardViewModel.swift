@@ -62,7 +62,6 @@ class ChessboardViewModel: ObservableObject {
         var move = move
         
         let startRank = move.start.rank
-        let startFile = move.start.file
         let endRank = move.end.rank
         let endFile = move.end.file
         
@@ -111,13 +110,16 @@ class ChessboardViewModel: ObservableObject {
                 board[7, 0].piece = Piece.none
                 board[7, 3].piece = .rookW
                 board.whiteQueensRookHasMoved = true
+                move.flag = .longCastle
                 
             } else if move.end == (7, 6) && !board.whiteKingHasMoved {
                 board[7, 7].piece = Piece.none
                 board[7, 5].piece = .rookW
                 board.whiteKingsRookHasMoved = true
+                move.flag = .shortCastle
             }
             
+            // Set last, so rooks can check if it has moved
             board.whiteKingHasMoved = true
             
         } else if piece == .kingB {
@@ -128,12 +130,13 @@ class ChessboardViewModel: ObservableObject {
                 board[0, 0].piece = Piece.none
                 board[0, 3].piece = .rookB
                 board.blackQueensRookHasMoved = true
+                move.flag = .longCastle
                 
             } else if move.end == (0, 6) && !board.blackKingHasMoved {
-                makeMove(Move(from: Tile(0, 7), to: Tile(0, 5)))
                 board[0, 7].piece = .none
                 board[0, 5].piece = .rookB
-                board.whiteKingsRookHasMoved = true
+                board.blackKingsRookHasMoved = true
+                move.flag = .shortCastle
             }
             
             // Set last, so rooks can check if it has moved
@@ -159,6 +162,9 @@ class ChessboardViewModel: ObservableObject {
         // Add capture to move before is removed
         if board[move.end].piece != .none {
             move.capture = board[move.end].piece
+            if move.flag == .move {
+                move.flag = .capture
+            }
         }
         
         // Move piece from start to end square
@@ -247,8 +253,9 @@ class ChessboardViewModel: ObservableObject {
         selectedSquare = square
         
         // Display legal moves
-        let (canBeMovedTo, canBeTaken) = arbiter.legalSquares(for: board[square].piece, at: square, in: board, turn: board.whiteTurn)
-        displayLegalMoves(move: canBeMovedTo, take: canBeTaken)
+        let moves = arbiter.legalMoves(for: board[square].piece, at: square, in: board, turn: board.whiteTurn)
+        
+        displayLegalMoves(moves: moves)
         
     }
     
@@ -274,13 +281,14 @@ class ChessboardViewModel: ObservableObject {
     
     
     
-    func displayLegalMoves(move canBeMovedTo: [Tile], take canBeTaken: [Tile]) {
-        for square in canBeMovedTo {
-            board[square].canBeMovedTo = true
-        }
+    func displayLegalMoves(moves: [Move]) {
         
-        for square in canBeTaken {
-            board[square].canBeTaken = true
+        for move in moves  {
+            if move.flag != .capture {
+                board[move.end].canBeMovedTo = true
+            } else {
+                board[move.end].canBeTaken = true
+            }
         }
     }
     

@@ -15,7 +15,6 @@ struct VariationView: View {
         VStack(alignment: .leading) {
             ScrollView {
                 ForEach(0..<chessboardVM.board.moves.count, id:\.self) { i in
-                    
                     WrappingHStack(items: stringsFromMoves(chessboardVM.board.moves[i]))
                 }
             }

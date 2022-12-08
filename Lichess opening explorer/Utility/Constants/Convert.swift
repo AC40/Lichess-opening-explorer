@@ -24,6 +24,14 @@ struct Convert {
             return ""
         }
         
+        guard move.flag != .shortCastle else {
+            return "O-O"
+        }
+        
+        guard move.flag != .longCastle else {
+            return "O-O-O"
+        }
+        
         guard move.piece != nil && move.piece != Piece.none else {
             return moveToLongAlgebra(move)
         }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MoveFlag {
+enum MoveFlag: Equatable {
     case move
     case capture
     case shortCastle
@@ -15,4 +15,8 @@ enum MoveFlag {
     case promotion(piece: PieceType)
     case enPassant
     case doubleStep
+    
+    func isCapture() -> Bool {
+        return (self == .capture || self == .enPassant)
+    }
 }

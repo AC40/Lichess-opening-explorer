@@ -12,7 +12,7 @@
 		DB646A61293D1C8400C56280 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A60293D1C8400C56280 /* Move.swift */; };
 		DB646A63293D1D0300C56280 /* MoveFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A62293D1D0300C56280 /* MoveFlag.swift */; };
 		DB646A65293D495E00C56280 /* VariationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A64293D495E00C56280 /* VariationView.swift */; };
-		DB646A67293D4BAC00C56280 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A66293D4BAC00C56280 /* Converter.swift */; };
+		DB646A67293D4BAC00C56280 /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A66293D4BAC00C56280 /* Convert.swift */; };
 		DB664D1528427BEC0088749A /* Lichess_opening_explorerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */; };
 		DB664D1728427BEC0088749A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1628427BEC0088749A /* ContentView.swift */; };
 		DB664D1928427BEE0088749A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB664D1828427BEE0088749A /* Assets.xcassets */; };
@@ -52,7 +52,7 @@
 		DB646A60293D1C8400C56280 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		DB646A62293D1D0300C56280 /* MoveFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveFlag.swift; sourceTree = "<group>"; };
 		DB646A64293D495E00C56280 /* VariationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariationView.swift; sourceTree = "<group>"; };
-		DB646A66293D4BAC00C56280 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
+		DB646A66293D4BAC00C56280 /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		DB664D1128427BEC0088749A /* Lichess opening explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lichess opening explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lichess_opening_explorerApp.swift; sourceTree = "<group>"; };
 		DB664D1628427BEC0088749A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 			children = (
 				DBAB9F94284E06F400E1CFE4 /* Moves.swift */,
 				DB866674293A6EF200761F95 /* Themes.swift */,
-				DB646A66293D4BAC00C56280 /* Converter.swift */,
+				DB646A66293D4BAC00C56280 /* Convert.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -322,7 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */,
-				DB646A67293D4BAC00C56280 /* Converter.swift in Sources */,
+				DB646A67293D4BAC00C56280 /* Convert.swift in Sources */,
 				DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */,
 				DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */,
 				DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */,
