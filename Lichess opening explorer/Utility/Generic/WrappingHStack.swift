@@ -1,68 +1,55 @@
 //
 //  WrappingHStack.swift
-//  Lichess opening explorer
+//  WrappingHStack
 //
-//  Created by AC Richter on 07.12.22.
+//  Created by AC Richter on 08.12.22.
 //
 
 import SwiftUI
 
-struct WrappingHStack: View {
+struct WrappingHStack: Layout {
     
-    let items: [AttributedString]
-    
-    var body: some View {
-        TagsView(items: items)
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        guard !subviews.isEmpty else { return .zero}
+        
+        let size = CGSize(width: proposal.width ?? 0, height: proposal.height ?? 0)
+        
+        return size
     }
-}
+    
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard !subviews.isEmpty else { return }
+        
+        let spacings = horizontalSpacing(subviews: subviews)
+        
+        var x = bounds.minX
+        var y = bounds.minY
+        
+        for i in subviews.indices {
+            
+            let prop = ProposedViewSize(subviews[i].sizeThatFits(.unspecified))
+            
+            if (x + (prop.width ?? 0)) > bounds.maxX {
+                // With current item, row would be too long, *so skip to next row*
+                y += prop.height ?? 0
+                x = bounds.minX
+            }
+            
+            subviews[i].place(at: CGPoint(x: x, y: y), proposal: prop)
+            
+            x += prop.width ?? 0 + 5
+            print(spacings[i])
+        }
+    }
 
-struct TagsView: View {
-    
-    let items: [AttributedString]
-    var groupedItems: [[AttributedString]] = [[AttributedString]]()
-    let screenWidth = UIScreen.main.bounds.width
-    
-    init(items: [AttributedString]) {
-        self.items = items
-        self.groupedItems = createGroupedItems(items)
-    }
-    
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                ForEach(groupedItems, id: \.self) { subItems in
-                    HStack {
-                        ForEach(subItems, id: \.self) { word in
-                            Text(word)
-                                .fixedSize()
-                        }
-                    }
-                }
-                Spacer()
-            }
+    /// Gets an array of preferred spacing sizes between subviews in the
+    /// horizontal dimension.
+    private func horizontalSpacing(subviews: Subviews) -> [CGFloat] {
+        subviews.indices.map { index in
+            guard index < subviews.count - 1 else { return 0 }
+            return subviews[index].spacing.distance(
+                to: subviews[index + 1].spacing,
+                along: .horizontal)
         }
-    }
-    
-    private func createGroupedItems(_ items: [AttributedString]) -> [[AttributedString]] {
-        var groupedItems: [[AttributedString]] = [[AttributedString]]()
-        var tempItems: [AttributedString] =  [AttributedString]()
-        var width: CGFloat = 0
-        for word in items {
-            let label = UILabel()
-            label.attributedText = NSAttributedString(word)
-            label.sizeToFit()
-            let labelWidth = label.frame.size.width + 32
-            if (width + labelWidth + 55) < screenWidth {
-                width += labelWidth
-                tempItems.append(word)
-            } else {
-                width = labelWidth
-                groupedItems.append(tempItems)
-                tempItems.removeAll()
-                tempItems.append(word)
-            }
-        }
-        groupedItems.append(tempItems)
-        return groupedItems
     }
 }

@@ -95,10 +95,12 @@ struct ContentView: View {
             VStack(alignment: .trailing, spacing: 10) {
                 Button("Load default FEN") {
                     chessboardVM.board.loadDefaultFEN()
+                    chessboardVM.resetSelection()
                 }
                 
                 Button("Load mid-game FEN") {
                     chessboardVM.board.loadFEN("r1bq3r/4bppp/p1npkB2/1p1Np3/4P3/N3K3/PPP2PPP/R2Q1B1R b - - 4 1")
+                    chessboardVM.resetSelection()
                 }
                 Button("Switch turn") {
                     chessboardVM.board.whiteTurn.toggle()
@@ -106,12 +108,15 @@ struct ContentView: View {
                 }
                 Button("Promote Pawns") {
                     chessboardVM.board.loadFEN("8/PPPPPPPP/8/8/8/8/pppppppp/8 w - - 0 1")
+                    chessboardVM.resetSelection()
                 }
                 Button("Castling") {
                     chessboardVM.board.loadFEN("r3k2r/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/R3K2R b KQkq - 0 1")
+                    chessboardVM.resetSelection()
                 }
                 Button("Stalemate") {
                     chessboardVM.board.loadFEN("8/7k/7p/p6P/P7/8/4K1R1/8 w - - 0 1")
+                    chessboardVM.resetSelection()
                 }
             }
         }

@@ -3,19 +3,17 @@
 ## Immediate
 
 ## Short Term
-- if fen is loaded: reset selected square visual
-- if turn is switched (e.g. via button): reset selection (so prior selected moves are impossible)
 - consider pawn promotion in legal moves
 - Variation View:
-    - display captures properly
-    - display en passant (and other move flags)
     - display rank/file properly (if necessary: e.g. Nbd7, Rad1, etc.)
 
 ## Mid Term
+- small fixes:
+    - if fen is loaded: reset selected square visual
+    - if turn is switched (e.g. via button): reset selection (so prior selected moves are impossible)
 - combine both "movePiece" functions (from arbiter and chessboardVM) (too similar to be seperate)
 - make promotion animation prettier
 - make ChessColor and whiteTurn the same
-- build custom wrapping hstack (SwiftUI native) to make moves easily tappable
 
 ## Long term
 - add branches to move, recording system

@@ -14,13 +14,18 @@ struct VariationView: View {
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
-                ForEach(0..<chessboardVM.board.moves.count, id:\.self) { i in
-                    WrappingHStack(items: stringsFromMoves(chessboardVM.board.moves[i]))
+                WrappingHStack {
+                    ForEach(0..<chessboardVM.board.moves.count, id:\.self) { i in
+                        ForEach(0..<chessboardVM.board.moves[i].count, id:\.self) { j in
+                            Text(readableMove(chessboardVM.board.moves[i][j], i: j))
+                                .padding(.trailing, ((j % 2) == 0) ? 4 : 8)
+                        }
+                    }
                 }
+                .padding(.horizontal, 5)
             }
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
-        .padding(5)
         
     }
     
@@ -36,14 +41,5 @@ struct VariationView: View {
         return moveNumberAttr + move
     }
     
-    func stringsFromMoves(_ moves: [Move]) -> [AttributedString] {
-        var strings: [AttributedString] = []
-        
-        for i in 0..<moves.count {
-            strings.append(readableMove(moves[i], i: i))
-        }
-        
-        return strings
-    }
     
 }
