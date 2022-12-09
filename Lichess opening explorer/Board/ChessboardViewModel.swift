@@ -86,10 +86,10 @@ class ChessboardViewModel: ObservableObject {
         if piece.type == .pawn && abs(endRank-startRank) == 2 {
             if piece.color == .white {
                 board[endRank+1, endFile].canBeTakenWithEnPassant = true
-                board.whiteEnPassants.append(Tile(endRank+1, endFile))
+                board.whiteEnPassant = Tile(endRank+1, endFile)
             } else {
                 board[endRank-1, endFile].canBeTakenWithEnPassant = true
-                board.blackEnPassants.append(Tile(endRank-1, endFile))
+                board.blackEnPassant = Tile(endRank-1, endFile)
             }
         }
         
@@ -196,15 +196,15 @@ class ChessboardViewModel: ObservableObject {
         
         //TODO: Remove previous en passants
         if board.whiteTurn {
-            for tile in board.whiteEnPassants {
+            if let tile = board.whiteEnPassant {
                 board[tile].canBeTakenWithEnPassant = false
             }
-           board.whiteEnPassants = []
+           board.whiteEnPassant = nil
         } else {
-            for tile in board.blackEnPassants {
+            if let tile = board.blackEnPassant {
                 board[tile].canBeTakenWithEnPassant = false
             }
-            board.blackEnPassants = []
+            board.blackEnPassant = nil
         }
         
         // Check for check
@@ -216,6 +216,9 @@ class ChessboardViewModel: ObservableObject {
         // Set move variables
         move.check = board.check
         move.termination = board.termination
+        
+        print(board.whiteEnPassant)
+        print(board.blackEnPassant)
         
         // Add move to history
         if (board.currentLine >= 0 && board.moves.count > board.currentLine) {
@@ -284,10 +287,13 @@ class ChessboardViewModel: ObservableObject {
     func displayLegalMoves(moves: [Move]) {
         
         for move in moves  {
-            if move.flag != .capture {
-                board[move.end].canBeMovedTo = true
-            } else {
+            switch move.flag {
+            case .enPassant:
+                board[move.end].canBeTakenWithEnPassant = true
+            case .capture:
                 board[move.end].canBeTaken = true
+            default:
+                board[move.end].canBeMovedTo = true
             }
         }
     }

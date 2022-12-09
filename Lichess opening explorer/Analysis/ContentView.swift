@@ -32,14 +32,19 @@ struct ContentView: View {
             
             VStack(alignment: .leading) {
                 
-                Picker("View", selection: $subView) {
-                    Text("Variations")
-                        .tag(0)
-                    Text("Dev tools")
-                        .tag(1)
+                HStack {
+                    moveControls()
                     
+                    Picker("View", selection: $subView) {
+                        Text("Variations")
+                            .tag(0)
+                        Text("Dev tools")
+                            .tag(1)
+                        
+                    }
+                    .pickerStyle(.segmented)
                 }
-                .pickerStyle(.segmented)
+                .padding(.horizontal, 5)
                 
                 switch subView {
                 case 0:
@@ -106,8 +111,8 @@ struct ContentView: View {
                     chessboardVM.board.whiteTurn.toggle()
                     chessboardVM.board.squares.removeEnPassants()
                 }
-                Button("Promote Pawns") {
-                    chessboardVM.board.loadFEN("8/PPPPPPPP/8/8/8/8/pppppppp/8 w - - 0 1")
+                Button("FEN w/ e.p.") {
+                    chessboardVM.board.loadFEN("rnbqkbnr/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3")
                     chessboardVM.resetSelection()
                 }
                 Button("Castling") {
@@ -155,6 +160,29 @@ struct ContentView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .background(Color.black.opacity(0.75))
+    }
+    
+    @ViewBuilder func moveControls() -> some View {
+        HStack(spacing: 0) {
+            Button {
+                // unmake the most recent move in history
+            } label: {
+                Image(systemName: "chevron.backward")
+            }
+            .disabled(true)
+            
+            Button {
+                // progress one move forward in move history
+                
+            } label: {
+                Image(systemName: "chevron.forward")
+            }
+            .disabled(true)
+        }
+        .buttonStyle(.bordered)
+        .buttonBorderShape(.roundedRectangle(radius: 0))
+        .tint(.purple)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     //MARK: Internal functions

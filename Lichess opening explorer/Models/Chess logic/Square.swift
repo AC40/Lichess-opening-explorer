@@ -15,6 +15,7 @@ struct Square: Equatable {
         didSet {
             if !canBeMovedTo {
                 canBeTaken = false
+                canBeTakenWithEnPassant = false
             }
         }
     }
@@ -30,7 +31,7 @@ struct Square: Equatable {
     var canBeTakenWithEnPassant = false {
         didSet {
             if canBeTakenWithEnPassant {
-                canBeMovedTo = canBeTakenWithEnPassant
+                canBeTaken = canBeTakenWithEnPassant
             }
         }
     }

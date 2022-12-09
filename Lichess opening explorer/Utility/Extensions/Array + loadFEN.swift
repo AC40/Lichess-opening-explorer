@@ -24,6 +24,8 @@ extension Board {
         let pieceTypeForSymbol: [String: PieceType] = ["k": .king, "q": .queen, "r": .rook, "b": .bishop, "p": .pawn, "n": .knight]
         
         let parts = fen.split(separator: " ")
+        
+        // Place pieces
         let files = parts[0].split(separator: "/")
         
         var file = 0
@@ -49,7 +51,71 @@ extension Board {
             file += 1
         }
         
-        processFEN()
+        // Set player to move
+        let player = parts[1]
+        
+        switch player {
+        case "w":
+            self.whiteTurn = true
+        case "b":
+            self.whiteTurn = false
+        default:
+            abortLoadingFEN(backup: backup)
+        }
+        
+        // Set castling rights
+        let rights = parts[2]
+        
+        if rights == "-" {
+            whiteKingsRookHasMoved = true
+            whiteKingsRookHasMoved = true
+            blackKingsRookHasMoved = true
+            blackQueensRookHasMoved = true
+            
+        } else {
+            if !rights.contains("K") {
+                whiteKingsRookHasMoved = true
+            }
+            if !rights.contains("Q") {
+                whiteQueensRookHasMoved = true
+            }
+            
+            if !rights.contains("k") {
+                blackKingsRookHasMoved = true
+            }
+            if !rights.contains("q") {
+                blackQueensRookHasMoved = true
+            }
+            
+        }
+        
+        // Set En passant
+        let enPassantSquare = parts[3]
+        
+        let enPassantTile = Convert.shortAlgebraToTile(String(enPassantSquare))
+        
+        if enPassantTile != nil {
+            if whiteTurn {
+                blackEnPassant = enPassantTile
+                squares[enPassantTile!].canBeTakenWithEnPassant = true
+            } else {
+                whiteEnPassant = enPassantTile
+                squares[enPassantTile!].canBeTakenWithEnPassant = true
+            }
+        }
+        
+        
+        //TODO: Set halfmoves:
+        // to be implemented
+            
+        //TODO: Set move number
+//        processFEN()
+    }
+    
+    /// Restore board to backup instance and display error
+    mutating func abortLoadingFEN(backup: Self) {
+        self = backup
+        //TODO: Indicate, that error has occured (Show alerr)
     }
     
     /// Updates the relevant board variables after a FEN has been loaded into the board

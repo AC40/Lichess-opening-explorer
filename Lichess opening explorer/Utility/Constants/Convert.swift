@@ -9,14 +9,14 @@ import Foundation
 
 struct Convert {
     
+    static let files = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    static let pieces: [PieceType: String] = [PieceType.pawn: "", .rook: "R", .knight: "N", .bishop: "B", .queen: "Q", .king: "K", .none: ""]
+    
     static func moveToLongAlgebra(_ move: Move) -> String {
         return "\(tileToLongAlgebra(move.start))-\(tileToLongAlgebra(move.end))"
     }
     
     static func moveToShortAlgebra(_ move: Move) -> String {
-        
-        let pieces: [PieceType: String] = [PieceType.pawn: "", .rook: "R", .knight: "N", .bishop: "B", .queen: "Q", .king: "K", .none: ""]
-        let files = ["a", "b", "c", "d", "e", "f", "g", "h"]
         
         var str = ""
         
@@ -49,7 +49,6 @@ struct Convert {
     
     static func tileToLongAlgebra(_ tile: Tile) -> String {
         
-        let files = ["a", "b", "c", "d", "e", "f", "g", "h"]
         
         guard tile.rank.isOnBoard() && tile.file.isOnBoard() else {
             return ""
@@ -79,5 +78,27 @@ struct Convert {
                 return ""
             }
         }
+    }
+    
+    static func shortAlgebraToTile(_ square: String) -> Tile? {
+        
+        let file = "\(square.first ?? Character.init(""))"
+        let rank = square.last?.wholeNumberValue
+        
+        guard (file != "" && files.contains(file)) else {
+            return nil
+        }
+        
+        
+        
+        guard rank != nil else {
+            return nil
+        }
+        
+        guard rank! >= 1 && rank! <= 8  else {
+            return nil
+        }
+                
+        return Tile(8 - rank!, files.firstIndex(of: file)!)
     }
 }

@@ -226,9 +226,14 @@ struct Arbiter {
                 if pieceIsOppositeColor(at: (end), in: board.squares, turn: turn) {
                     moves.append(Move(from: square, to: end, flag: .capture))
                     
-                    // En passant
-                } else if board.squares[end].canBeTakenWithEnPassant {
-                    moves.append(Move(from: square, to: end, capture: board.squares[end].piece, flag: .enPassant))
+                // En passant
+                } else {
+                    if turn && board.blackEnPassant == end {
+                        moves.append(Move(from: square, to: end, capture: board.squares[end].piece, flag: .enPassant))
+                    } else if board.whiteEnPassant == end {
+                        moves.append(Move(from: square, to: end, capture: board.squares[end].piece, flag: .enPassant))
+                    }
+                    
                 }
                 
             }
@@ -275,10 +280,10 @@ struct Arbiter {
         if piece.type == .pawn && abs(endRank-startRank) == 2 {
             if piece.color == .white {
                 board[endRank+1, endFile].canBeTakenWithEnPassant = true
-                board.whiteEnPassants.append(Tile(endRank+1, endFile))
+                board.whiteEnPassant = Tile(endRank+1, endFile)
             } else {
                 board[endRank-1, endFile].canBeTakenWithEnPassant = true
-                board.blackEnPassants.append(Tile(endRank-1, endFile))
+                board.blackEnPassant = Tile(endRank-1, endFile)
             }
         }
 

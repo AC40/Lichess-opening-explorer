@@ -1,6 +1,7 @@
 # TODO
 
-## Immediate
+## Next Up
+- Make linear move history traversable
 
 ## Short Term
 - consider pawn promotion in legal moves
