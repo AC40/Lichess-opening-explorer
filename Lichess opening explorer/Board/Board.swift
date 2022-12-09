@@ -7,11 +7,12 @@
 
 import Foundation
 
-struct Board {
+struct Board: Equatable {
     
     var squares: [[Square]] = []
     var moves: [[Move]] = []
     var currentLine: Int = 0
+    var currentMove: Int = 0
     
     var promotionSquare: Tile? = nil
     var promotingPawnSquare: Tile? = nil
@@ -106,5 +107,25 @@ struct Board {
         set {
             squares[rank][file] = newValue
         }
+    }
+    
+    static func == (lhs: Board, rhs: Board) -> Bool {
+        return (
+            lhs.squares == rhs.squares &&
+            lhs.blackKingsRookHasMoved == rhs.blackKingsRookHasMoved &&
+            lhs.blackQueensRookHasMoved == rhs.blackQueensRookHasMoved &&
+            lhs.blackKingHasMoved == rhs.blackKingHasMoved &&
+            lhs.whiteKingHasMoved == rhs.whiteKingHasMoved &&
+            lhs.whiteKingsRookHasMoved == rhs.whiteKingsRookHasMoved &&
+            lhs.whiteQueensRookHasMoved == rhs.whiteQueensRookHasMoved &&
+            lhs.check == rhs.check &&
+            lhs.termination == rhs.termination &&
+            lhs.whiteTurn == rhs.whiteTurn &&
+            lhs.moves == rhs.moves &&
+            lhs.blackEnPassants == rhs.blackEnPassants &&
+            lhs.whiteEnPassants == rhs.whiteEnPassants &&
+            lhs.blackKingSquare == lhs.blackKingSquare &&
+            lhs.whiteKingSquare == rhs.whiteKingSquare
+        )
     }
 }

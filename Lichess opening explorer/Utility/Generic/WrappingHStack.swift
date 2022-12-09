@@ -37,8 +37,8 @@ struct WrappingHStack: Layout {
             
             subviews[i].place(at: CGPoint(x: x, y: y), proposal: prop)
             
+            // Currently hard-coded spacing, bc 'horizontalSpacing' func for some reason did not work
             x += prop.width ?? 0 + 5
-            print(spacings[i])
         }
     }
 

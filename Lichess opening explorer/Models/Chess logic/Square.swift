@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Square {
+struct Square: Equatable {
     
     var piece = Piece.none
     
@@ -41,5 +41,14 @@ struct Square {
     
     func isEmpty() -> Bool {
         return self.piece == .none
+    }
+    
+    static func == (lhs: Square, rhs: Square) -> Bool {
+        return (
+            lhs.piece == rhs.piece &&
+            lhs.canBeMovedTo == rhs.canBeMovedTo &&
+            lhs.canBeTaken == rhs.canBeTaken &&
+            lhs.canBeTakenWithEnPassant == rhs.canBeTakenWithEnPassant
+        )
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 /// Represents a single move made by a piece on the chessboard
-struct Move: Identifiable {
+struct Move: Identifiable, Equatable {
     var id = UUID()
     
     /// Tile the move starts at:  (6,4), representing e2
@@ -47,5 +47,17 @@ struct Move: Identifiable {
         self.termination = termination
         self.check = check
         self.variations = variations
+    }
+    
+    static func == (lhs: Move, rhs: Move) -> Bool {
+        return (
+            lhs.start == rhs.start &&
+            lhs.end == rhs.end &&
+            lhs.piece == rhs.piece &&
+            lhs.capture == rhs.capture &&
+            lhs.flag == rhs.flag &&
+            lhs.check == rhs.check &&
+            lhs.termination == rhs.termination
+        )
     }
 }
