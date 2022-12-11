@@ -10,9 +10,9 @@ import Foundation
 struct Board: Equatable {
     
     var squares: [[Square]] = []
-    var moves: [[Move]] = []
-    var currentLine: Int = 0
+    var moves: [Move] = []
     var currentMove: Int = 0
+    var moveNumber: Int = 0
     
     var promotionSquare: Tile? = nil
     var promotingPawnSquare: Tile? = nil
@@ -42,6 +42,7 @@ struct Board: Equatable {
     }
     
     mutating func reset() {
+//        moves = []
         promotionSquare = nil
         promotingPawnSquare = nil
         

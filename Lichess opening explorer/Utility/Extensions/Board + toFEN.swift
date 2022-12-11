@@ -132,7 +132,10 @@ extension Board {
         fen.append("0 ")
         
         //TODO: Get move number
-        fen.append("0")
+                    // starting move number + additional moves (moves.count/2)
+        let totalMoveNumber = moveNumber + moves.count/2
+        
+        fen.append("\(totalMoveNumber) ")
         
         return fen
     }

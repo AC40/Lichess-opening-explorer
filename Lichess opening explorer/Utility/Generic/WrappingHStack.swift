@@ -20,7 +20,7 @@ struct WrappingHStack: Layout {
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
         guard !subviews.isEmpty else { return }
         
-        let spacings = horizontalSpacing(subviews: subviews)
+//        let spacings = horizontalSpacing(subviews: subviews)
         
         var x = bounds.minX
         var y = bounds.minY

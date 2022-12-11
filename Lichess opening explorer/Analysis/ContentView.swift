@@ -169,18 +169,34 @@ struct ContentView: View {
         HStack(spacing: 0) {
             Button {
                 // unmake the most recent move in history
+                if chessboardVM.board.moves.count > 0 {
+                    
+                    print(chessboardVM.board.currentMove)
+                    print(chessboardVM.board.moves.count)
+                    if chessboardVM.board.currentMove == 1 {
+                        chessboardVM.board.loadDefaultFEN()
+                        chessboardVM.board.currentMove = 0
+                        return
+                    }
+                    chessboardVM.board.currentMove -= 1
+                    chessboardVM.undoMove(chessboardVM.board.moves[chessboardVM.board.currentMove-1])
+                }
             } label: {
                 Image(systemName: "chevron.backward")
             }
-            .disabled(true)
+            .disabled(!(chessboardVM.board.currentMove != 0))
             
             Button {
                 // progress one move forward in move history
+                if chessboardVM.board.moves.count > chessboardVM.board.currentMove {
+                    chessboardVM.board.loadFEN(chessboardVM.board.moves[chessboardVM.board.currentMove].position)
+                    chessboardVM.board.currentMove += 1
+                }
                 
             } label: {
                 Image(systemName: "chevron.forward")
             }
-            .disabled(true)
+            .disabled(!(chessboardVM.board.moves.count > chessboardVM.board.currentMove))
         }
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: 0))

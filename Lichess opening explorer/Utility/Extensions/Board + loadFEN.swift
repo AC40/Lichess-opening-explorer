@@ -25,6 +25,11 @@ extension Board {
         
         let parts = fen.split(separator: " ")
         
+        guard parts.count == 6 else {
+            self = backup
+            return
+        }
+        
         // Place pieces
         let files = parts[0].split(separator: "/")
         
@@ -107,9 +112,10 @@ extension Board {
         
         //TODO: Set halfmoves:
         // to be implemented
+        // = parts[4]
             
         //TODO: Set move number
-//        processFEN()
+        moveNumber = Int(parts[5]) ?? 0
     }
     
     /// Restore board to backup instance and display error

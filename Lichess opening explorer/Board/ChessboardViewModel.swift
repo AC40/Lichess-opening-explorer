@@ -187,6 +187,11 @@ class ChessboardViewModel: ObservableObject {
         
     }
     
+    func undoMove(_ move: Move) {
+        board.loadFEN(move.position)
+        resetSelection()
+    }
+    
     func endTurn(with move: Move) {
         var move = move
         resetSelection()
@@ -216,15 +221,18 @@ class ChessboardViewModel: ObservableObject {
         // Set move variables
         move.check = board.check
         move.termination = board.termination
-        
-        print(board.whiteEnPassant)
-        print(board.blackEnPassant)
+        move.position = board.asFEN()
         
         // Add move to history
-        if (board.currentLine >= 0 && board.moves.count > board.currentLine) {
-            board.moves[board.currentLine].append(move)
+        if (board.moves.isEmpty) {
+            board.moves = [move]
+            board.currentMove += 1
         } else {
-            board.moves = [[move]]
+            if board.currentMove < board.moves.count {
+                board.moves.removeSubrange(board.currentMove..<board.moves.count)
+            }
+            board.moves.insert(move, at: board.currentMove)
+            board.currentMove += 1
         }
     }
     

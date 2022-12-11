@@ -16,10 +16,13 @@ struct VariationView: View {
             ScrollView {
                 WrappingHStack {
                     ForEach(0..<chessboardVM.board.moves.count, id:\.self) { i in
-                        ForEach(0..<chessboardVM.board.moves[i].count, id:\.self) { j in
-                            Text(readableMove(chessboardVM.board.moves[i][j], i: j))
-                                .padding(.trailing, ((j % 2) == 0) ? 4 : 8)
+                        Button() {
+                            chessboardVM.board.currentMove = i+1
+                        } label: {
+                            Text(readableMove(chessboardVM.board.moves[i], i: i))
+                                .variationStyle(isSelected: i == chessboardVM.board.currentMove-1)
                         }
+                            .padding(.trailing, ((i % 2) == 0) ? 4 : 8)
                     }
                 }
                 .padding(.horizontal, 5)
@@ -32,7 +35,7 @@ struct VariationView: View {
     func readableMove(_ move: Move, i: Int) -> AttributedString {
         
         // If move is divisible by 2 (white): Show move number + '.' + small space
-        let moveNumber = "\(((i % 2) == 0) ? String(abs((i/2))+1) + ". ": "")"
+        let moveNumber = "\(((i % 2) == 0) ? String(chessboardVM.board.moveNumber + abs((i/2))) + ". ": "")"
         
         let moveNumberAttr = AttributedString(moveNumber, attributes: .init([NSAttributedString.Key.foregroundColor: UIColor.gray]))
         
