@@ -228,9 +228,7 @@ struct Arbiter {
                     
                 // En passant
                 } else {
-                    if turn && board.blackEnPassant == end {
-                        moves.append(Move(from: square, to: end, capture: board.squares[end].piece, flag: .enPassant))
-                    } else if board.whiteEnPassant == end {
+                    if board.enPassant == end {
                         moves.append(Move(from: square, to: end, capture: board.squares[end].piece, flag: .enPassant))
                     }
                     
@@ -280,10 +278,10 @@ struct Arbiter {
         if piece.type == .pawn && abs(endRank-startRank) == 2 {
             if piece.color == .white {
                 board[endRank+1, endFile].canBeTakenWithEnPassant = true
-                board.whiteEnPassant = Tile(endRank+1, endFile)
+                board.enPassant = Tile(endRank+1, endFile)
             } else {
                 board[endRank-1, endFile].canBeTakenWithEnPassant = true
-                board.blackEnPassant = Tile(endRank-1, endFile)
+                board.enPassant = Tile(endRank-1, endFile)
             }
         }
 

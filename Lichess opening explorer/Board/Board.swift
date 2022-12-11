@@ -20,8 +20,7 @@ struct Board: Equatable {
     var whiteKingSquare: Tile = Tile(7, 4)
     var blackKingSquare: Tile = Tile(0, 4)
     
-    var whiteEnPassant: Tile? = nil
-    var blackEnPassant: Tile? = nil
+    var enPassant: Tile? = nil
     
     var whiteKingHasMoved: Bool = false
     var blackKingHasMoved: Bool = false
@@ -122,8 +121,7 @@ struct Board: Equatable {
             lhs.termination == rhs.termination &&
             lhs.whiteTurn == rhs.whiteTurn &&
             lhs.moves == rhs.moves &&
-            lhs.blackEnPassant == rhs.blackEnPassant &&
-            lhs.whiteEnPassant == rhs.whiteEnPassant &&
+            lhs.enPassant == rhs.enPassant &&
             lhs.blackKingSquare == lhs.blackKingSquare &&
             lhs.whiteKingSquare == rhs.whiteKingSquare
         )

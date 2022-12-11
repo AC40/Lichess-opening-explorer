@@ -96,10 +96,7 @@ extension Board {
         
         if enPassantTile != nil {
             if whiteTurn {
-                blackEnPassant = enPassantTile
-                squares[enPassantTile!].canBeTakenWithEnPassant = true
-            } else {
-                whiteEnPassant = enPassantTile
+                enPassant = enPassantTile
                 squares[enPassantTile!].canBeTakenWithEnPassant = true
             }
         }

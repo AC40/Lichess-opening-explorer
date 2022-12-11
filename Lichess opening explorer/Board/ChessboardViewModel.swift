@@ -86,10 +86,10 @@ class ChessboardViewModel: ObservableObject {
         if piece.type == .pawn && abs(endRank-startRank) == 2 {
             if piece.color == .white {
                 board[endRank+1, endFile].canBeTakenWithEnPassant = true
-                board.whiteEnPassant = Tile(endRank+1, endFile)
+                board.enPassant = Tile(endRank+1, endFile)
             } else {
                 board[endRank-1, endFile].canBeTakenWithEnPassant = true
-                board.blackEnPassant = Tile(endRank-1, endFile)
+                board.enPassant = Tile(endRank-1, endFile)
             }
         }
         
@@ -195,16 +195,8 @@ class ChessboardViewModel: ObservableObject {
         board.whiteTurn.toggle()
         
         //TODO: Remove previous en passants
-        if board.whiteTurn {
-            if let tile = board.whiteEnPassant {
-                board[tile].canBeTakenWithEnPassant = false
-            }
-           board.whiteEnPassant = nil
-        } else {
-            if let tile = board.blackEnPassant {
-                board[tile].canBeTakenWithEnPassant = false
-            }
-            board.blackEnPassant = nil
+        if let tile = board.enPassant {
+            board[tile].canBeTakenWithEnPassant = false
         }
         
         // Check for check
@@ -216,9 +208,6 @@ class ChessboardViewModel: ObservableObject {
         // Set move variables
         move.check = board.check
         move.termination = board.termination
-        
-        print(board.whiteEnPassant)
-        print(board.blackEnPassant)
         
         // Add move to history
         if (board.currentLine >= 0 && board.moves.count > board.currentLine) {
