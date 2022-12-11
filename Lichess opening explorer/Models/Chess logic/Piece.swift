@@ -39,36 +39,36 @@ struct Piece: Equatable {
     }
     
     func isKing() -> Bool {
-            return type == .king
-        }
-        
-        func isBishop() -> Bool {
-            return type == .bishop
-        }
-        
-        func isRook() -> Bool {
-            return type == .rook
-        }
-        
-        func isQueen() -> Bool {
-            return type == .queen
-        }
-        
-        func isKnight() -> Bool {
-            return type == .knight
-        }
-        
-        func isPawn() -> Bool {
-            return type == .pawn
-        }
-        
-        func isWhite() -> Bool {
-            return color == .white
-        }
-        
-        func isBlack() -> Bool {
-            return color == .black
-        }
+        return type == .king
+    }
+    
+    func isBishop() -> Bool {
+        return type == .bishop
+    }
+    
+    func isRook() -> Bool {
+        return type == .rook
+    }
+    
+    func isQueen() -> Bool {
+        return type == .queen
+    }
+    
+    func isKnight() -> Bool {
+        return type == .knight
+    }
+    
+    func isPawn() -> Bool {
+        return type == .pawn
+    }
+    
+    func isWhite() -> Bool {
+        return color == .white
+    }
+    
+    func isBlack() -> Bool {
+        return color == .black
+    }
 }
 
 enum PieceType: String {

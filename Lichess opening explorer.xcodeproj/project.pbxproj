@@ -34,13 +34,14 @@
 		DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* Moves.swift */; };
 		DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */; };
 		DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */; };
-		DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */; };
+		DBAB9F9D284E4AB100E1CFE4 /* Board + loadFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9C284E4AB000E1CFE4 /* Board + loadFEN.swift */; };
 		DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573C28451A6300B72B8C /* DatabaseType.swift */; };
 		DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573E28451A8500B72B8C /* Chessboard.swift */; };
 		DBAE57412845302300B72B8C /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57402845302300B72B8C /* Piece.swift */; };
 		DBAE5744284530D600B72B8C /* PieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE5743284530D600B72B8C /* PieceView.swift */; };
 		DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */; };
 		DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */; };
+		DBAFF1A529463C7F00335AB6 /* Board + toFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFF1A429463C7F00335AB6 /* Board + toFEN.swift */; };
 		DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */; };
 		DBBFB5CE29410CD80073B502 /* OldWrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB5CD29410CD80073B502 /* OldWrappingHStack.swift */; };
 		DBBFB5EC294256A00073B502 /* WrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB5EB294256A00073B502 /* WrappingHStack.swift */; };
@@ -76,13 +77,14 @@
 		DBAB9F94284E06F400E1CFE4 /* Moves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moves.swift; sourceTree = "<group>"; };
 		DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + allIllegal.swift"; sourceTree = "<group>"; };
 		DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
-		DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadFEN.swift"; sourceTree = "<group>"; };
+		DBAB9F9C284E4AB000E1CFE4 /* Board + loadFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Board + loadFEN.swift"; sourceTree = "<group>"; };
 		DBAE573C28451A6300B72B8C /* DatabaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseType.swift; sourceTree = "<group>"; };
 		DBAE573E28451A8500B72B8C /* Chessboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chessboard.swift; sourceTree = "<group>"; };
 		DBAE57402845302300B72B8C /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		DBAE5743284530D600B72B8C /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
 		DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadDefaultFEN.swift"; sourceTree = "<group>"; };
 		DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessboardViewModel.swift; sourceTree = "<group>"; };
+		DBAFF1A429463C7F00335AB6 /* Board + toFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Board + toFEN.swift"; sourceTree = "<group>"; };
 		DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + isOnBoard.swift"; sourceTree = "<group>"; };
 		DBBFB5CD29410CD80073B502 /* OldWrappingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldWrappingHStack.swift; sourceTree = "<group>"; };
 		DBBFB5EB294256A00073B502 /* WrappingHStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrappingHStack.swift; sourceTree = "<group>"; };
@@ -245,7 +247,8 @@
 				DBA51AB4293BF44300CC4BC3 /* Array + removeEnPassants.swift */,
 				DB646A5D293D185500C56280 /* Array + subscripts.swift */,
 				DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */,
-				DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */,
+				DBAB9F9C284E4AB000E1CFE4 /* Board + loadFEN.swift */,
+				DBAFF1A429463C7F00335AB6 /* Board + toFEN.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				DB866673293A6EAF00761F95 /* Theme.swift in Sources */,
 				DBA51AB5293BF44300CC4BC3 /* Array + removeEnPassants.swift in Sources */,
 				DB664D1728427BEC0088749A /* ContentView.swift in Sources */,
+				DBAFF1A529463C7F00335AB6 /* Board + toFEN.swift in Sources */,
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
 				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
@@ -361,7 +365,7 @@
 				DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */,
 				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
 				DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */,
-				DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */,
+				DBAB9F9D284E4AB100E1CFE4 /* Board + loadFEN.swift in Sources */,
 				DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */,
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
 				DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */,

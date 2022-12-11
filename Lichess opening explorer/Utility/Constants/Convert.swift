@@ -101,4 +101,35 @@ struct Convert {
                 
         return Tile(8 - rank!, files.firstIndex(of: file)!)
     }
+    
+    static func pieceToFEN(_ piece: Piece) -> String {
+        switch piece {
+        case .rookW:
+            return "R"
+        case .rookB:
+            return "r"
+        case .knightW:
+            return "N"
+        case .knightB:
+            return "n"
+        case .bishopW:
+            return "B"
+        case .bishopB:
+            return "b"
+        case .queenW:
+            return "Q"
+        case .queenB:
+            return "q"
+        case .kingW:
+            return "K"
+        case .kingB:
+            return "k"
+        case .pawnW:
+            return "P"
+        case .pawnB:
+            return "p"
+        default:
+            return ""
+        }
+    }
 }

@@ -14,6 +14,7 @@ struct ContentView: View {
     @StateObject private var themeMg = ThemeManager()
     
     @State private var subView: Int = 0
+    @State private var showFENAlert = false
     
     @State private var databaseType = DatabaseType.player
     
@@ -64,6 +65,9 @@ struct ContentView: View {
                 }
                 
             }
+            .alert(isPresented: $showFENAlert) {
+                Alert(title: Text("Current FEN String"), message: Text(chessboardVM.board.asFEN()), dismissButton: .default(Text("Okay")))
+            }
         })
         .task {
             await vm.getPlayerGames()
@@ -104,7 +108,7 @@ struct ContentView: View {
                 }
                 
                 Button("Load mid-game FEN") {
-                    chessboardVM.board.loadFEN("r1bq3r/4bppp/p1npkB2/1p1Np3/4P3/N3K3/PPP2PPP/R2Q1B1R b - - 4 1")
+                    chessboardVM.board.loadFEN("r4rk1/pp1qppbp/3p2p1/2pP4/4P3/P2P2P1/1P1B1PKP/1R1Q1R2 b - - 0 19")
                     chessboardVM.resetSelection()
                 }
                 Button("Switch turn") {
@@ -119,9 +123,8 @@ struct ContentView: View {
                     chessboardVM.board.loadFEN("r3k2r/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/R3K2R b KQkq - 0 1")
                     chessboardVM.resetSelection()
                 }
-                Button("Stalemate") {
-                    chessboardVM.board.loadFEN("8/7k/7p/p6P/P7/8/4K1R1/8 w - - 0 1")
-                    chessboardVM.resetSelection()
+                Button("Show FEN") {
+                    showFENAlert = true
                 }
             }
         }

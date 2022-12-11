@@ -68,7 +68,7 @@ extension Board {
         
         if rights == "-" {
             whiteKingsRookHasMoved = true
-            whiteKingsRookHasMoved = true
+            whiteQueensRookHasMoved = true
             blackKingsRookHasMoved = true
             blackQueensRookHasMoved = true
             
@@ -96,7 +96,10 @@ extension Board {
         
         if enPassantTile != nil {
             if whiteTurn {
-                enPassant = enPassantTile
+                blackEnPassant = enPassantTile
+                squares[enPassantTile!].canBeTakenWithEnPassant = true
+            } else {
+                whiteEnPassant = enPassantTile
                 squares[enPassantTile!].canBeTakenWithEnPassant = true
             }
         }
