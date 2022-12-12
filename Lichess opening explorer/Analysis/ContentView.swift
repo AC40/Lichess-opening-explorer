@@ -184,7 +184,7 @@ struct ContentView: View {
             } label: {
                 Image(systemName: "chevron.backward")
             }
-            .disabled(!(chessboardVM.board.currentMove != 0))
+            .disabled(!(chessboardVM.board.currentMove > 0))
             
             Button {
                 // progress one move forward in move history

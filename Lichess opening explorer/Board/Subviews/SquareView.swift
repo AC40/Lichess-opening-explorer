@@ -19,6 +19,8 @@ struct SquareView: View {
         Rectangle()
             .foregroundColor(foregroundColor())
             .aspectRatio(1, contentMode: .fill)
+            .background(isLight() ? theme.lightSquare : theme.darkSquare)
+            .clipped()
             .overlay(
                 Group {
                     if !kingIsInCheck() {
@@ -84,22 +86,32 @@ struct SquareView: View {
     }
     
     func foregroundColor() -> Color {
+        // Check special cases
         
+        // king is on square AND king is in check
         if kingIsInCheck() {
             return theme.check
         }
         
+        // Square was selected
         if chessboardVM.selectedSquare != nil {
             if chessboardVM.selectedSquare! == tile {
                 return theme.highlight
             }
         }
         
-        if isLight() {
-            return theme.lightSquare
-        } else {
-            return theme.darkSquare
+        // Square was part of previous move
+        if chessboardVM.board.currentMove > 0 {
+            let prevMove = chessboardVM.board.moves[chessboardVM.board.currentMove-1]
+            
+            if prevMove.start == tile || prevMove.end == tile {
+                return theme.prevMove.opacity(0.5)
+            }
         }
+        
+        // No special cases apply
+        return .clear
+        
     }
     
     func isLight() -> Bool {
