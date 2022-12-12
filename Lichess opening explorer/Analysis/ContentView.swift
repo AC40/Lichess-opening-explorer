@@ -179,7 +179,7 @@ struct ContentView: View {
                         return
                     }
                     chessboardVM.board.currentMove -= 1
-                    chessboardVM.undoMove(chessboardVM.board.moves[chessboardVM.board.currentMove-1])
+                    chessboardVM.loadMove(chessboardVM.board.moves[chessboardVM.board.currentMove-1])
                 }
             } label: {
                 Image(systemName: "chevron.backward")
@@ -189,7 +189,7 @@ struct ContentView: View {
             Button {
                 // progress one move forward in move history
                 if chessboardVM.board.moves.count > chessboardVM.board.currentMove {
-                    chessboardVM.board.loadFEN(chessboardVM.board.moves[chessboardVM.board.currentMove].position)
+                    chessboardVM.loadMove(chessboardVM.board.moves[chessboardVM.board.currentMove])
                     chessboardVM.board.currentMove += 1
                 }
                 

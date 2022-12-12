@@ -187,7 +187,7 @@ class ChessboardViewModel: ObservableObject {
         
     }
     
-    func undoMove(_ move: Move) {
+    func loadMove(_ move: Move) {
         board.loadFEN(move.position)
         resetSelection()
     }

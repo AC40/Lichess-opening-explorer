@@ -18,7 +18,7 @@ struct VariationView: View {
                     ForEach(0..<chessboardVM.board.moves.count, id:\.self) { i in
                         Button() {
                             chessboardVM.board.currentMove = i+1
-                            chessboardVM.undoMove(chessboardVM.board.moves[i])
+                            chessboardVM.loadMove(chessboardVM.board.moves[i])
                         } label: {
                             Text(readableMove(chessboardVM.board.moves[i], i: i))
                                 .variationStyle(isSelected: i == chessboardVM.board.currentMove-1)
