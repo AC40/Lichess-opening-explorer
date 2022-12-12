@@ -14,13 +14,13 @@ import Foundation
 // MARK: - PlayerGameResponse
 struct PlayerGameResponse: Codable {
     let white, draws, black: Int
-    let moves: [Move]
+    let moves: [LichessMove]
     let recentGames: [Game]
     let opening: Opening
 }
 
 // MARK: - Move
-struct Move: Codable {
+struct LichessMove: Codable {
     let uci, san: String
     let averageOpponentRating, performance, white, draws: Int
     let black: Int

@@ -13,6 +13,9 @@ struct ContentView: View {
     @StateObject private var chessboardVM = ChessboardViewModel()
     @StateObject private var themeMg = ThemeManager()
     
+    @State private var subView: Int = 0
+    @State private var showFENAlert = false
+    
     @State private var databaseType = DatabaseType.player
     
     var body: some View {
@@ -28,29 +31,43 @@ struct ContentView: View {
                     }
                 )
             
-            VStack {
-                Picker("", selection: $databaseType) {
-                    Text("OTB")
-                        .tag(DatabaseType.otb)
-                    Text("Lichess")
-                        .tag(DatabaseType.lichess)
-                    Text("Player")
-                        .tag(DatabaseType.player)
-                }
-                .pickerStyle(.segmented)
-                .zIndex(9)
+            VStack(alignment: .leading) {
                 
-                ScrollView {
-                    buttonList()
-                        .padding()
-                        .buttonStyle(.bordered)
-                        .buttonBorderShape(.roundedRectangle)
-                        .tint(.pink)
+                HStack {
+                    
+                    Picker("View", selection: $subView) {
+                        Text("Variations")
+                            .tag(0)
+                        Text("Dev tools")
+                            .tag(1)
+                        
+                    }
+                    .pickerStyle(.segmented)
+                    moveControls()
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .zIndex(8)
+                .padding(.horizontal, 5)
+                
+                switch subView {
+                case 0:
+                    VariationView(chessboardVM: chessboardVM)
+                case 1:
+                    ScrollView {
+                        buttonList()
+                            .padding()
+                            .buttonStyle(.bordered)
+                            .buttonBorderShape(.roundedRectangle)
+                            .tint(.pink)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .zIndex(8)
+                default:
+                    VariationView(chessboardVM: chessboardVM)
+                }
+                
             }
-            
+            .alert(isPresented: $showFENAlert) {
+                Alert(title: Text("Current FEN String"), message: Text(chessboardVM.board.asFEN()), dismissButton: .default(Text("Okay")))
+            }
         })
         .task {
             await vm.getPlayerGames()
@@ -87,23 +104,27 @@ struct ContentView: View {
             VStack(alignment: .trailing, spacing: 10) {
                 Button("Load default FEN") {
                     chessboardVM.board.loadDefaultFEN()
+                    chessboardVM.resetSelection()
                 }
                 
                 Button("Load mid-game FEN") {
-                    chessboardVM.board.loadFEN("r1bq3r/4bppp/p1npkB2/1p1Np3/4P3/N3K3/PPP2PPP/R2Q1B1R b - - 4 1")
+                    chessboardVM.board.loadFEN("r4rk1/pp1qppbp/3p2p1/2pP4/4P3/P2P2P1/1P1B1PKP/1R1Q1R2 b - - 0 19")
+                    chessboardVM.resetSelection()
                 }
                 Button("Switch turn") {
                     chessboardVM.board.whiteTurn.toggle()
                     chessboardVM.board.squares.removeEnPassants()
                 }
-                Button("Promote Pawns") {
-                    chessboardVM.board.loadFEN("8/PPPPPPPP/8/8/8/8/pppppppp/8 w - - 0 1")
+                Button("FEN w/ e.p.") {
+                    chessboardVM.board.loadFEN("rnbqkbnr/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3")
+                    chessboardVM.resetSelection()
                 }
                 Button("Castling") {
                     chessboardVM.board.loadFEN("r3k2r/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/R3K2R b KQkq - 0 1")
+                    chessboardVM.resetSelection()
                 }
-                Button("Stalemate") {
-                    chessboardVM.board.loadFEN("8/7k/7p/p6P/P7/8/4K1R1/8 w - - 0 1")
+                Button("Show FEN") {
+                    showFENAlert = true
                 }
             }
         }
@@ -142,6 +163,45 @@ struct ContentView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .background(Color.black.opacity(0.75))
+    }
+    
+    @ViewBuilder func moveControls() -> some View {
+        HStack(spacing: 0) {
+            Button {
+                // unmake the most recent move in history
+                if chessboardVM.board.moves.count > 0 {
+                    
+                    print(chessboardVM.board.currentMove)
+                    print(chessboardVM.board.moves.count)
+                    if chessboardVM.board.currentMove == 1 {
+                        chessboardVM.board.loadDefaultFEN()
+                        chessboardVM.board.currentMove = 0
+                        return
+                    }
+                    chessboardVM.board.currentMove -= 1
+                    chessboardVM.loadMove(chessboardVM.board.moves[chessboardVM.board.currentMove-1])
+                }
+            } label: {
+                Image(systemName: "chevron.backward")
+            }
+            .disabled(!(chessboardVM.board.currentMove > 0))
+            
+            Button {
+                // progress one move forward in move history
+                if chessboardVM.board.moves.count > chessboardVM.board.currentMove {
+                    chessboardVM.loadMove(chessboardVM.board.moves[chessboardVM.board.currentMove])
+                    chessboardVM.board.currentMove += 1
+                }
+                
+            } label: {
+                Image(systemName: "chevron.forward")
+            }
+            .disabled(!(chessboardVM.board.moves.count > chessboardVM.board.currentMove))
+        }
+        .buttonStyle(.bordered)
+        .buttonBorderShape(.roundedRectangle(radius: 0))
+        .tint(.purple)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     //MARK: Internal functions

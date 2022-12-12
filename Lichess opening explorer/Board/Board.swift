@@ -7,18 +7,21 @@
 
 import Foundation
 
-struct Board {
+struct Board: Equatable {
     
     var squares: [[Square]] = []
+    var moves: [Move] = []
+    var currentMove: Int = 0
+    var moveNumber: Int = 0
     
     var promotionSquare: Tile? = nil
     var promotingPawnSquare: Tile? = nil
     
-    var whiteKingSquare: Tile = (7, 4)
-    var blackKingSquare: Tile = (0, 4)
+    var whiteKingSquare: Tile = Tile(7, 4)
+    var blackKingSquare: Tile = Tile(0, 4)
     
-    var whiteEnPassants: [Tile] = []
-    var blackEnPassants: [Tile] = []
+    var whiteEnPassant: Tile? = nil
+    var blackEnPassant: Tile? = nil
     
     var whiteKingHasMoved: Bool = false
     var blackKingHasMoved: Bool = false
@@ -39,11 +42,12 @@ struct Board {
     }
     
     mutating func reset() {
+//        moves = []
         promotionSquare = nil
         promotingPawnSquare = nil
         
-        whiteEnPassants = []
-        blackEnPassants = []
+        whiteEnPassant = nil
+        blackEnPassant = nil
         
         whiteKingHasMoved = false
         blackKingHasMoved = false
@@ -66,8 +70,8 @@ struct Board {
         let blackKingRank: Int = squares.firstIndex(where: { $0.contains(where: { $0.piece == .kingB})}) ?? 0
         let blackKingFile: Int = squares[blackKingRank].firstIndex(where: {$0.piece == .kingB }) ?? 4
         
-        whiteKingSquare = (whiteKingRank, whiteKingFile)
-        blackKingSquare = (blackKingRank, blackKingFile)
+        whiteKingSquare = Tile(whiteKingRank, whiteKingFile)
+        blackKingSquare = Tile(blackKingRank, blackKingFile)
     }
     
     mutating func checkRookStatus() {
@@ -90,10 +94,10 @@ struct Board {
     
     subscript(square: Tile) -> Square {
         get {
-            squares[square.0][square.1]
+            squares[square.rank][square.file]
         }
         set {
-            squares[square.0][square.1] = newValue
+            squares[square.rank][square.file] = newValue
         }
     }
     
@@ -104,5 +108,25 @@ struct Board {
         set {
             squares[rank][file] = newValue
         }
+    }
+    
+    static func == (lhs: Board, rhs: Board) -> Bool {
+        return (
+            lhs.squares == rhs.squares &&
+            lhs.blackKingsRookHasMoved == rhs.blackKingsRookHasMoved &&
+            lhs.blackQueensRookHasMoved == rhs.blackQueensRookHasMoved &&
+            lhs.blackKingHasMoved == rhs.blackKingHasMoved &&
+            lhs.whiteKingHasMoved == rhs.whiteKingHasMoved &&
+            lhs.whiteKingsRookHasMoved == rhs.whiteKingsRookHasMoved &&
+            lhs.whiteQueensRookHasMoved == rhs.whiteQueensRookHasMoved &&
+            lhs.check == rhs.check &&
+            lhs.termination == rhs.termination &&
+            lhs.whiteTurn == rhs.whiteTurn &&
+            lhs.moves == rhs.moves &&
+            lhs.blackEnPassant == rhs.blackEnPassant &&
+            lhs.whiteEnPassant == rhs.whiteEnPassant &&
+            lhs.blackKingSquare == lhs.blackKingSquare &&
+            lhs.whiteKingSquare == rhs.whiteKingSquare
+        )
     }
 }

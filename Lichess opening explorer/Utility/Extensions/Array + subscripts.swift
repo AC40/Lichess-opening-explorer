@@ -11,10 +11,10 @@ extension Array where Element == Array<Square> {
     
     subscript(square: Tile) -> Square {
         get {
-            self[square.0][square.1]
+            self[square.rank][square.file]
         }
         set {
-            self[square.0][square.1] = newValue
+            self[square.rank][square.file] = newValue
         }
     }
     

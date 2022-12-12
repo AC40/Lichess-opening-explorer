@@ -9,8 +9,7 @@ import SwiftUI
 
 struct PieceView: View {
     
-    var rank: Int
-    var file: Int
+    var tile: Tile
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
@@ -18,10 +17,9 @@ struct PieceView: View {
     @State private var isDragging = false
     
     var body: some View {
-        let square = (rank, file)
         return VStack {
-            if chessboardVM.board[rank, file].piece.color != .none {
-                let piece = chessboardVM.board[rank, file].piece
+            if chessboardVM.board[tile.rank, tile.file].piece.color != .none {
+                let piece = chessboardVM.board[tile.rank, tile.file].piece
                 Image(piece.type.rawValue + piece.color.rawValue)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
@@ -30,10 +28,10 @@ struct PieceView: View {
                     .rotationEffect(chessboardVM.whitePerspective ? .degrees(0) : .degrees(180))
                     .gesture(DragGesture(coordinateSpace: .global)
                         .onChanged {
-                            onDragChanged($0, piece: piece, square: square)
+                            onDragChanged($0, piece: piece, square: tile)
                         }
                         .onEnded {
-                            onDragEnded($0, piece: piece, square: square)
+                            onDragEnded($0, piece: piece, square: tile)
                         })
             } else {
                 Color.clear
@@ -44,7 +42,7 @@ struct PieceView: View {
             if chessboardVM.pauseGame {
                 chessboardVM.cancelPromotion()
             } else {
-                chessboardVM.handleTap(at: square)
+                chessboardVM.handleTap(at: tile)
             }
         }
     }
@@ -61,7 +59,7 @@ struct PieceView: View {
         }
         
         if !isDragging {
-            chessboardVM.handleTap(at: square)
+            chessboardVM.handleTap(at: tile)
         }
         
         withAnimation(.linear.speed(10)) {

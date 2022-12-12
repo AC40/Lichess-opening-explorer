@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		DB646A5C293D139100C56280 /* Termination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A5B293D139100C56280 /* Termination.swift */; };
 		DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A5D293D185500C56280 /* Array + subscripts.swift */; };
+		DB646A61293D1C8400C56280 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A60293D1C8400C56280 /* Move.swift */; };
+		DB646A63293D1D0300C56280 /* MoveFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A62293D1D0300C56280 /* MoveFlag.swift */; };
+		DB646A65293D495E00C56280 /* VariationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A64293D495E00C56280 /* VariationView.swift */; };
+		DB646A67293D4BAC00C56280 /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A66293D4BAC00C56280 /* Convert.swift */; };
 		DB664D1528427BEC0088749A /* Lichess_opening_explorerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */; };
 		DB664D1728427BEC0088749A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1628427BEC0088749A /* ContentView.swift */; };
 		DB664D1928427BEE0088749A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB664D1828427BEE0088749A /* Assets.xcassets */; };
@@ -30,20 +34,28 @@
 		DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F94284E06F400E1CFE4 /* Moves.swift */; };
 		DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */; };
 		DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */; };
-		DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */; };
+		DBAB9F9D284E4AB100E1CFE4 /* Board + loadFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB9F9C284E4AB000E1CFE4 /* Board + loadFEN.swift */; };
 		DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573C28451A6300B72B8C /* DatabaseType.swift */; };
 		DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE573E28451A8500B72B8C /* Chessboard.swift */; };
 		DBAE57412845302300B72B8C /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57402845302300B72B8C /* Piece.swift */; };
 		DBAE5744284530D600B72B8C /* PieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE5743284530D600B72B8C /* PieceView.swift */; };
 		DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */; };
 		DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */; };
+		DBAFF1A529463C7F00335AB6 /* Board + toFEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFF1A429463C7F00335AB6 /* Board + toFEN.swift */; };
+		DBAFF1A929467DF600335AB6 /* variationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFF1A829467DF600335AB6 /* variationStyle.swift */; };
 		DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */; };
+		DBBFB5CE29410CD80073B502 /* OldWrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB5CD29410CD80073B502 /* OldWrappingHStack.swift */; };
+		DBBFB5EC294256A00073B502 /* WrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB5EB294256A00073B502 /* WrappingHStack.swift */; };
 		DBFCFF992860C857005626C6 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFCFF982860C857005626C6 /* Tile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DB646A5B293D139100C56280 /* Termination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Termination.swift; sourceTree = "<group>"; };
 		DB646A5D293D185500C56280 /* Array + subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + subscripts.swift"; sourceTree = "<group>"; };
+		DB646A60293D1C8400C56280 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
+		DB646A62293D1D0300C56280 /* MoveFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveFlag.swift; sourceTree = "<group>"; };
+		DB646A64293D495E00C56280 /* VariationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariationView.swift; sourceTree = "<group>"; };
+		DB646A66293D4BAC00C56280 /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		DB664D1128427BEC0088749A /* Lichess opening explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lichess opening explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lichess_opening_explorerApp.swift; sourceTree = "<group>"; };
 		DB664D1628427BEC0088749A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,14 +78,18 @@
 		DBAB9F94284E06F400E1CFE4 /* Moves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moves.swift; sourceTree = "<group>"; };
 		DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + allIllegal.swift"; sourceTree = "<group>"; };
 		DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
-		DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadFEN.swift"; sourceTree = "<group>"; };
+		DBAB9F9C284E4AB000E1CFE4 /* Board + loadFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Board + loadFEN.swift"; sourceTree = "<group>"; };
 		DBAE573C28451A6300B72B8C /* DatabaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseType.swift; sourceTree = "<group>"; };
 		DBAE573E28451A8500B72B8C /* Chessboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chessboard.swift; sourceTree = "<group>"; };
 		DBAE57402845302300B72B8C /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		DBAE5743284530D600B72B8C /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
 		DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + loadDefaultFEN.swift"; sourceTree = "<group>"; };
 		DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessboardViewModel.swift; sourceTree = "<group>"; };
+		DBAFF1A429463C7F00335AB6 /* Board + toFEN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Board + toFEN.swift"; sourceTree = "<group>"; };
+		DBAFF1A829467DF600335AB6 /* variationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = variationStyle.swift; sourceTree = "<group>"; };
 		DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + isOnBoard.swift"; sourceTree = "<group>"; };
+		DBBFB5CD29410CD80073B502 /* OldWrappingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldWrappingHStack.swift; sourceTree = "<group>"; };
+		DBBFB5EB294256A00073B502 /* WrappingHStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrappingHStack.swift; sourceTree = "<group>"; };
 		DBFCFF982860C857005626C6 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +104,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB646A5F293D1C6300C56280 /* Chess logic */ = {
+			isa = PBXGroup;
+			children = (
+				DB646A5B293D139100C56280 /* Termination.swift */,
+				DBAE57402845302300B72B8C /* Piece.swift */,
+				DBFCFF982860C857005626C6 /* Tile.swift */,
+				DB98B4F82847C59200BB466E /* Square.swift */,
+				DB646A60293D1C8400C56280 /* Move.swift */,
+				DB646A62293D1D0300C56280 /* MoveFlag.swift */,
+			);
+			path = "Chess logic";
+			sourceTree = "<group>";
+		};
 		DB664D0828427BEC0088749A = {
 			isa = PBXGroup;
 			children = (
@@ -131,7 +160,9 @@
 		DBA51AB1293BEAD700CC4BC3 /* Generic */ = {
 			isa = PBXGroup;
 			children = (
+				DBBFB5EB294256A00073B502 /* WrappingHStack.swift */,
 				DBA51AAF293BEACF00CC4BC3 /* AdaptiveStack.swift */,
+				DBBFB5CD29410CD80073B502 /* OldWrappingHStack.swift */,
 			);
 			path = Generic;
 			sourceTree = "<group>";
@@ -141,6 +172,7 @@
 			children = (
 				DBAB9F94284E06F400E1CFE4 /* Moves.swift */,
 				DB866674293A6EF200761F95 /* Themes.swift */,
+				DB646A66293D4BAC00C56280 /* Convert.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -150,6 +182,7 @@
 			children = (
 				DBAE573E28451A8500B72B8C /* Chessboard.swift */,
 				DBAE574A284535C300B72B8C /* ChessboardViewModel.swift */,
+				DB9413DD29392D7F00E0F335 /* Board.swift */,
 				DBAE5742284530CC00B72B8C /* Subviews */,
 			);
 			path = Board;
@@ -172,11 +205,7 @@
 				DB664D2628427D290088749A /* NeworkingError.swift */,
 				DBA51AB2293BEB7D00CC4BC3 /* StackDirection.swift */,
 				DBAE573C28451A6300B72B8C /* DatabaseType.swift */,
-				DBAE57402845302300B72B8C /* Piece.swift */,
-				DBFCFF982860C857005626C6 /* Tile.swift */,
-				DB646A5B293D139100C56280 /* Termination.swift */,
-				DB98B4F82847C59200BB466E /* Square.swift */,
-				DB9413DD29392D7F00E0F335 /* Board.swift */,
+				DB646A5F293D1C6300C56280 /* Chess logic */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,6 +215,7 @@
 			children = (
 				DBAE5743284530D600B72B8C /* PieceView.swift */,
 				DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */,
+				DB646A64293D495E00C56280 /* VariationView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -213,14 +243,24 @@
 		DBAE57472845342400B72B8C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DBBFB5ED294258360073B502 /* ViewModifiers */,
 				DBAE57482845343900B72B8C /* Array + loadDefaultFEN.swift */,
 				DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */,
 				DBA51AB4293BF44300CC4BC3 /* Array + removeEnPassants.swift */,
 				DB646A5D293D185500C56280 /* Array + subscripts.swift */,
 				DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */,
-				DBAB9F9C284E4AB000E1CFE4 /* Array + loadFEN.swift */,
+				DBAB9F9C284E4AB000E1CFE4 /* Board + loadFEN.swift */,
+				DBAFF1A429463C7F00335AB6 /* Board + toFEN.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DBBFB5ED294258360073B502 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				DBAFF1A829467DF600335AB6 /* variationStyle.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,17 +338,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBBFB5EC294256A00073B502 /* WrappingHStack.swift in Sources */,
 				DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */,
+				DB646A67293D4BAC00C56280 /* Convert.swift in Sources */,
 				DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */,
 				DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */,
 				DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */,
 				DB866673293A6EAF00761F95 /* Theme.swift in Sources */,
 				DBA51AB5293BF44300CC4BC3 /* Array + removeEnPassants.swift in Sources */,
 				DB664D1728427BEC0088749A /* ContentView.swift in Sources */,
+				DBAFF1A529463C7F00335AB6 /* Board + toFEN.swift in Sources */,
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
 				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
+				DB646A61293D1C8400C56280 /* Move.swift in Sources */,
 				DB646A5C293D139100C56280 /* Termination.swift in Sources */,
+				DBAFF1A929467DF600335AB6 /* variationStyle.swift in Sources */,
 				DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */,
 				DBA51AB3293BEB7D00CC4BC3 /* StackDirection.swift in Sources */,
 				DBFCFF992860C857005626C6 /* Tile.swift in Sources */,
@@ -317,15 +362,18 @@
 				DB9413DE29392D7F00E0F335 /* Board.swift in Sources */,
 				DB866675293A6EF200761F95 /* Themes.swift in Sources */,
 				DB98B4F92847C59200BB466E /* Square.swift in Sources */,
+				DBBFB5CE29410CD80073B502 /* OldWrappingHStack.swift in Sources */,
 				DBAE5744284530D600B72B8C /* PieceView.swift in Sources */,
 				DBAE57412845302300B72B8C /* Piece.swift in Sources */,
+				DB646A65293D495E00C56280 /* VariationView.swift in Sources */,
 				DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */,
 				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
 				DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */,
-				DBAB9F9D284E4AB100E1CFE4 /* Array + loadFEN.swift in Sources */,
+				DBAB9F9D284E4AB100E1CFE4 /* Board + loadFEN.swift in Sources */,
 				DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */,
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
 				DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */,
+				DB646A63293D1D0300C56280 /* MoveFlag.swift in Sources */,
 				DB866671293A6E6500761F95 /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +512,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -495,6 +544,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
