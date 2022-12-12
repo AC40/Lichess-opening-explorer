@@ -34,7 +34,6 @@ struct ContentView: View {
             VStack(alignment: .leading) {
                 
                 HStack {
-                    moveControls()
                     
                     Picker("View", selection: $subView) {
                         Text("Variations")
@@ -44,6 +43,7 @@ struct ContentView: View {
                         
                     }
                     .pickerStyle(.segmented)
+                    moveControls()
                 }
                 .padding(.horizontal, 5)
                 

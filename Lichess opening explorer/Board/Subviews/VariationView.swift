@@ -18,6 +18,7 @@ struct VariationView: View {
                     ForEach(0..<chessboardVM.board.moves.count, id:\.self) { i in
                         Button() {
                             chessboardVM.board.currentMove = i+1
+                            chessboardVM.undoMove(chessboardVM.board.moves[i])
                         } label: {
                             Text(readableMove(chessboardVM.board.moves[i], i: i))
                                 .variationStyle(isSelected: i == chessboardVM.board.currentMove-1)
@@ -35,7 +36,7 @@ struct VariationView: View {
     func readableMove(_ move: Move, i: Int) -> AttributedString {
         
         // If move is divisible by 2 (white): Show move number + '.' + small space
-        let moveNumber = "\(((i % 2) == 0) ? String(chessboardVM.board.moveNumber + abs((i/2))) + ". ": "")"
+        let moveNumber = "\(((i % 2) == 0) ? String(abs((i/2))+1) + ". ": "")"
         
         let moveNumberAttr = AttributedString(moveNumber, attributes: .init([NSAttributedString.Key.foregroundColor: UIColor.gray]))
         
