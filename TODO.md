@@ -1,7 +1,7 @@
 # TODO
 
 ## Next Up
-- consider pawn promotion in legal moves
+- This branch somehow breakes piece animation
 
 ## Short Term
 - Variation View:
