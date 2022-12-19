@@ -13,64 +13,75 @@ struct ContentView: View {
     @StateObject private var chessboardVM = ChessboardViewModel()
     @StateObject private var themeMg = ThemeManager()
     
-    @State private var subView: Int = 0
-    @State private var showFENAlert = false
-    
-    @State private var databaseType = DatabaseType.player
-    
     var body: some View {
-        AdaptiveStack(content: {
-            
-            Chessboard(vm: chessboardVM, themeMg: themeMg)
-                .zIndex(10)
-                .overlay(
-                    Group {
-                        if chessboardVM.board.termination != .none {
-                            gameTerminationOverlay()
+        NavigationStack {
+            AdaptiveStack(content: {
+                
+                Chessboard(vm: chessboardVM, themeMg: themeMg)
+                    .zIndex(10)
+                    .overlay(
+                        Group {
+                            if chessboardVM.board.termination != .none {
+                                gameTerminationOverlay()
+                            }
                         }
-                    }
-                )
-            
-            VStack(alignment: .leading) {
+                    )
                 
-                HStack {
+                VStack(alignment: .leading) {
                     
-                    Picker("View", selection: $subView) {
-                        Text("Variations")
-                            .tag(0)
-                        Text("Dev tools")
-                            .tag(1)
+                    HStack {
                         
+                        Picker("View", selection: $vm.subView) {
+                            Text("Variations")
+                                .tag(0)
+                            Text("Dev tools")
+                                .tag(1)
+                            
+                        }
+                        .pickerStyle(.segmented)
+                        moveControls()
                     }
-                    .pickerStyle(.segmented)
-                    moveControls()
-                }
-                .padding(.horizontal, 5)
-                
-                switch subView {
-                case 0:
-                    VariationView(chessboardVM: chessboardVM)
-                case 1:
-                    ScrollView {
-                        buttonList()
-                            .padding()
-                            .buttonStyle(.bordered)
-                            .buttonBorderShape(.roundedRectangle)
-                            .tint(.pink)
+                    .padding(.horizontal, 5)
+                    
+                    switch vm.subView {
+                    case 0:
+                        VariationView(chessboardVM: chessboardVM)
+                    case 1:
+                        ScrollView {
+                            buttonList()
+                                .padding()
+                                .buttonStyle(.bordered)
+                                .buttonBorderShape(.roundedRectangle)
+                                .tint(.pink)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .zIndex(8)
+                    default:
+                        VariationView(chessboardVM: chessboardVM)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .zIndex(8)
-                default:
-                    VariationView(chessboardVM: chessboardVM)
+                    
                 }
-                
+                .alert(isPresented: $vm.showFENAlert) {
+                    Alert(title: Text("Current FEN String"), message: Text(chessboardVM.board.asFEN()), dismissButton: .default(Text("Okay")))
+                }
+            })
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(id: "settingsBtn", placement: .navigationBarTrailing) {
+                    Button {
+                        vm.showSettings = true
+                    } label: {
+                        Image(systemName: "gear")
+                    }
+                }
             }
-            .alert(isPresented: $showFENAlert) {
-                Alert(title: Text("Current FEN String"), message: Text(chessboardVM.board.asFEN()), dismissButton: .default(Text("Okay")))
-            }
-        })
+        }
         .task {
-            await vm.getPlayerGames()
+            // Fetch player games
+        }
+        .sheet(isPresented: $vm.showSettings) {
+            SettingsView()
         }
     }
     
@@ -124,7 +135,7 @@ struct ContentView: View {
                     chessboardVM.resetSelection()
                 }
                 Button("Show FEN") {
-                    showFENAlert = true
+                    vm.showFENAlert = true
                 }
             }
         }
@@ -171,8 +182,6 @@ struct ContentView: View {
                 // unmake the most recent move in history
                 if chessboardVM.board.moves.count > 0 {
                     
-                    print(chessboardVM.board.currentMove)
-                    print(chessboardVM.board.moves.count)
                     if chessboardVM.board.currentMove == 1 {
                         chessboardVM.board.loadDefaultFEN()
                         chessboardVM.board.currentMove = 0

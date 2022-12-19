@@ -12,6 +12,7 @@ struct Lichess_opening_explorerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(Settings())
         }
     }
 }
