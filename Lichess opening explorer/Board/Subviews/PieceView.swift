@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PieceView: View {
+    @EnvironmentObject var settings: Settings
     
     var tile: Tile
     
@@ -26,11 +27,13 @@ struct PieceView: View {
                     .scaleEffect(isDragging ? 1.3 : 1, anchor: .center)
                     .offset(offset)
                     .rotationEffect(chessboardVM.whitePerspective ? .degrees(0) : .degrees(180))
+                    .animation(.linear.speed(5), value: isDragging)
                     .highPriorityGesture(DragGesture(coordinateSpace: .global)
                         .onChanged {
                             onDragChanged($0, piece: piece, square: tile)
                         }
                         .onEnded {
+                            chessboardVM.lastInteractionWasDrag = true
                             onDragEnded($0, piece: piece, square: tile)
                         })
             } else {
@@ -39,12 +42,41 @@ struct PieceView: View {
             }
         }
         .onTapGesture {
+            chessboardVM.lastInteractionWasDrag = false
             if chessboardVM.pauseGame {
                 chessboardVM.cancelPromotion()
             } else {
                 chessboardVM.handleTap(at: tile)
             }
         }
+        .onChange(of: chessboardVM.board[tile].piece) { newValue in
+                     if newValue != .none && !chessboardVM.lastInteractionWasDrag {
+
+                         guard chessboardVM.board.currentMove >= chessboardVM.board.moves.count else {
+                             return
+                         }
+
+                         let prevMove = chessboardVM.board.moves[chessboardVM.board.currentMove-1]
+
+                         if prevMove.end == tile {
+                             let startX = chessboardVM.squareFrames[prevMove.start.rank][prevMove.start.file].midX
+                             let startY = chessboardVM.squareFrames[prevMove.start.rank][prevMove.start.file].midY
+
+                             let selfX = chessboardVM.squareFrames[tile.rank][tile.file].midX
+                             let selfY = chessboardVM.squareFrames[tile.rank][tile.file].midY
+
+                             let offX = -(selfX - startX)
+                             let offY = -(selfY - startY)
+
+                             // Set piece to start square
+                             offset = CGSize(width: offX, height: offY)
+
+                         }
+
+                         // Animate to current square
+                         animatePieceToSelf()
+                     }
+                 }
     }
     
     //MARK: Internal functions
@@ -78,5 +110,20 @@ struct PieceView: View {
         
         isDragging = false
     }
+    
+    func animatePieceToSelf() {
+             withAnimation(movePieceAnimation())  {
+                 offset = .zero
+             }
+
+         }
+
+         func movePieceAnimation() -> Animation? {
+             guard settings.animatePieces else {
+                 return nil
+             }
+
+             return Animation.linear.speed(settings.animationSpeed)
+         }
 }
 

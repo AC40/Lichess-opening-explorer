@@ -48,7 +48,7 @@ extension Board {
                         return
                     }
                     let pieceColor = char.isUppercase ? ChessColor.white : ChessColor.black
-                    self[file, rank].piece = Piece(color: pieceColor, type: pieceType)
+                    self[file, rank].piece = Piece(color: pieceColor, type: pieceType, square: Tile(file, rank))
                     rank += 1
                 }
             }
