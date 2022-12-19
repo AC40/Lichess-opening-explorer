@@ -1,10 +1,9 @@
 # TODO
 
 ## Next Up
-- 
+- consider pawn promotion in legal moves
 
 ## Short Term
-- consider pawn promotion in legal moves
 - Variation View:
     - display rank/file properly (if necessary: e.g. Nbd7, Rad1, etc.)
 
