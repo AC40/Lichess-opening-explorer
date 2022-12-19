@@ -291,7 +291,7 @@ class ChessboardViewModel: ObservableObject {
         self.board.promotionSquare = nil
         isPromoting = false
         
-        let move = Move(from: startSquare, to: promotionSquare, piece: board[promotionSquare].piece, flag: .promotion(piece: pieceType))
+        let move = Move(from: startSquare, to: promotionSquare, piece: Piece(color: board.whiteTurn ? .white : .black, type: .pawn), flag: .promotion(piece: pieceType))
         endTurn(with: move)
     }
     

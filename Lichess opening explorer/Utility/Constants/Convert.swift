@@ -25,11 +25,11 @@ struct Convert {
         }
         
         guard move.flag != .shortCastle else {
-            return "O-O"
+            return "O-O\(moveAppendix(for: move))"
         }
         
         guard move.flag != .longCastle else {
-            return "O-O-O"
+            return "O-O-O\(moveAppendix(for: move))"
         }
         
         guard move.piece != nil && move.piece != Piece.none else {
@@ -40,6 +40,8 @@ struct Convert {
             str += "\(pieces[move.piece!.type]!)\(move.capture != nil ? "x" : "")\(tileToLongAlgebra(move.end))"
         } else {
             str += "\(move.capture != nil ? files[move.start.file] + "x" : "")\(tileToLongAlgebra(move.end))"
+            
+            str += promotionAppendix(for: move)
         }
         
         str += moveAppendix(for: move)
@@ -57,6 +59,7 @@ struct Convert {
         return "\(files[tile.file])\(8 - tile.rank)"
     }
     
+    /// Returns the appropriate special appendix (e.g. '#', or '+') for a given move. If move is not any special move, function returns an empty string
     static func moveAppendix(for move: Move) -> String {
         switch move.termination {
         case .checkmate:
@@ -78,6 +81,22 @@ struct Convert {
                 return ""
             }
         }
+    }
+    
+    /// Returns the appropriate promotion appendix (e.g. '=Q') for a given move. If move is not a promotion, function returns an empty string
+    static func promotionAppendix(for move: Move) -> String {
+        // Check for promotion
+        if move.flag == .promotion(piece: .knight) {
+            return "=N"
+        } else if move.flag == .promotion(piece: .bishop) {
+            return "=B"
+        } else if move.flag == .promotion(piece: .rook) {
+            return "=R"
+        } else if move.flag == .promotion(piece: .queen) {
+            return "=Q"
+        }
+        
+        return ""
     }
     
     static func shortAlgebraToTile(_ square: String) -> Tile? {
