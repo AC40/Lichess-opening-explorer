@@ -194,23 +194,27 @@ struct Arbiter {
                 // Single step
                 if endRank.isOnBoard() && squareIsEmpty(Tile(endRank, square.file), in: board.squares) {
                     moves.append(Move(from: square, to: Tile(endRank, square.file)))
+                    
+                    // Initial double step
+                    // Nested, bc is only possible if single step is also possible
+                     if square.rank == 6 && squareIsEmpty(Tile(4, square.file), in: board.squares) {
+                         moves.append(Move(from: square, to: Tile(4, square.file), flag: .doubleStep))
+                     }
                 }
                 
-                // Initial double step
-                if square.rank == 6 && squareIsEmpty(Tile(4, square.file), in: board.squares) {
-                    moves.append(Move(from: square, to: Tile(4, square.file), flag: .doubleStep))
-                }
             } else if piece.color == .black {
                 let endRank = square.rank + 1
                 
                 // Single step
                 if endRank.isOnBoard() && squareIsEmpty(Tile(endRank, square.file), in: board.squares) {
                     moves.append(Move(from: square, to: Tile(endRank, square.file)))
-                }
-                
-                // Initial double step
-                if square.rank == 1 && squareIsEmpty(Tile(3, square.file), in: board.squares) {
-                    moves.append(Move(from: square, to: Tile(3, square.file), flag: .doubleStep))
+                    
+                    
+                    // Initial double step
+                    // Nested, bc is only possible if single step is also possible
+                    if square.rank == 1 && squareIsEmpty(Tile(3, square.file), in: board.squares) {
+                        moves.append(Move(from: square, to: Tile(3, square.file), flag: .doubleStep))
+                    }
                 }
             }
             
