@@ -193,7 +193,13 @@ struct Arbiter {
                 
                 // Single step
                 if endRank.isOnBoard() && squareIsEmpty(Tile(endRank, square.file), in: board.squares) {
-                    moves.append(Move(from: square, to: Tile(endRank, square.file)))
+                    var move = Move(from: square, to: Tile(endRank, square.file))
+                    
+                    if endRank == 0 {
+                        move.flag = .promotion(piece: .none)
+                    }
+                    
+                    moves.append(move)
                     
                     // Initial double step
                     // Nested, bc is only possible if single step is also possible
@@ -207,8 +213,13 @@ struct Arbiter {
                 
                 // Single step
                 if endRank.isOnBoard() && squareIsEmpty(Tile(endRank, square.file), in: board.squares) {
-                    moves.append(Move(from: square, to: Tile(endRank, square.file)))
+                    var move = Move(from: square, to: Tile(endRank, square.file))
                     
+                    if endRank == 7 {
+                        move.flag = .promotion(piece: .none)
+                    }
+                    
+                    moves.append(move)
                     
                     // Initial double step
                     // Nested, bc is only possible if single step is also possible
@@ -289,13 +300,6 @@ struct Arbiter {
                 board[endRank-1, endFile].canBeTakenWithEnPassant = true
                 board.blackEnPassant = Tile(endRank-1, endFile)
             }
-        }
-
-        // Promote pawn
-        if (board.whiteTurn ? (endRank == 0) : (endRank == 7)) && piece.type == .pawn {
-            board.promotionSquare = move.end
-            board.promotingPawnSquare = move.start
-            return
         }
 
         // King Move

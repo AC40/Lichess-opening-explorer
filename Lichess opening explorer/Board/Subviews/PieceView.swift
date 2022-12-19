@@ -43,7 +43,7 @@ struct PieceView: View {
         }
         .onTapGesture {
             chessboardVM.lastInteractionWasDrag = false
-            if chessboardVM.pauseGame {
+            if chessboardVM.isPromoting {
                 chessboardVM.cancelPromotion()
             } else {
                 chessboardVM.handleTap(at: tile)
@@ -52,7 +52,7 @@ struct PieceView: View {
         .onChange(of: chessboardVM.board[tile].piece) { newValue in
                      if newValue != .none && !chessboardVM.lastInteractionWasDrag {
 
-                         guard chessboardVM.board.currentMove >= chessboardVM.board.moves.count else {
+                         guard chessboardVM.board.currentMove > chessboardVM.board.moves.count else {
                              return
                          }
 
@@ -81,7 +81,7 @@ struct PieceView: View {
     
     //MARK: Internal functions
     func onDragChanged(_ value: DragGesture.Value, piece: Piece, square: Tile) {
-        guard !chessboardVM.pauseGame else {
+        guard !chessboardVM.isPromoting else {
             chessboardVM.cancelPromotion()
             return
         }

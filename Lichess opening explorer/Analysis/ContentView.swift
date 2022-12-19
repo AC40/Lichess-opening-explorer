@@ -99,6 +99,10 @@ struct ContentView: View {
                 Button("Swap perspective") {
                     chessboardVM.whitePerspective.toggle()
                 }
+                Button("Swap turn") {
+                    chessboardVM.board.whiteTurn.toggle()
+                    chessboardVM.board.squares.removeEnPassants()
+                }
                 Button("Toggle Coordinates") {
                     chessboardVM.showCoordinates.toggle()
                 }
@@ -118,21 +122,14 @@ struct ContentView: View {
                     chessboardVM.resetSelection()
                 }
                 
-                Button("Load mid-game FEN") {
-                    chessboardVM.board.loadFEN("r4rk1/pp1qppbp/3p2p1/2pP4/4P3/P2P2P1/1P1B1PKP/1R1Q1R2 b - - 0 19")
+                Button("Promotion situation") {
+                    chessboardVM.board.loadFEN("8/k1r1P2K/8/8/8/8/8/8 w - - 0 1")
                     chessboardVM.resetSelection()
                 }
-                Button("Switch turn") {
-                    chessboardVM.board.whiteTurn.toggle()
-                    chessboardVM.board.squares.removeEnPassants()
-                }
-                Button("FEN w/ e.p.") {
-                    chessboardVM.board.loadFEN("rnbqkbnr/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3")
+                Button("En passant into check") {
+                    chessboardVM.board.loadFEN("r5nr/pppK1p1p/3p4/k3pPp1/8/6Pb/PPPPP2P/RNBQN2R w - g6 0 2")
                     chessboardVM.resetSelection()
-                }
-                Button("Castling") {
-                    chessboardVM.board.loadFEN("r3k2r/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/R3K2R b KQkq - 0 1")
-                    chessboardVM.resetSelection()
+                    
                 }
                 Button("Show FEN") {
                     vm.showFENAlert = true

@@ -16,7 +16,7 @@
 - make ChessColor and whiteTurn the same
 
 ## Long term
-- add branches to move, recording system
+- add branches to move recording system
 - 50 move rule
 
 

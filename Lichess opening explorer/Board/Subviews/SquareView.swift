@@ -56,7 +56,7 @@ struct SquareView: View {
             )
             .rotationEffect(chessboardVM.whitePerspective ? .degrees(0) : .degrees(180))
             .onTapGesture {
-                if chessboardVM.pauseGame {
+                if chessboardVM.isPromoting {
                     chessboardVM.cancelPromotion()
                 } else {
                     chessboardVM.handleTap(at: tile)

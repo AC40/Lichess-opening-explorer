@@ -12,7 +12,7 @@ class ChessboardViewModel: ObservableObject {
     //MARK: Variables
     @Published var selectedSquare: Tile? = nil
     @Published var board = Board()
-    @Published var pauseGame = false
+    @Published var isPromoting = false
     @Published var whitePerspective = true
     @Published var showCoordinates = false
     
@@ -99,7 +99,7 @@ class ChessboardViewModel: ObservableObject {
         if (board.whiteTurn ? (endRank == 0) : (endRank == 7)) && piece.type == .pawn {
             board.promotionSquare = move.end
             board.promotingPawnSquare = move.start
-            pauseGame = true
+            isPromoting = true
             return
         }
         
@@ -289,7 +289,7 @@ class ChessboardViewModel: ObservableObject {
         board[promotionSquare].piece = Piece(color: board.whiteTurn ? .white : .black, type: pieceType)
         
         self.board.promotionSquare = nil
-        pauseGame = false
+        isPromoting = false
         
         let move = Move(from: startSquare, to: promotionSquare, piece: board[promotionSquare].piece, flag: .promotion(piece: pieceType))
         endTurn(with: move)
@@ -331,7 +331,7 @@ class ChessboardViewModel: ObservableObject {
     }
     
     func cancelPromotion() {
-        pauseGame = false
+        isPromoting = false
         board.promotionSquare = nil
         resetSelection()
     }
