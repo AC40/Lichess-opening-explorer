@@ -26,7 +26,7 @@ struct PieceView: View {
                     .scaleEffect(isDragging ? 1.3 : 1, anchor: .center)
                     .offset(offset)
                     .rotationEffect(chessboardVM.whitePerspective ? .degrees(0) : .degrees(180))
-                    .gesture(DragGesture(coordinateSpace: .global)
+                    .highPriorityGesture(DragGesture(coordinateSpace: .global)
                         .onChanged {
                             onDragChanged($0, piece: piece, square: tile)
                         }
