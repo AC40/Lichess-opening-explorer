@@ -16,6 +16,8 @@ class ChessboardViewModel: ObservableObject {
     @Published var whitePerspective = true
     @Published var showCoordinates = false
     
+    @Published var lastInteractionWasDrag = true
+    
     @Published var squareFrames = Array(repeating: Array(repeating: CGRect.zero, count: 8), count: 8)
     
     let arbiter = Arbiter()
@@ -70,7 +72,7 @@ class ChessboardViewModel: ObservableObject {
             return
         }
         
-        let piece = board[move.start].piece
+        var piece = board[move.start].piece
         
         guard piece.type != .none else {
             resetSelection()
@@ -167,6 +169,9 @@ class ChessboardViewModel: ObservableObject {
             }
         }
         
+        // Add meta info to piece
+        piece.square = move.end
+        
         // Move piece from start to end square
         board[move.start].piece = Piece.none
         board[move.end].piece = piece
@@ -180,7 +185,7 @@ class ChessboardViewModel: ObservableObject {
             }
         }
         
-        // Add important info to move
+        // Add meta info to move
         move.piece = piece
         
         endTurn(with: move)
