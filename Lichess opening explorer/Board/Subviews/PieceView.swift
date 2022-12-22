@@ -52,11 +52,11 @@ struct PieceView: View {
         .onChange(of: chessboardVM.board[tile].piece) { newValue in
                      if newValue != .none && !chessboardVM.lastInteractionWasDrag {
 
-                         guard chessboardVM.board.currentMove >= chessboardVM.board.moves.count else {
+                         guard chessboardVM.board.moveI >= chessboardVM.board.moves.count else {
                              return
                          }
 
-                         let prevMove = chessboardVM.board.moves[chessboardVM.board.currentMove-1]
+                         let prevMove = chessboardVM.board.moves[chessboardVM.board.moveI-1]
 
                          if prevMove.end == tile {
                              let startX = chessboardVM.squareFrames[prevMove.start.rank][prevMove.start.file].midX

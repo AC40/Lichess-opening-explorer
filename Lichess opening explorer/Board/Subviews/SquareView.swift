@@ -101,8 +101,8 @@ struct SquareView: View {
         }
         
         // Square was part of previous move
-        if chessboardVM.board.currentMove > 0 {
-            let prevMove = chessboardVM.board.moves[chessboardVM.board.currentMove-1]
+        if chessboardVM.board.moveI > 0 {
+            let prevMove = chessboardVM.board.moves[chessboardVM.board.moveI-1]
             
             if prevMove.start == tile || prevMove.end == tile {
                 return theme.prevMove.opacity(0.5)

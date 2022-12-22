@@ -182,30 +182,30 @@ struct ContentView: View {
                 // unmake the most recent move in history
                 if chessboardVM.board.moves.count > 0 {
                     
-                    if chessboardVM.board.currentMove == 1 {
+                    if chessboardVM.board.moveI == 1 {
                         chessboardVM.board.loadDefaultFEN()
-                        chessboardVM.board.currentMove = 0
+                        chessboardVM.board.moveI = 0
                         return
                     }
-                    chessboardVM.board.currentMove -= 1
-                    chessboardVM.loadMove(chessboardVM.board.moves[chessboardVM.board.currentMove-1])
+                    chessboardVM.board.moveI -= 1
+                    chessboardVM.loadMove(chessboardVM.board.moves[chessboardVM.board.moveI-1])
                 }
             } label: {
                 Image(systemName: "chevron.backward")
             }
-            .disabled(!(chessboardVM.board.currentMove > 0))
+            .disabled(!(chessboardVM.board.moveI > 0))
             
             Button {
                 // progress one move forward in move history
-                if chessboardVM.board.moves.count > chessboardVM.board.currentMove {
-                    chessboardVM.loadMove(chessboardVM.board.moves[chessboardVM.board.currentMove])
-                    chessboardVM.board.currentMove += 1
+                if chessboardVM.board.moves.count > chessboardVM.board.moveI {
+                    chessboardVM.loadMove(chessboardVM.board.moves[chessboardVM.board.moveI])
+                    chessboardVM.board.moveI += 1
                 }
                 
             } label: {
                 Image(systemName: "chevron.forward")
             }
-            .disabled(!(chessboardVM.board.moves.count > chessboardVM.board.currentMove))
+            .disabled(!(chessboardVM.board.moves.count > chessboardVM.board.moveI))
         }
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: 0))

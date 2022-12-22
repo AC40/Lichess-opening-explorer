@@ -41,7 +41,13 @@ struct Move: Identifiable, Equatable {
     /// Array of variations, each being an array of moves
     var variations: [[Move]]?
     
-    init(from start: Tile, to end: Tile, piece: Piece? = nil, capture: Piece? = nil, flag: MoveFlag = .move, termination: Termination = .none, check: Bool = false, position: String = "", variations: [[Move]]? = nil) {
+    /// An Int that hold the selected move in the current variation
+    var varI: Int
+    
+    /// An Int that hold the number of the current variation. -1 if no variation
+    var varNum: Int
+    
+    init(from start: Tile, to end: Tile, piece: Piece? = nil, capture: Piece? = nil, flag: MoveFlag = .move, termination: Termination = .none, check: Bool = false, position: String = "", variations: [[Move]]? = nil, variationIndex: Int = -1, variationNumber: Int = -1) {
         self.start = start
         self.end = end
         self.piece = piece
@@ -51,6 +57,8 @@ struct Move: Identifiable, Equatable {
         self.check = check
         self.position = position
         self.variations = variations
+        self.varI = variationIndex
+        self.varNum = variationNumber
     }
     
     static func == (lhs: Move, rhs: Move) -> Bool {

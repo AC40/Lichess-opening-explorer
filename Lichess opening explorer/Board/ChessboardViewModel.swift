@@ -231,13 +231,33 @@ class ChessboardViewModel: ObservableObject {
         // Add move to history
         if (board.moves.isEmpty) {
             board.moves = [move]
-            board.currentMove += 1
+            board.moveI += 1
         } else {
-            if board.currentMove < board.moves.count {
-                board.moves.removeSubrange(board.currentMove..<board.moves.count)
+            if board.moveI < board.moves.count {
+                // Add move to moves variations
+                
+                let varI = board.moves[board.moveI].varI
+                let varNum = board.moves[board.moveI].varNum
+                
+                guard board.moves[board.moveI].variations != nil else {
+                    // Move has no variations yet
+                    board.moves[board.moveI].variations = [[move]]
+                    board.moves[board.moveI].varNum = 0
+                    board.moves[board.moveI].varI = 0
+                    
+                    dump(board.moves)
+                    return
+                }
+                
+                if move == board.moves[board.moveI].variations![varNum][varI] {
+                    board.moves[board.moveI].varI += 1
+                }
+            } else {
+                board.moves.insert(move, at: board.moveI)
+                board.moveI += 1
             }
-            board.moves.insert(move, at: board.currentMove)
-            board.currentMove += 1
+            
+            dump(board.moves)
         }
     }
     

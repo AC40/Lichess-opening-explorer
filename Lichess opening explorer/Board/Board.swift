@@ -11,7 +11,7 @@ struct Board: Equatable {
     
     var squares: [[Square]] = []
     var moves: [Move] = []
-    var currentMove: Int = 0
+    var moveI: Int = 0
     var moveNumber: Int = 0
     
     var promotionSquare: Tile? = nil
