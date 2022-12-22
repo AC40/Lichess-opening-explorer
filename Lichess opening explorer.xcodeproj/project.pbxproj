@@ -28,6 +28,8 @@
 		DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DB29392A4E00E0F335 /* Arbiter.swift */; };
 		DB9413DE29392D7F00E0F335 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DD29392D7F00E0F335 /* Board.swift */; };
 		DB98B4F92847C59200BB466E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98B4F82847C59200BB466E /* Square.swift */; };
+		DB9CD80F2954F7D60040D017 /* CloudAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9CD80E2954F7D60040D017 /* CloudAnalysis.swift */; };
+		DB9CD8112954F9180040D017 /* AnaylsisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9CD8102954F9180040D017 /* AnaylsisView.swift */; };
 		DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA51AAF293BEACF00CC4BC3 /* AdaptiveStack.swift */; };
 		DBA51AB3293BEB7D00CC4BC3 /* StackDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA51AB2293BEB7D00CC4BC3 /* StackDirection.swift */; };
 		DBA51AB5293BF44300CC4BC3 /* Array + removeEnPassants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA51AB4293BF44300CC4BC3 /* Array + removeEnPassants.swift */; };
@@ -74,6 +76,8 @@
 		DB9413DB29392A4E00E0F335 /* Arbiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arbiter.swift; sourceTree = "<group>"; };
 		DB9413DD29392D7F00E0F335 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		DB98B4F82847C59200BB466E /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
+		DB9CD80E2954F7D60040D017 /* CloudAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAnalysis.swift; sourceTree = "<group>"; };
+		DB9CD8102954F9180040D017 /* AnaylsisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnaylsisView.swift; sourceTree = "<group>"; };
 		DBA51AAF293BEACF00CC4BC3 /* AdaptiveStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveStack.swift; sourceTree = "<group>"; };
 		DBA51AB2293BEB7D00CC4BC3 /* StackDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackDirection.swift; sourceTree = "<group>"; };
 		DBA51AB4293BF44300CC4BC3 /* Array + removeEnPassants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + removeEnPassants.swift"; sourceTree = "<group>"; };
@@ -162,6 +166,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		DB6D2A902954F77600291148 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				DB9CD80E2954F7D60040D017 /* CloudAnalysis.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		DBA51AB1293BEAD700CC4BC3 /* Generic */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +223,7 @@
 				DBA51AB2293BEB7D00CC4BC3 /* StackDirection.swift */,
 				DBAE573C28451A6300B72B8C /* DatabaseType.swift */,
 				DB646A5F293D1C6300C56280 /* Chess logic */,
+				DB6D2A902954F77600291148 /* Networking */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -221,6 +234,7 @@
 				DBAE5743284530D600B72B8C /* PieceView.swift */,
 				DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */,
 				DB646A64293D495E00C56280 /* VariationView.swift */,
+				DB9CD8102954F9180040D017 /* AnaylsisView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -352,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB9CD8112954F9180040D017 /* AnaylsisView.swift in Sources */,
 				DBBFB5EC294256A00073B502 /* WrappingHStack.swift in Sources */,
 				DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */,
 				DB646A67293D4BAC00C56280 /* Convert.swift in Sources */,
@@ -377,6 +392,7 @@
 				DB9413DE29392D7F00E0F335 /* Board.swift in Sources */,
 				DB866675293A6EF200761F95 /* Themes.swift in Sources */,
 				DB98B4F92847C59200BB466E /* Square.swift in Sources */,
+				DB9CD80F2954F7D60040D017 /* CloudAnalysis.swift in Sources */,
 				DBBFB5CE29410CD80073B502 /* OldWrappingHStack.swift in Sources */,
 				DBAE5744284530D600B72B8C /* PieceView.swift in Sources */,
 				DBAE57412845302300B72B8C /* Piece.swift in Sources */,
