@@ -21,4 +21,19 @@ struct Networking {
         
         return playerGameResponse
     }
+    
+    static func fetchCachedAnalysis(for fen: String, variations: Int = 1) async throws -> CloudAnalysis {
+        var fen = fen
+        
+        fen = fen.replacingOccurrences(of: " ", with: "%20")
+        let url = URL(string: "https://lichess.org/api/cloud-eval?fen=\(fen)")!
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        print((response as! HTTPURLResponse).statusCode)
+        
+        let analysis = try JSONDecoder().decode(CloudAnalysis.self, from: data)
+        
+        return analysis
+    }
 }

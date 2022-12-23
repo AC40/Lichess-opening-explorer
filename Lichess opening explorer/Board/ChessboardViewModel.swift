@@ -60,7 +60,7 @@ class ChessboardViewModel: ObservableObject {
         return arbiter.positionHasCheck(board, color: board.whiteTurn ? .black : .white)
     }
     
-    func makeMove(_ move: Move) {
+    func makeMove(_ move: Move, strict: Bool = true) {
         var move = move
         
         let startRank = move.start.rank
@@ -79,10 +79,13 @@ class ChessboardViewModel: ObservableObject {
             return
         }
         
-        guard board[endRank, endFile].canBeMovedTo else {
-            resetSelection()
-            return
+        if strict {
+            guard board[endRank, endFile].canBeMovedTo else {
+                resetSelection()
+                return
+            }
         }
+        
         
         // Check, if pawns moves two squares (initial double step)
         if piece.type == .pawn && abs(endRank-startRank) == 2 {

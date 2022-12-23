@@ -37,7 +37,7 @@ extension Board {
                     
                     pieces.append(Convert.pieceToFEN(piece))
                     
-                    if file == 7 {
+                    if file == 7 && rank != 7 {
                         pieces.append("/")
                     }
                 }
@@ -115,18 +115,19 @@ extension Board {
         fen.append(rights + " ")
         
         // Get en passant
-        var enPassantTile: Tile? = nil
-        if whiteTurn {
-             enPassantTile = blackEnPassant
-        } else {
-            enPassantTile = whiteEnPassant
-        }
-        
-        if let tile = enPassantTile {
-            fen.append(Convert.tileToLongAlgebra(tile) + " ")
-        } else {
-            fen.append("- ")
-        }
+//        var enPassantTile: Tile? = nil
+//        if whiteTurn {
+//             enPassantTile = blackEnPassant
+//        } else {
+//            enPassantTile = whiteEnPassant
+//        }
+//
+//        if let tile = enPassantTile {
+//            fen.append(Convert.tileToLongAlgebra(tile) + " ")
+//        } else {
+//            fen.append("- ")
+//        }
+        fen.append("- ")
         
         //TODO: Get half moves
         fen.append("0 ")

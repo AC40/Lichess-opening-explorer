@@ -80,6 +80,81 @@ struct Convert {
         }
     }
     
+    static func lichessMovesToMoves(_ moves: String, on board: Board) -> [Move] {
+        
+        let strMoves = moves.split(separator: " ")
+        var moves = [Move]()
+        
+        for i in strMoves.indices {
+            let turn = (i % 2) == 0
+            var strMove = strMoves[i]
+            
+            guard strMove.count == 4 else {
+                continue
+            }
+            
+            // Add start and end square
+            let strStart = String("\(strMove.removeFirst())\(strMove.removeFirst())")
+            let strEnd = String("\(strMove.removeFirst())\(strMove.removeFirst())")
+            
+            let start = Convert.shortAlgebraToTile(strStart)
+            let end = Convert.shortAlgebraToTile(strEnd)
+            
+            guard start != nil && end != nil  else {
+                continue
+            }
+            
+            guard start!.rank.isOnBoard() && start!.file.isOnBoard() && end!.rank.isOnBoard() && end!.file.isOnBoard() else {
+                continue
+            }
+            
+            var move = Move(from: start!, to: end!)
+            
+            // Add piece to move
+            let piece = board[start!].piece
+            if piece != .none {
+                move.piece = piece
+            }
+            
+            // Add capture
+            if board[end!].piece != .none {
+                move.capture = board[end!].piece
+                move.flag = .capture
+            }
+            
+            // Add Castling flag
+            if piece.isKing() {
+                switch end {
+                case Tile(7, 7):
+                    move.flag = .shortCastle
+                    move.end = Tile(7, 6)
+                case Tile(0, 7):
+                    move.flag = .shortCastle
+                    move.end = Tile(0, 6)
+                case Tile(7, 0):
+                    move.flag = .shortCastle
+                    move.end = Tile(7, 1)
+                case Tile(0, 0):
+                    move.flag = .longCastle
+                    move.end = Tile(0, 1)
+                default:
+                    break
+                }
+            }
+            
+            // Add e.p flag
+            if piece.isPawn() {
+                if end!.rank == 0 || end!.rank == 7 {
+                    move.flag = .promotion(piece: .none)
+                }
+            }
+            // Add e.p, promotion, etc.
+            moves.append(move)
+        }
+        
+        return moves
+    }
+    
     static func shortAlgebraToTile(_ square: String) -> Tile? {
         
         let file = "\(square.first ?? Character.init(""))"
