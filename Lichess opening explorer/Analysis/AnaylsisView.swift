@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AnaylsisView: View {
-    
+    //TODO: load position not periodically, but whenever the position changes (moniter changes of board.moves and board.currentMove)
     @ObservedObject var chessboardVM: ChessboardViewModel
     @StateObject var vm = AnalysisViewModel()
     
@@ -27,18 +27,18 @@ struct AnaylsisView: View {
                     .foregroundColor(.gray)
                     .frame(width: 2, height: vm.idealViewHeight)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
-                let moves = Convert.lichessMovesToMoves(vm.eval!.pvs[0].moves, on: chessboardVM.board)
+                
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(0..<moves.count) { i in
-                            MoveView(move: moves[i], i: chessboardVM.board.currentMove + i, onClick: onClickMove)
+                        ForEach(0..<vm.playableMoves.count) { i in
+                            MoveView(move: vm.playableMoves[i], i: chessboardVM.board.currentMove + i, onClick: onClickMove)
                                 .variationStyle(isSelected: false)
                         }
                     }
                 }
                 
             }
-            
+            Spacer()
             
             analysisButton()
                     
@@ -88,6 +88,7 @@ struct AnaylsisView: View {
             // Add to view
             vm.noCache = false
             vm.eval = cached.analysis
+            vm.playableMoves = Convert.lichessMovesToMoves(cached.analysis.pvs[0].moves, on: chessboardVM.board)
             print("Grabbed from cache")
             
             return
@@ -103,6 +104,7 @@ struct AnaylsisView: View {
                 // Add to view
                 vm.noCache = false
                 vm.eval = analysis
+                vm.playableMoves = Convert.lichessMovesToMoves(analysis.pvs[0].moves, on: chessboardVM.board)
                 
                 // Add to cache
                 vm.cache.setObject(CacheCloudAnalysis(analysis: analysis), forKey: fen)
@@ -127,7 +129,21 @@ struct AnaylsisView: View {
     }
     
     func onClickMove(at i: Int) {
-        //TODO: Make move at board (at end of current position
+        //TODO: Fix weird issue of making multiple, wrong/different moves
+        var startI = 0
+        
+        while startI < i {
+            
+            guard startI < vm.playableMoves.count else {
+                return
+            }
+            
+            chessboardVM.makeMove(vm.playableMoves[startI], strict: false)
+            
+            startI += 1
+        }
+        
+        fetchAnalysis()
     }
 }
 

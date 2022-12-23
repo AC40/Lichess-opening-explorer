@@ -81,11 +81,13 @@ struct Convert {
     }
     
     static func lichessMovesToMoves(_ moves: String, on board: Board) -> [Move] {
+        
         let strMoves = moves.split(separator: " ")
         var moves = [Move]()
-        for strMove in strMoves {
-            
-            var strMove = strMove
+        
+        for i in strMoves.indices {
+            let turn = (i % 2) == 0
+            var strMove = strMoves[i]
             
             guard strMove.count == 4 else {
                 continue
@@ -109,8 +111,9 @@ struct Convert {
             var move = Move(from: start!, to: end!)
             
             // Add piece to move
-            if board[start!].piece != .none {
-                move.piece = board[start!].piece
+            let piece = board[start!].piece
+            if piece != .none {
+                move.piece = piece
             }
             
             // Add capture
@@ -119,7 +122,33 @@ struct Convert {
                 move.flag = .capture
             }
             
-            // Add e.p, castling, promotion, etc.
+            // Add Castling flag
+            if piece.isKing() {
+                switch end {
+                case Tile(7, 7):
+                    move.flag = .shortCastle
+                    move.end = Tile(7, 6)
+                case Tile(0, 7):
+                    move.flag = .shortCastle
+                    move.end = Tile(0, 6)
+                case Tile(7, 0):
+                    move.flag = .shortCastle
+                    move.end = Tile(7, 1)
+                case Tile(0, 0):
+                    move.flag = .longCastle
+                    move.end = Tile(0, 1)
+                default:
+                    break
+                }
+            }
+            
+            // Add e.p flag
+            if piece.isPawn() {
+                if end!.rank == 0 || end!.rank == 7 {
+                    move.flag = .promotion(piece: .none)
+                }
+            }
+            // Add e.p, promotion, etc.
             moves.append(move)
         }
         

@@ -29,7 +29,8 @@ struct VariationView: View {
     }
     
     func didClickMove(at i: Int) {
-
+        chessboardVM.board.currentMove = i+1
+        chessboardVM.loadMove(chessboardVM.board.moves[i])
     }
     
     

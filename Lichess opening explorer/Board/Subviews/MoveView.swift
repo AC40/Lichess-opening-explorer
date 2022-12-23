@@ -16,6 +16,7 @@ struct MoveView: View {
     var body: some View {
         Button {
             onClick(i)
+            print("Clicked")
         } label: {
             Text(readableMove(move, i: i))
         }
