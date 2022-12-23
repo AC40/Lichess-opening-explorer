@@ -131,18 +131,22 @@ struct AnaylsisView: View {
     func onClickMove(at i: Int) {
         //TODO: Fix weird issue of making multiple, wrong/different moves
         var startI = 0
+        var moves = [Move]()
         
-        while startI < i {
+        while startI <= i-chessboardVM.board.currentMove {
             
             guard startI < vm.playableMoves.count else {
                 return
             }
             
-            chessboardVM.makeMove(vm.playableMoves[startI], strict: false)
+            moves.append(vm.playableMoves[startI])
             
             startI += 1
         }
         
+        moves.forEach { move in
+            chessboardVM.makeMove(move, strict: false)
+        }
         fetchAnalysis()
     }
 }

@@ -49,6 +49,15 @@ extension Board {
                     }
                     let pieceColor = char.isUppercase ? ChessColor.white : ChessColor.black
                     self[file, rank].piece = Piece(color: pieceColor, type: pieceType, square: Tile(file, rank))
+                    
+                    if pieceType == .king {
+                        if pieceColor == .white {
+                            whiteKingSquare = Tile(file, rank)
+                        } else if pieceColor == .black {
+                            blackKingSquare = Tile(file, rank)
+                        }
+                    }
+                    
                     rank += 1
                 }
             }
