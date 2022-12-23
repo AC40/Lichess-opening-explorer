@@ -80,6 +80,52 @@ struct Convert {
         }
     }
     
+    static func lichessMovesToMoves(_ moves: String, on board: Board) -> [Move] {
+        let strMoves = moves.split(separator: " ")
+        var moves = [Move]()
+        for strMove in strMoves {
+            
+            var strMove = strMove
+            
+            guard strMove.count == 4 else {
+                continue
+            }
+            
+            // Add start and end square
+            let strStart = String("\(strMove.removeFirst())\(strMove.removeFirst())")
+            let strEnd = String("\(strMove.removeFirst())\(strMove.removeFirst())")
+            
+            let start = Convert.shortAlgebraToTile(strStart)
+            let end = Convert.shortAlgebraToTile(strEnd)
+            
+            guard start != nil && end != nil  else {
+                continue
+            }
+            
+            guard start!.rank.isOnBoard() && start!.file.isOnBoard() && end!.rank.isOnBoard() && end!.file.isOnBoard() else {
+                continue
+            }
+            
+            var move = Move(from: start!, to: end!)
+            
+            // Add piece to move
+            if board[start!].piece != .none {
+                move.piece = board[start!].piece
+            }
+            
+            // Add capture
+            if board[end!].piece != .none {
+                move.capture = board[end!].piece
+                move.flag = .capture
+            }
+            
+            // Add e.p, castling, promotion, etc.
+            moves.append(move)
+        }
+        
+        return moves
+    }
+    
     static func shortAlgebraToTile(_ square: String) -> Tile? {
         
         let file = "\(square.first ?? Character.init(""))"

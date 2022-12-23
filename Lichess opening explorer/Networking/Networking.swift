@@ -22,7 +22,7 @@ struct Networking {
         return playerGameResponse
     }
     
-    static func fetchCachesAnalysis(for fen: String, variations: Int = 1) async throws -> CloudAnalyis {
+    static func fetchCachedAnalysis(for fen: String, variations: Int = 1) async throws -> CloudAnalysis {
         var fen = fen
         
         fen = fen.replacingOccurrences(of: " ", with: "%20")
@@ -32,7 +32,7 @@ struct Networking {
         
         print((response as! HTTPURLResponse).statusCode)
         
-        let analysis = try JSONDecoder().decode(CloudAnalyis.self, from: data)
+        let analysis = try JSONDecoder().decode(CloudAnalysis.self, from: data)
         
         return analysis
     }

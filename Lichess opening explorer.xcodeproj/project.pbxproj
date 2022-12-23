@@ -27,6 +27,8 @@
 		DB8EE625293A460600BD24A8 /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = DB8EE624293A460600BD24A8 /* TODO.md */; };
 		DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DB29392A4E00E0F335 /* Arbiter.swift */; };
 		DB9413DE29392D7F00E0F335 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DD29392D7F00E0F335 /* Board.swift */; };
+		DB966538295613D4000A78BC /* AnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB966537295613D4000A78BC /* AnalysisViewModel.swift */; };
+		DB96653A29561D92000A78BC /* MoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB96653929561D92000A78BC /* MoveView.swift */; };
 		DB98B4F92847C59200BB466E /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98B4F82847C59200BB466E /* Square.swift */; };
 		DB9CD80F2954F7D60040D017 /* CloudAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9CD80E2954F7D60040D017 /* CloudAnalysis.swift */; };
 		DB9CD8112954F9180040D017 /* AnaylsisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9CD8102954F9180040D017 /* AnaylsisView.swift */; };
@@ -75,6 +77,8 @@
 		DB8EE624293A460600BD24A8 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		DB9413DB29392A4E00E0F335 /* Arbiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arbiter.swift; sourceTree = "<group>"; };
 		DB9413DD29392D7F00E0F335 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		DB966537295613D4000A78BC /* AnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewModel.swift; sourceTree = "<group>"; };
+		DB96653929561D92000A78BC /* MoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveView.swift; sourceTree = "<group>"; };
 		DB98B4F82847C59200BB466E /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		DB9CD80E2954F7D60040D017 /* CloudAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAnalysis.swift; sourceTree = "<group>"; };
 		DB9CD8102954F9180040D017 /* AnaylsisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnaylsisView.swift; sourceTree = "<group>"; };
@@ -146,8 +150,9 @@
 			isa = PBXGroup;
 			children = (
 				DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */,
-				DBAE573A28451A2900B72B8C /* Analysis */,
+				DBAE573A28451A2900B72B8C /* Content */,
 				DBAE573928451A1E00B72B8C /* Board */,
+				DB966536295613BC000A78BC /* Analysis */,
 				DBCBA7E22950B11A000024F4 /* Settings */,
 				DBAE573B28451A3400B72B8C /* Models */,
 				DBAE57452845341100B72B8C /* Networking */,
@@ -172,6 +177,15 @@
 				DB9CD80E2954F7D60040D017 /* CloudAnalysis.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		DB966536295613BC000A78BC /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+				DB9CD8102954F9180040D017 /* AnaylsisView.swift */,
+				DB966537295613D4000A78BC /* AnalysisViewModel.swift */,
+			);
+			path = Analysis;
 			sourceTree = "<group>";
 		};
 		DBA51AB1293BEAD700CC4BC3 /* Generic */ = {
@@ -205,13 +219,13 @@
 			path = Board;
 			sourceTree = "<group>";
 		};
-		DBAE573A28451A2900B72B8C /* Analysis */ = {
+		DBAE573A28451A2900B72B8C /* Content */ = {
 			isa = PBXGroup;
 			children = (
 				DB664D1628427BEC0088749A /* ContentView.swift */,
 				DB664D28284280470088749A /* ContentViewModel.swift */,
 			);
-			path = Analysis;
+			path = Content;
 			sourceTree = "<group>";
 		};
 		DBAE573B28451A3400B72B8C /* Models */ = {
@@ -234,7 +248,7 @@
 				DBAE5743284530D600B72B8C /* PieceView.swift */,
 				DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */,
 				DB646A64293D495E00C56280 /* VariationView.swift */,
-				DB9CD8102954F9180040D017 /* AnaylsisView.swift */,
+				DB96653929561D92000A78BC /* MoveView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -366,6 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB96653A29561D92000A78BC /* MoveView.swift in Sources */,
 				DB9CD8112954F9180040D017 /* AnaylsisView.swift in Sources */,
 				DBBFB5EC294256A00073B502 /* WrappingHStack.swift in Sources */,
 				DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */,
@@ -380,6 +395,7 @@
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerGameResponse.swift in Sources */,
 				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
+				DB966538295613D4000A78BC /* AnalysisViewModel.swift in Sources */,
 				DB646A61293D1C8400C56280 /* Move.swift in Sources */,
 				DB646A5C293D139100C56280 /* Termination.swift in Sources */,
 				DBCBA7E62950B14C000024F4 /* Settings.swift in Sources */,
