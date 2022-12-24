@@ -30,8 +30,6 @@ struct Arbiter {
             board = backupBoard
         }
         
-        //TODO: Remove castling rights if necessary ? (What do i mean by that
-        
         if piece.isKing() {
             if turn {
                 if canCastleShort(color: .white, in: board, moves: moves) {

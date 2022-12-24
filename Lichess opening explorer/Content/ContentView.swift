@@ -77,9 +77,6 @@ struct ContentView: View {
                 }
             }
         }
-        .task {
-            // Fetch player games
-        }
         .sheet(isPresented: $vm.showSettings) {
             SettingsView()
         }
@@ -211,26 +208,6 @@ struct ContentView: View {
         .buttonBorderShape(.roundedRectangle(radius: 0))
         .tint(.purple)
         .clipShape(RoundedRectangle(cornerRadius: 8))
-    }
-    
-    //MARK: Internal functions
-    func loadPosition(for piece: PieceType) {
-        switch piece {
-        case .none:
-            break
-        case .king:
-            chessboardVM.board.loadFEN("8/8/8/5k2/8/2K5/8/8 w - - 0 1")
-        case .queen:
-            chessboardVM.board.loadFEN("8/8/8/5q2/8/2Q5/8/8 w - - 0 1")
-        case .rook:
-            chessboardVM.board.loadFEN("8/8/8/5r2/8/2R5/8/8 w - - 0 1")
-        case .bishop:
-            chessboardVM.board.loadFEN("8/8/8/5b2/8/2B5/8/8 w - - 0 1")
-        case .knight:
-            chessboardVM.board.loadFEN("8/8/8/5n2/8/2N5/8/8 w - - 0 1")
-        case .pawn:
-            chessboardVM.board.loadFEN("8/8/8/5p2/8/2P5/8/8 w - - 0 1")
-        }
     }
 }
 
