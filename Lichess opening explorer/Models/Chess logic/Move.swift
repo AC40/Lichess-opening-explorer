@@ -17,7 +17,7 @@ struct Move: Identifiable, Equatable {
     /// Tile the move ends at: (4, 4), representing e4
     var end: Tile
     
-    //TODO: Decide, wether piece is really necessary
+    /// The piece that is moved with this move
     var piece: Piece?
     
     /// Remembers captured piece, to enable backwards tracking

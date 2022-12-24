@@ -16,9 +16,6 @@ struct Chessboard: View {
         
         ZStack {
             
-//            Color.teal
-//                .edgesIgnoringSafeArea(.all)
-            
             ZStack {
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<8) { rank in

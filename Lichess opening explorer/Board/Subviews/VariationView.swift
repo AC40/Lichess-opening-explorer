@@ -33,5 +33,4 @@ struct VariationView: View {
         chessboardVM.loadMove(chessboardVM.board.moves[i])
     }
     
-    
 }

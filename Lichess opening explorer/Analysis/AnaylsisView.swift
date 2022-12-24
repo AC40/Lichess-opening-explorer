@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AnaylsisView: View {
-    //TODO: load position not periodically, but whenever the position changes (moniter changes of board.moves and board.currentMove)
+    
     @ObservedObject var chessboardVM: ChessboardViewModel
     @StateObject var vm = AnalysisViewModel()
     
@@ -128,7 +128,6 @@ struct AnaylsisView: View {
     }
     
     func onClickMove(at i: Int) {
-        //TODO: Fix weird issue of making multiple, wrong/different moves
         var startI = 0
         var moves = [Move]()
         

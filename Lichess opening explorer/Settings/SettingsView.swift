@@ -15,10 +15,6 @@ struct SettingsView: View {
      @State private var animatePieces: Bool = false
      @State private var animationSpeed: Double = 0
 
-     init() {
-
-     }
-
      var body: some View {
          NavigationView {
              Form {

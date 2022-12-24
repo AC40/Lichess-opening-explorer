@@ -130,15 +130,6 @@ extension Board {
     /// Restore board to backup instance and display error
     mutating func abortLoadingFEN(backup: Self) {
         self = backup
-        //TODO: Indicate, that error has occured (Show alerr)
-    }
-    
-    /// Updates the relevant board variables after a FEN has been loaded into the board
-    mutating fileprivate func processFEN() {
-        // Get kings position
-        getKingPosition()
-        
-        // See if rooks are on initial squares
-        checkRookStatus()
+        //TODO: Indicate, that error has occured (Show alert)
     }
 }

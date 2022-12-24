@@ -207,7 +207,7 @@ class ChessboardViewModel: ObservableObject {
         // Switch turn
         board.whiteTurn.toggle()
         
-        //TODO: Remove previous en passants
+        // Remove previous en passants
         if board.whiteTurn {
             if let tile = board.whiteEnPassant {
                 board[tile].canBeTakenWithEnPassant = false
@@ -313,8 +313,6 @@ class ChessboardViewModel: ObservableObject {
             }
         }
     }
-    
-    
     
     func resetSelection() {
         // unselect square

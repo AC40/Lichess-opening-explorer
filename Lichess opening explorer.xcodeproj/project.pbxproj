@@ -24,7 +24,6 @@
 		DB866671293A6E6500761F95 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866670293A6E6500761F95 /* ThemeManager.swift */; };
 		DB866673293A6EAF00761F95 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866672293A6EAF00761F95 /* Theme.swift */; };
 		DB866675293A6EF200761F95 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866674293A6EF200761F95 /* Themes.swift */; };
-		DB8EE625293A460600BD24A8 /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = DB8EE624293A460600BD24A8 /* TODO.md */; };
 		DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DB29392A4E00E0F335 /* Arbiter.swift */; };
 		DB9413DE29392D7F00E0F335 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9413DD29392D7F00E0F335 /* Board.swift */; };
 		DB966538295613D4000A78BC /* AnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB966537295613D4000A78BC /* AnalysisViewModel.swift */; };
@@ -74,7 +73,6 @@
 		DB866670293A6E6500761F95 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		DB866672293A6EAF00761F95 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		DB866674293A6EF200761F95 /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
-		DB8EE624293A460600BD24A8 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		DB9413DB29392A4E00E0F335 /* Arbiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arbiter.swift; sourceTree = "<group>"; };
 		DB9413DD29392D7F00E0F335 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		DB966537295613D4000A78BC /* AnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewModel.swift; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 		DB664D0828427BEC0088749A = {
 			isa = PBXGroup;
 			children = (
-				DB8EE624293A460600BD24A8 /* TODO.md */,
 				DB664D1328427BEC0088749A /* Lichess opening explorer */,
 				DB664D1228427BEC0088749A /* Products */,
 			);
@@ -367,7 +364,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB8EE625293A460600BD24A8 /* TODO.md in Resources */,
 				DB664D1C28427BEE0088749A /* Preview Assets.xcassets in Resources */,
 				DB664D1928427BEE0088749A /* Assets.xcassets in Resources */,
 			);
