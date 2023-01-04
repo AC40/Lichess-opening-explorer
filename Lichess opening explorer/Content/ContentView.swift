@@ -32,6 +32,8 @@ struct ContentView: View {
                     HStack {
                         
                         Picker("View", selection: $vm.subView) {
+                            Text("Openings")
+                                .tag(2)
                             Text("Variations")
                                 .tag(0)
                             Text("Dev tools")
@@ -55,6 +57,11 @@ struct ContentView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .zIndex(8)
+                    case 2:
+                        VStack {
+                            OpeningExplorerView(chessboardVM: chessboardVM)
+                        }
+                        
                     default:
                         VariationView(chessboardVM: chessboardVM)
                     }
