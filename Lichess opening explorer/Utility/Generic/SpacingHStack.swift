@@ -25,14 +25,22 @@ struct SpacingHStack: Layout {
         var x = bounds.minX
         let y = bounds.midY
         
+        var gaps = subviews.count - 2
+        
+        if gaps < 0 {
+            gaps = 0
+        }
+        
+        let distributableSpace = bounds.width - CGFloat(gaps * 5)
+        
         for i in subviews.indices {
             
-            let prop = ProposedViewSize(width: bounds.width*distribution[i], height: subviews[i].sizeThatFits(.unspecified).height)
+            let prop = ProposedViewSize(width: distributableSpace*distribution[i], height: subviews[i].sizeThatFits(.unspecified).height)
             
             subviews[i].place(at: CGPoint(x: x, y: y), proposal: prop)
             
             // Currently hard-coded spacing, bc 'horizontalSpacing' func for some reason did not work
-            x += prop.width ?? 0 + 5
+            x += prop.width ?? 0
         }
     }
 }
