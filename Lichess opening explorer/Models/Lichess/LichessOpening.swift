@@ -8,5 +8,5 @@
 import Foundation
 
 struct LichessOpening: Decodable {
-    let eco, name: String
+    let eco, name: String?
 }

@@ -10,15 +10,19 @@ import SwiftUI
 struct MastersDBView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
+    @Binding var opening: LichessOpening
     
-    @State private var db: MastersDBResponse? = nil
+    @State private var db: MastersDBResponse? = nil {
+        didSet {
+            opening = db?.opening ?? LichessOpening(eco: nil, name: nil)
+        }
+    }
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 
                 if db != nil {
-                    Text(db?.opening?.eco ?? "No opening found")
                     ForEach(Array(db!.moves.enumerated()), id:\.offset) { i, move in
                         MoveStatistics(masterMove: move)
                             .frame(maxWidth: .infinity, idealHeight: 30, alignment: .leading)

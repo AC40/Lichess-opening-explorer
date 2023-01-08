@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB06D4A0296B5DEC00AB1516 /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = DB06D49F296B5DEC00AB1516 /* MarqueeLabel */; };
+		DB06D4A2296B5E1700AB1516 /* MarqueeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */; };
 		DB5CFE7D2965DA8C00E5708B /* MastersDBResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE7C2965DA8C00E5708B /* MastersDBResponse.swift */; };
 		DB5CFE8A2965E24800E5708B /* OpeningExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE892965E24800E5708B /* OpeningExplorerView.swift */; };
 		DB5CFE8D2965E31900E5708B /* OpeningExplorerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE8C2965E31900E5708B /* OpeningExplorerViewModel.swift */; };
@@ -61,6 +63,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeView.swift; sourceTree = "<group>"; };
 		DB5CFE7C2965DA8C00E5708B /* MastersDBResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastersDBResponse.swift; sourceTree = "<group>"; };
 		DB5CFE892965E24800E5708B /* OpeningExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningExplorerView.swift; sourceTree = "<group>"; };
 		DB5CFE8C2965E31900E5708B /* OpeningExplorerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningExplorerViewModel.swift; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB06D4A0296B5DEC00AB1516 /* MarqueeLabel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +237,7 @@
 				DBBFB5EB294256A00073B502 /* WrappingHStack.swift */,
 				DBA51AAF293BEACF00CC4BC3 /* AdaptiveStack.swift */,
 				DB5CFE932965F81A00E5708B /* SpacingHStack.swift */,
+				DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */,
 			);
 			path = Generic;
 			sourceTree = "<group>";
@@ -361,6 +366,7 @@
 			);
 			name = "Lichess opening explorer";
 			packageProductDependencies = (
+				DB06D49F296B5DEC00AB1516 /* MarqueeLabel */,
 			);
 			productName = "Lichess opening explorer";
 			productReference = DB664D1128427BEC0088749A /* Lichess opening explorer.app */;
@@ -391,6 +397,7 @@
 			);
 			mainGroup = DB664D0828427BEC0088749A;
 			packageReferences = (
+				DB06D49E296B5DEC00AB1516 /* XCRemoteSwiftPackageReference "MarqueeLabel" */,
 			);
 			productRefGroup = DB664D1228427BEC0088749A /* Products */;
 			projectDirPath = "";
@@ -443,6 +450,7 @@
 				DB5CFE902965E3FB00E5708B /* MastersDBView.swift in Sources */,
 				DB5CFE8A2965E24800E5708B /* OpeningExplorerView.swift in Sources */,
 				DBAFF1A929467DF600335AB6 /* variationStyle.swift in Sources */,
+				DB06D4A2296B5E1700AB1516 /* MarqueeView.swift in Sources */,
 				DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */,
 				DBA51AB3293BEB7D00CC4BC3 /* StackDirection.swift in Sources */,
 				DBFCFF992860C857005626C6 /* Tile.swift in Sources */,
@@ -672,6 +680,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DB06D49E296B5DEC00AB1516 /* XCRemoteSwiftPackageReference "MarqueeLabel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cbpowell/MarqueeLabel";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DB06D49F296B5DEC00AB1516 /* MarqueeLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB06D49E296B5DEC00AB1516 /* XCRemoteSwiftPackageReference "MarqueeLabel" */;
+			productName = MarqueeLabel;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DB664D0928427BEC0088749A /* Project object */;
 }

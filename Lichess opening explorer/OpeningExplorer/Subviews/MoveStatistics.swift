@@ -22,10 +22,10 @@ struct MoveStatistics: View {
     var body: some View {
         Group {
             if let masterMove = masterMove {
-                SpacingHStack(distribution: [0.15, 0.15, 0.7]) {
+                SpacingHStack(distribution: [0.1, 0.25, 0.65]) {
                     Text(masterMove.san)
                     
-                    Text("\(masterMove.averageRating)")
+                    Text("\(masterMove.white + masterMove.black + masterMove.draws)")
                     
                     HStack {
                         GeometryReader { geo in
