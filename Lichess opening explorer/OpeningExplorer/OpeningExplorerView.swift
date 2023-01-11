@@ -41,10 +41,8 @@ struct OpeningExplorerView: View {
             name = vm.currentOpening.name!
             
             if vm.currentOpening.eco != nil {
-                name.append(" \(vm.currentOpening.eco!)")
+                name.append(" (\(vm.currentOpening.eco!))")
             }
-        } else {
-            name = "No opening name found"
         }
         
         return name

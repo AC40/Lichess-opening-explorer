@@ -22,7 +22,7 @@ struct MoveStatistics: View {
     var body: some View {
         Group {
             if let masterMove = masterMove {
-                SpacingHStack(distribution: [0.1, 0.25, 0.65]) {
+                SpacingHStack(distribution: [0.175, 0.225, 0.6]) {
                     Text(masterMove.san)
                     
                     Text("\(masterMove.white + masterMove.black + masterMove.draws)")

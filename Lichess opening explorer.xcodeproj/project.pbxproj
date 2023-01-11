@@ -59,6 +59,7 @@
 		DBBFB5EC294256A00073B502 /* WrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBFB5EB294256A00073B502 /* WrappingHStack.swift */; };
 		DBCBA7E42950B129000024F4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBA7E32950B129000024F4 /* SettingsView.swift */; };
 		DBCBA7E62950B14C000024F4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBA7E52950B14C000024F4 /* Settings.swift */; };
+		DBEF8DD1296F498D009C63F3 /* FooView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF8DD0296F498D009C63F3 /* FooView.swift */; };
 		DBFCFF992860C857005626C6 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFCFF982860C857005626C6 /* Tile.swift */; };
 /* End PBXBuildFile section */
 
@@ -115,6 +116,7 @@
 		DBBFB5EB294256A00073B502 /* WrappingHStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrappingHStack.swift; sourceTree = "<group>"; };
 		DBCBA7E32950B129000024F4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DBCBA7E52950B14C000024F4 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		DBEF8DD0296F498D009C63F3 /* FooView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooView.swift; sourceTree = "<group>"; };
 		DBFCFF982860C857005626C6 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -238,6 +240,7 @@
 				DBA51AAF293BEACF00CC4BC3 /* AdaptiveStack.swift */,
 				DB5CFE932965F81A00E5708B /* SpacingHStack.swift */,
 				DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */,
+				DBEF8DD0296F498D009C63F3 /* FooView.swift */,
 			);
 			path = Generic;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				DB646A61293D1C8400C56280 /* Move.swift in Sources */,
 				DB646A5C293D139100C56280 /* Termination.swift in Sources */,
 				DBCBA7E62950B14C000024F4 /* Settings.swift in Sources */,
+				DBEF8DD1296F498D009C63F3 /* FooView.swift in Sources */,
 				DB5CFE902965E3FB00E5708B /* MastersDBView.swift in Sources */,
 				DB5CFE8A2965E24800E5708B /* OpeningExplorerView.swift in Sources */,
 				DBAFF1A929467DF600335AB6 /* variationStyle.swift in Sources */,
