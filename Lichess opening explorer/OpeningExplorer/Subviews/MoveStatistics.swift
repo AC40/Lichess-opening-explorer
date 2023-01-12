@@ -6,81 +6,75 @@
 //
 
 import SwiftUI
+import Charts
 
 struct MoveStatistics: View {
     
-    var masterMove: MasterMove?
-    var playerMove: PlayerMove?
+    var move: LichessMove
     
     @State private var widthTenth: CGFloat = .zero
     
-    init(masterMove: MasterMove? = nil, playerMove: PlayerMove? = nil) {
-        self.masterMove = masterMove
-        self.playerMove = playerMove
-    }
-    
     var body: some View {
         Group {
-            if let masterMove = masterMove {
                 SpacingHStack(distribution: [0.175, 0.225, 0.6]) {
-                    Text(masterMove.san)
+                    Text(move.san)
                     
-                    Text("\(masterMove.white + masterMove.black + masterMove.draws)")
+                    Text("\(move.white + move.black + move.draws)")
                     
                     HStack {
                         GeometryReader { geo in
                             ZStack {
                                 Color.clear
-                                
+
                                 HStack(spacing: 0) {
-                                    let whiteShare = shareOfWins(for: masterMove.white)
-                                    let drawShare = shareOfWins(for: masterMove.draws)
-                                    let blackShare = shareOfWins(for: masterMove.black)
-                                    
-                                    Color.green
+                                    let whiteShare = shareOfWins(for: move.white)
+                                    let drawShare = shareOfWins(for: move.draws)
+                                    let blackShare = shareOfWins(for: move.black)
+
+                                    Color.white
                                         .frame(width: geo.size.width*whiteShare)
-                                        .overlay(Text(String(format: "%.02f", whiteShare*100)))
+                                        .overlay(properlyFormattedText(whiteShare))
                                     Color.gray
                                         .frame(width: geo.size.width*drawShare)
-                                        .overlay(Text(String(format: "%.02f", drawShare*100)))
+                                        .overlay(properlyFormattedText(drawShare))
                                     Color.black
                                         .frame(width: geo.size.width*blackShare)
                                         .overlay(
-                                            Text(String(format: "%.02f", blackShare*100))
+                                            properlyFormattedText(blackShare)
                                                 .foregroundColor(.white)
                                         )
                                 }
                                 .clipShape(RoundedRectangle(cornerRadius: 4))
                             }
-                            
+
                         }
                     }
                     .frame(height: 30)
                 }
-            }
         }
     }
     
-    func shareOfWins(for int: Int) -> CGFloat {
-        if let masterMove = masterMove {
-            let total = masterMove.white + masterMove.black + masterMove.draws
+    func properlyFormattedText(_ input: CGFloat) -> some View {
+        ViewThatFits {
+            Text(String(format: "%.02f", input*100))
+                .padding(.horizontal, 4)
             
-            let result = Double(int)/Double(total)
-            return CGFloat(result)
-        } else if let playerMove = playerMove {
-            let total = playerMove.white + playerMove.black + playerMove.draws
+            Text(String(format: "%.01f", input*100))
+                .padding(.horizontal, 4)
             
-            let result = Double(int)/Double(total)
-            return CGFloat(result)
-        } else {
-            return .zero
+            Text(String(format: "%.00f", input*100))
+                .padding(.horizontal, 4)
+            
+            EmptyView()
         }
         
     }
-}
-
-struct MoveStatistics_Previews: PreviewProvider {
-    static var previews: some View {
-        MoveStatistics()
+    
+    func shareOfWins(for int: Int) -> CGFloat {
+        let total = move.white + move.black + move.draws
+        
+        let result = Double(int)/Double(total)
+        return CGFloat(result)
+        
     }
 }

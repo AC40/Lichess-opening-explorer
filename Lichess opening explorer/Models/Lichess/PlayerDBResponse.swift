@@ -14,7 +14,7 @@ import Foundation
 // MARK: - PlayerDBResponse
 struct PlayerDBResponse: Decodable {
     let white, draws, black: Int
-    let moves: [PlayerMove]
+    let moves: [LichessMove]
     let recentGames: [PlayerGame]
     let opening: LichessOpening
 }
@@ -34,7 +34,7 @@ struct PlayerGame:  Decodable, Identifiable {
     let speed, mode: String
     let black, white: Player
     let year: Int
-    let month: String
+    let month: String?
     let uci: String?
 }
 

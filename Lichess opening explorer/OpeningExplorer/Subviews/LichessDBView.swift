@@ -1,18 +1,18 @@
 //
-//  MastersDBView.swift
+//  LichessDBView.swift
 //  Lichess opening explorer
 //
-//  Created by AC Richter on 04.01.23.
+//  Created by AC Richter on 12.01.23.
 //
 
 import SwiftUI
 
-struct MastersDBView: View {
+struct LichessDBView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     @Binding var opening: LichessOpening
     
-    @State private var db: MastersDBResponse? = nil {
+    @State private var db: LichessDBResponse? = nil {
         didSet {
             opening = db?.opening ?? LichessOpening(eco: nil, name: nil)
         }
@@ -54,7 +54,7 @@ struct MastersDBView: View {
     func fetchDBData() {
         Task {
             do {
-                db = try await Networking.fetchMasterDB(from: chessboardVM.board.asFEN())
+                db = try await Networking.fetchLichessDB(from: chessboardVM.board.asFEN())
             } catch {
                 print(error)
                 db = nil
@@ -79,4 +79,3 @@ struct MastersDBView: View {
         chessboardVM.makeMove(move!, strict: false)
     }
 }
-

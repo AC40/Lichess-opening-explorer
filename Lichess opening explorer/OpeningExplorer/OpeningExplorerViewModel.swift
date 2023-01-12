@@ -9,7 +9,15 @@ import SwiftUI
 
 class OpeningExplorerViewModel: ObservableObject {
     
-    @Published var dbType: Int = 0
+    @AppStorage("selectedDBType") var dbType: Int = 0
     
-    @Published var currentOpening: LichessOpening = LichessOpening(eco: nil, name: nil)
+    @Published var currOpening: LichessOpening = .none {
+        willSet {
+            if currOpening != .none {
+                prevOpening = currOpening
+            }
+        }
+    }
+    
+    @Published var prevOpening: LichessOpening = .none
 }

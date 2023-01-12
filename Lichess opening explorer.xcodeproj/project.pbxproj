@@ -30,6 +30,10 @@
 		DB664D2728427D290088749A /* NeworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2628427D290088749A /* NeworkingError.swift */; };
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
 		DB7EF473296626500096D5AD /* LichessOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7EF472296626500096D5AD /* LichessOpening.swift */; };
+		DB82104629709F2C00CEA5B3 /* LichessDBResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB82104529709F2C00CEA5B3 /* LichessDBResponse.swift */; };
+		DB8210482970A03300CEA5B3 /* LichessSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8210472970A03300CEA5B3 /* LichessSpeed.swift */; };
+		DB82104A2970A24C00CEA5B3 /* LichessDBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8210492970A24C00CEA5B3 /* LichessDBView.swift */; };
+		DB82104C2970A29200CEA5B3 /* LichessMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB82104B2970A29200CEA5B3 /* LichessMove.swift */; };
 		DB866671293A6E6500761F95 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866670293A6E6500761F95 /* ThemeManager.swift */; };
 		DB866673293A6EAF00761F95 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866672293A6EAF00761F95 /* Theme.swift */; };
 		DB866675293A6EF200761F95 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866674293A6EF200761F95 /* Themes.swift */; };
@@ -87,6 +91,10 @@
 		DB664D2628427D290088749A /* NeworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeworkingError.swift; sourceTree = "<group>"; };
 		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		DB7EF472296626500096D5AD /* LichessOpening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LichessOpening.swift; sourceTree = "<group>"; };
+		DB82104529709F2C00CEA5B3 /* LichessDBResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessDBResponse.swift; sourceTree = "<group>"; };
+		DB8210472970A03300CEA5B3 /* LichessSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessSpeed.swift; sourceTree = "<group>"; };
+		DB8210492970A24C00CEA5B3 /* LichessDBView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessDBView.swift; sourceTree = "<group>"; };
+		DB82104B2970A29200CEA5B3 /* LichessMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessMove.swift; sourceTree = "<group>"; };
 		DB866670293A6E6500761F95 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		DB866672293A6EAF00761F95 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		DB866674293A6EF200761F95 /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
@@ -136,8 +144,11 @@
 			isa = PBXGroup;
 			children = (
 				DB5CFE7C2965DA8C00E5708B /* MastersDBResponse.swift */,
+				DB82104529709F2C00CEA5B3 /* LichessDBResponse.swift */,
 				DB664D2228427CA10088749A /* PlayerDBResponse.swift */,
 				DB7EF472296626500096D5AD /* LichessOpening.swift */,
+				DB82104B2970A29200CEA5B3 /* LichessMove.swift */,
+				DB8210472970A03300CEA5B3 /* LichessSpeed.swift */,
 			);
 			path = Lichess;
 			sourceTree = "<group>";
@@ -156,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5CFE8F2965E3FB00E5708B /* MastersDBView.swift */,
+				DB8210492970A24C00CEA5B3 /* LichessDBView.swift */,
 				DB5CFE912965E86200E5708B /* MoveStatistics.swift */,
 			);
 			path = Subviews;
@@ -430,6 +442,7 @@
 			files = (
 				DB96653A29561D92000A78BC /* MoveView.swift in Sources */,
 				DB9CD8112954F9180040D017 /* AnaylsisView.swift in Sources */,
+				DB82104A2970A24C00CEA5B3 /* LichessDBView.swift in Sources */,
 				DBBFB5EC294256A00073B502 /* WrappingHStack.swift in Sources */,
 				DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */,
 				DB7EF473296626500096D5AD /* LichessOpening.swift in Sources */,
@@ -441,6 +454,7 @@
 				DB866673293A6EAF00761F95 /* Theme.swift in Sources */,
 				DBA51AB5293BF44300CC4BC3 /* Array + removeEnPassants.swift in Sources */,
 				DB664D1728427BEC0088749A /* ContentView.swift in Sources */,
+				DB82104629709F2C00CEA5B3 /* LichessDBResponse.swift in Sources */,
 				DBAFF1A529463C7F00335AB6 /* Board + toFEN.swift in Sources */,
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
 				DB664D2328427CA10088749A /* PlayerDBResponse.swift in Sources */,
@@ -458,6 +472,7 @@
 				DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */,
 				DBA51AB3293BEB7D00CC4BC3 /* StackDirection.swift in Sources */,
 				DBFCFF992860C857005626C6 /* Tile.swift in Sources */,
+				DB82104C2970A29200CEA5B3 /* LichessMove.swift in Sources */,
 				DB664D1528427BEC0088749A /* Lichess_opening_explorerApp.swift in Sources */,
 				DBAE574B284535C300B72B8C /* ChessboardViewModel.swift in Sources */,
 				DB9413DE29392D7F00E0F335 /* Board.swift in Sources */,
@@ -474,6 +489,7 @@
 				DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */,
 				DBAB9F9D284E4AB100E1CFE4 /* Board + loadFEN.swift in Sources */,
 				DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */,
+				DB8210482970A03300CEA5B3 /* LichessSpeed.swift in Sources */,
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
 				DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */,
 				DB646A63293D1D0300C56280 /* MoveFlag.swift in Sources */,

@@ -30,18 +30,38 @@ struct OpeningExplorerView: View {
                     }
                 }
             
-            MastersDBView(chessboardVM: chessboardVM, opening: $vm.currentOpening)
+            switch vm.dbType {
+            case 0:
+                MastersDBView(chessboardVM: chessboardVM, opening: $vm.currOpening)
+            case 1:
+                LichessDBView(chessboardVM: chessboardVM, opening: $vm.currOpening)
+            default:
+                Text("Currently not supported")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            }
         }
     }
     
     func openingName() -> String {
         var name = ""
         
-        if vm.currentOpening.name != nil {
-            name = vm.currentOpening.name!
+        // Check if an opening is recognized for the current position
+        if vm.currOpening.name != nil {
+            name = vm.currOpening.name!
             
-            if vm.currentOpening.eco != nil {
-                name.append(" (\(vm.currentOpening.eco!))")
+            if vm.currOpening.eco != nil {
+                name.append(" (\(vm.currOpening.eco!))")
+            }
+        }
+        
+        // If current opening is nil, check if an opening was recognized before
+        if name == "" {
+            if vm.prevOpening.name != nil {
+                name = vm.prevOpening.name!
+                
+                if vm.prevOpening.eco != nil {
+                    name.append(" (\(vm.prevOpening.eco!))")
+                }
             }
         }
         

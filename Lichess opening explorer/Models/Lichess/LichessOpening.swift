@@ -7,6 +7,12 @@
 
 import Foundation
 
-struct LichessOpening: Decodable {
+struct LichessOpening: Decodable, Equatable {
+    static let none = LichessOpening(eco: nil, name: nil)
+    
     let eco, name: String?
+    
+    static func == (lhs: LichessOpening, rhs: LichessOpening) -> Bool {
+        return (lhs.eco == rhs.eco && lhs.name == rhs.name)
+    }
 }

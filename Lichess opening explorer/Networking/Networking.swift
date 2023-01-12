@@ -42,6 +42,26 @@ struct Networking {
         return mastersDB
     }
     
+    static func fetchLichessDB(from fen: String = "fen=rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", moves: String = "", speeds: [LichessSpeed] = LichessSpeed.allCases, since start: Int = 1952, movesToReturn: Int = 12) async throws -> LichessDBResponse {
+        
+        let fen = fen.replacingOccurrences(of: " ", with: "%20")
+        
+        let url = URL(string: "https://explorer.lichess.ovh/lichess?fen=\(fen)&speeds=\(speeds.formattedString())")
+        
+        guard url != nil else {
+            throw NetworkingError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url!)
+        
+        print(response)
+        
+        
+        let mastersDB = try JSONDecoder().decode(LichessDBResponse.self, from: data)
+        
+        return mastersDB
+    }
+    
     static func fetchCachedAnalysis(for fen: String, variations: Int = 1) async throws -> CloudAnalysis {
         var fen = fen
         
