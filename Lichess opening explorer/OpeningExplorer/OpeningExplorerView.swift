@@ -33,8 +33,9 @@ struct OpeningExplorerView: View {
                 
                 VStack(alignment: .leading, spacing: 10) {
                     if vm.unavailabe {
+                        Spacer()
                         Text("This feature is currently unavailable. Sorry :(")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        Spacer()
                     } else if vm.db != nil {
                         ForEach(Array(vm.db!.moves.enumerated()), id:\.offset) { i, move in
                             MoveStatistics(move: move)
@@ -45,12 +46,11 @@ struct OpeningExplorerView: View {
                         }
                     } else {
                         Text("Sorry. This we couldn't find moves in this position.")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     }
                     
                 }
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 20)
         }
         // Request analysis when
         // ... the selected dbType changes
