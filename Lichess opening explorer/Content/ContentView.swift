@@ -64,9 +64,7 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .zIndex(8)
                         case 2:
-                            VStack {
-                                OpeningExplorerView(chessboardVM: chessboardVM)
-                            }
+                            OpeningExplorerView(chessboardVM: chessboardVM)
                             
                         default:
                             VariationView(chessboardVM: chessboardVM)
