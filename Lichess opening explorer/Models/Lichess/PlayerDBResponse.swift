@@ -1,5 +1,5 @@
 //
-//  PlayerGameResponse.swift
+//  PlayerDBResponse.swift
 //  Lichess opening explorer
 //
 //  Created by AC Richter on 28.05.22.
@@ -7,44 +7,39 @@
 // This rank was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this rank to your project and do:
 //
-//   let playerGameResponse = try? newJSONDecoder().decode(PlayerGameResponse.self, from: jsonData)
+//   let playerGameResponse = try? newJSONDecoder().decode(PlayerDBResponse.self, from: jsonData)
 
 import Foundation
 
-// MARK: - PlayerGameResponse
-struct PlayerGameResponse: Codable {
+// MARK: - PlayerDBResponse
+struct PlayerDBResponse: Decodable {
     let white, draws, black: Int
     let moves: [LichessMove]
-    let recentGames: [Game]
-    let opening: Opening
+    let recentGames: [PlayerGame]
+    let opening: LichessOpening
 }
 
 // MARK: - Move
-struct LichessMove: Codable {
+struct PlayerMove:  Decodable {
     let uci, san: String
     let averageOpponentRating, performance, white, draws: Int
     let black: Int
-    let game: Game?
+    let game: PlayerGame?
 }
 
 // MARK: - Game
-struct Game: Codable, Identifiable {
+struct PlayerGame:  Decodable, Identifiable {
     let id: String
     let winner: String?
     let speed, mode: String
-    let black, white: Black
+    let black, white: Player
     let year: Int
-    let month: String
+    let month: String?
     let uci: String?
 }
 
 // MARK: - Black
-struct Black: Codable {
+struct Player: Decodable {
     let name: String
     let rating: Int
-}
-
-// MARK: - Opening
-struct Opening: Codable {
-    let eco, name: String
 }

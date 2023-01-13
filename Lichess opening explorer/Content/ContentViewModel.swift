@@ -17,7 +17,7 @@ class ContentViewModel: ObservableObject {
     @Published var databaseType = DatabaseType.player
     
     /* For later implementation:
-        @Published var currentResponse: PlayerGameResponse?
+        @Published var currentResponse: PlayerDBResponse?
         
         func getPlayerGames() async {
             

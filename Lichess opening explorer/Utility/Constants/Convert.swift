@@ -12,6 +12,7 @@ struct Convert {
     static let files = ["a", "b", "c", "d", "e", "f", "g", "h"]
     static let pieces: [PieceType: String] = [PieceType.pawn: "", .rook: "R", .knight: "N", .bishop: "B", .queen: "Q", .king: "K", .none: ""]
     
+    //MARK: Internal representation to external representation
     static func moveToLongAlgebra(_ move: Move) -> String {
         return "\(tileToLongAlgebra(move.start))-\(tileToLongAlgebra(move.end))"
     }
@@ -80,13 +81,36 @@ struct Convert {
         }
     }
     
+    //MARK: External representation to internal representation
+    static func sanToMove(_ san: String) -> Move? {
+        
+        var san = san
+        
+        // Add start and end square
+        let strStart = String("\(san.removeFirst())\(san.removeFirst())")
+        let strEnd = String("\(san.removeFirst())\(san.removeFirst())")
+        
+        let start = Convert.shortAlgebraToTile(strStart)
+        let end = Convert.shortAlgebraToTile(strEnd)
+        
+        guard start != nil && end != nil  else {
+            return nil
+        }
+        
+        guard start!.rank.isOnBoard() && start!.file.isOnBoard() && end!.rank.isOnBoard() && end!.file.isOnBoard() else {
+            return nil
+        }
+        
+        return Move(from: start!, to: end!)
+    }
+    
     static func lichessMovesToMoves(_ moves: String, on board: Board) -> [Move] {
         
         let strMoves = moves.split(separator: " ")
         var moves = [Move]()
         
         for i in strMoves.indices {
-            let turn = (i % 2) == 0
+//            let turn = (i % 2) == 0
             var strMove = strMoves[i]
             
             guard strMove.count == 4 else {

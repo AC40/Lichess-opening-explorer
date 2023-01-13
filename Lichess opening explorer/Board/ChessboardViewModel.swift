@@ -237,6 +237,12 @@ class ChessboardViewModel: ObservableObject {
             board.currentMove += 1
         } else {
             if board.currentMove < board.moves.count {
+                
+                if move == board.moves[board.currentMove] {
+                    board.currentMove += 1
+                    return
+                }
+                
                 board.moves.removeSubrange(board.currentMove..<board.moves.count)
             }
             board.moves.insert(move, at: board.currentMove)

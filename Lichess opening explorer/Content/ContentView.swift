@@ -15,56 +15,70 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            AdaptiveStack(content: {
+            ZStack {
                 
-                Chessboard(vm: chessboardVM, themeMg: themeMg)
-                    .zIndex(10)
-                    .overlay(
-                        Group {
-                            if chessboardVM.board.termination != .none {
-                                gameTerminationOverlay()
+                Color(red: 230/255, green: 230/255, blue: 230/255)
+                    .edgesIgnoringSafeArea(.all)
+                
+                AdaptiveStack(content: {
+                    
+                    Chessboard(vm: chessboardVM, themeMg: themeMg)
+                        .zIndex(10)
+                        .overlay(
+                            Group {
+                                if chessboardVM.board.termination != .none {
+                                    gameTerminationOverlay()
+                                }
                             }
-                        }
-                    )
-                
-                VStack(alignment: .leading) {
-                    AnaylsisView(chessboardVM: chessboardVM)
-                    HStack {
-                        
-                        Picker("View", selection: $vm.subView) {
-                            Text("Variations")
-                                .tag(0)
-                            Text("Dev tools")
-                                .tag(1)
+                        )
+                    
+                    VStack(alignment: .leading) {
+//                        AnaylsisView(chessboardVM: chessboardVM)
+                        HStack {
                             
+                            Picker("View", selection: $vm.subView) {
+                                Text("Openings")
+                                    .tag(2)
+                                Text("Variations")
+                                    .tag(0)
+                                Text("Dev tools")
+                                    .tag(1)
+                                
+                            }
+                            .pickerStyle(.segmented)
+                            moveControls()
                         }
-                        .pickerStyle(.segmented)
-                        moveControls()
-                    }
-                    
-                    switch vm.subView {
-                    case 0:
-                        VariationView(chessboardVM: chessboardVM)
-                    case 1:
-                        ScrollView {
-                            buttonList()
-                                .padding()
-                                .buttonStyle(.bordered)
-                                .buttonBorderShape(.roundedRectangle)
-                                .tint(.pink)
+                        .padding(.horizontal, 10)
+                        
+                        switch vm.subView {
+                        case 0:
+                            VariationView(chessboardVM: chessboardVM)
+                        case 1:
+                            ScrollView {
+                                buttonList()
+                                    .padding()
+                                    .buttonStyle(.bordered)
+                                    .buttonBorderShape(.roundedRectangle)
+                                    .tint(.pink)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .zIndex(8)
+                        case 2:
+                            VStack {
+                                OpeningExplorerView(chessboardVM: chessboardVM)
+                            }
+                            
+                        default:
+                            VariationView(chessboardVM: chessboardVM)
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .zIndex(8)
-                    default:
-                        VariationView(chessboardVM: chessboardVM)
+                        
                     }
-                    
-                }
-                .padding(.horizontal, 5)
-                .alert(isPresented: $vm.showFENAlert) {
-                    Alert(title: Text("Current FEN String"), message: Text(chessboardVM.board.asFEN()), dismissButton: .default(Text("Okay")))
-                }
-            })
+                    .alert(isPresented: $vm.showFENAlert) {
+                        Alert(title: Text("Current FEN String"), message: Text(chessboardVM.board.asFEN()), dismissButton: .default(Text("Okay")))
+                    }
+                })
+            }
+            
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
