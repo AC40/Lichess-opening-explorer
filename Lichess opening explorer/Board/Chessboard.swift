@@ -26,18 +26,14 @@ struct Chessboard: View {
                     }
                 }
                 
-                Rectangle()
-                    .frame(width: 50, height: 50)
-                    .position(x: vm.squareFrames[1][1].midX, y: vm.squareFrames[1][1].midY)
-                
-                LazyVGrid(columns: vm.layout, spacing: 0) {
-                    ForEach(0..<8) { rank in
-                        ForEach(0..<8) { file in
-                            PieceView(tile: Tile(rank, file), chessboardVM: vm)
-                                .zIndex(isSelected(at: Tile(rank, file)) ? 100 : 90)
-                        }
+                ZStack {
+                    ForEach(vm.board.pieces) { piece in
+                        let frame = vm.squareFrames[piece.square.rank][piece.square.file]
+                        PieceView(tile: piece.square, chessboardVM: vm)
+                            .zIndex(isSelected(at: piece.square) ? 100 : 90)
                     }
                 }
+
             }
             .rotationEffect(vm.whitePerspective ? .degrees(0) : .degrees(180))
         }

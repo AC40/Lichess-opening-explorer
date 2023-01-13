@@ -14,21 +14,27 @@ struct PieceView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
-    @State private var offset: CGSize = .zero
+    @State private var offsetX: CGFloat = .zero
+    @State private var offsetY: CGFloat = .zero
     @State private var isDragging = false
     
     var body: some View {
         return VStack {
             if chessboardVM.board[tile.rank, tile.file].piece.color != .none {
                 let piece = chessboardVM.board[tile.rank, tile.file].piece
+                let frame = chessboardVM.squareFrames[tile.rank][tile.file]
+                
                 Image(piece.type.rawValue + piece.color.rawValue)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .scaleEffect(isDragging ? 1.3 : 1, anchor: .center)
-                    .offset(offset)
+                    .frame(width: frame.width, height: frame.height)
+                    .position(x: frame.midX  + offsetX, y: frame.midY + offsetY)
+//                    .offset(offset)
                     .rotationEffect(chessboardVM.whitePerspective ? .degrees(0) : .degrees(180))
-                    .animation(.linear.speed(5), value: isDragging)
-                    .highPriorityGesture(DragGesture(coordinateSpace: .global)
+                    .animation(.spring(), value: piece.square)
+//                    .animation(.linear.speed(5), value: isDragging)
+                    .highPriorityGesture(DragGesture(coordinateSpace: .named("chessboard"))
                         .onChanged {
                             onDragChanged($0, piece: piece, square: tile)
                         }
@@ -69,7 +75,8 @@ struct PieceView: View {
                              let offY = -(selfY - startY)
 
                              // Set piece to start square
-                             offset = CGSize(width: offX, height: offY)
+                             offsetX = offX
+                             offsetY = offY
 
                          }
 
@@ -96,7 +103,8 @@ struct PieceView: View {
         
         withAnimation(.linear.speed(10)) {
             isDragging = true
-            offset = value.translation
+            offsetX = value.translation.width
+            offsetY = value.translation.height
         }
     }
     
@@ -105,7 +113,8 @@ struct PieceView: View {
         chessboardVM.onDrop(location: value.location, square: square)
         
         withAnimation(.default.speed(4)) {
-            offset = .zero
+            offsetX = .zero
+            offsetY = .zero
         }
         
         isDragging = false
@@ -113,7 +122,8 @@ struct PieceView: View {
     
     func animatePieceToSelf() {
              withAnimation(movePieceAnimation())  {
-                 offset = .zero
+                 offsetX = .zero
+                 offsetY = .zero
              }
 
          }

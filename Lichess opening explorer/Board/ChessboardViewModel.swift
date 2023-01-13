@@ -72,9 +72,14 @@ class ChessboardViewModel: ObservableObject {
             return
         }
         
-        var piece = board[move.start].piece
+        guard let pieceI = board.pieces.firstIndex(where: { $0.square == move.start }) else {
+            resetSelection()
+            return
+        }
         
-        guard piece.type != .none else {
+//        var piece = board.pieces[pieceI]
+        
+        guard board.pieces[pieceI].type != .none else {
             resetSelection()
             return
         }
@@ -88,8 +93,8 @@ class ChessboardViewModel: ObservableObject {
         
         
         // Check, if pawns moves two squares (initial double step)
-        if piece.type == .pawn && abs(endRank-startRank) == 2 {
-            if piece.color == .white {
+        if board.pieces[pieceI].type == .pawn && abs(endRank-startRank) == 2 {
+            if board.pieces[pieceI].color == .white {
                 board[endRank+1, endFile].canBeTakenWithEnPassant = true
                 board.whiteEnPassant = Tile(endRank+1, endFile)
             } else {
@@ -99,7 +104,7 @@ class ChessboardViewModel: ObservableObject {
         }
         
         // Promote pawn
-        if (board.whiteTurn ? (endRank == 0) : (endRank == 7)) && piece.type == .pawn {
+        if (board.whiteTurn ? (endRank == 0) : (endRank == 7)) && board.pieces[pieceI].type == .pawn {
             board.promotionSquare = move.end
             board.promotingPawnSquare = move.start
             pauseGame = true
@@ -107,19 +112,29 @@ class ChessboardViewModel: ObservableObject {
         }
         
         // King Move
-        if piece == .kingW {
+        if board.pieces[pieceI] == .kingW {
             board.whiteKingSquare = move.end
             
             // Move rook in castling
             if move.end == (7, 2) && !board.whiteKingHasMoved {
                 board[7, 0].piece = Piece.none
                 board[7, 3].piece = .rookW
+                
+                if let rookI = board.pieces.firstIndex(where: { $0.square == (7, 0) }) {
+                    board.pieces[rookI].square = Tile(7, 3)
+                }
+                
                 board.whiteQueensRookHasMoved = true
                 move.flag = .longCastle
                 
             } else if move.end == (7, 6) && !board.whiteKingHasMoved {
                 board[7, 7].piece = Piece.none
                 board[7, 5].piece = .rookW
+                
+                if let rookI = board.pieces.firstIndex(where: { $0.square == (7, 7) }) {
+                    board.pieces[rookI].square = Tile(7, 5)
+                }
+                
                 board.whiteKingsRookHasMoved = true
                 move.flag = .shortCastle
             }
@@ -127,19 +142,29 @@ class ChessboardViewModel: ObservableObject {
             // Set last, so rooks can check if it has moved
             board.whiteKingHasMoved = true
             
-        } else if piece == .kingB {
+        } else if board.pieces[pieceI] == .kingB {
             board.blackKingSquare = move.end
             
             // Move rook in castling
             if move.end == (0, 2) && !board.blackKingHasMoved {
                 board[0, 0].piece = Piece.none
                 board[0, 3].piece = .rookB
+                
+                if let rookI = board.pieces.firstIndex(where: { $0.square == (0, 0) }) {
+                    board.pieces[rookI].square = Tile(0, 3)
+                }
+                
                 board.blackQueensRookHasMoved = true
                 move.flag = .longCastle
                 
             } else if move.end == (0, 6) && !board.blackKingHasMoved {
                 board[0, 7].piece = .none
                 board[0, 5].piece = .rookB
+                
+                if let rookI = board.pieces.firstIndex(where: { $0.square == (0, 7) }) {
+                    board.pieces[rookI].square = Tile(0, 5)
+                }
+                
                 board.blackKingsRookHasMoved = true
                 move.flag = .shortCastle
             }
@@ -150,13 +175,13 @@ class ChessboardViewModel: ObservableObject {
         
         
         // Rook move
-        if piece == .rookW {
+        if board.pieces[pieceI] == .rookW {
             if move.start == (7, 0) {
                 board.whiteQueensRookHasMoved = true
             } else if move.start == (7, 7) {
                 board.whiteKingsRookHasMoved = true
             }
-        } else if piece == .rookB {
+        } else if board.pieces[pieceI] == .rookB {
             if move.start == (0, 0) {
                 board.blackQueensRookHasMoved = true
             } else if move.start == (0, 7) {
@@ -172,24 +197,40 @@ class ChessboardViewModel: ObservableObject {
             }
         }
         
-        // Add meta info to piece
-        piece.square = move.end
+        // Remove captured piece
+        if let captureI = board.pieces.firstIndex(where: { $0.square == move.end }) {
+            board.pieces.remove(at: captureI)
+        }
         
         // Move piece from start to end square
         board[move.start].piece = Piece.none
-        board[move.end].piece = piece
+        
+        // Add meta info to piece
+        if let newPieceI = board.pieces.firstIndex(where: { $0.square == move.start }) {
+            board.pieces[newPieceI].square = move.end
+            board[move.end].piece = board.pieces[newPieceI]
+        } else {
+            print("Huston we got a problem")
+        }
+        
         
         // Take pawn when taken with en passant
         if board[move.end].canBeTakenWithEnPassant {
             if board.whiteTurn {
                 board[endRank+1, endFile].piece = Piece.none
+                if let epI = board.pieces.firstIndex(where: { $0.square == (endRank+1, endFile)}) {
+                    board.pieces.remove(at: epI)
+                }
             } else {
                 board[endRank-1, endFile].piece = Piece.none
+                if let epI = board.pieces.firstIndex(where: { $0.square == (endRank-1, endFile)}) {
+                    board.pieces.remove(at: epI)
+                }
             }
         }
         
         // Add meta info to move
-        move.piece = piece
+        move.piece = board.pieces[pieceI]
         
         endTurn(with: move)
         

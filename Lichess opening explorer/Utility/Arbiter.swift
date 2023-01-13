@@ -100,7 +100,7 @@ struct Arbiter {
             }
             
             // generate all moves
-            let pseudoLegalMoves = pseudoLegalMoves(for: piece, at: piece.square!, in: board, turn: color == .white ? true : false)
+            let pseudoLegalMoves = pseudoLegalMoves(for: piece, at: piece.square, in: board, turn: color == .white ? true : false)
             
             // for each move that does not capture
             for move in pseudoLegalMoves where move.flag == .capture || move.flag == .enPassant {
@@ -142,7 +142,7 @@ struct Arbiter {
                 continue
             }
             
-            let moves = legalMoves(for: piece, at: piece.square!, in: board, turn: color == .white)
+            let moves = legalMoves(for: piece, at: piece.square, in: board, turn: color == .white)
             
             allMoves += moves
         }

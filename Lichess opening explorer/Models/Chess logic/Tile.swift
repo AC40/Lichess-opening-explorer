@@ -9,6 +9,8 @@ struct Tile: Equatable {
     var rank: Int
     var file: Int
     
+    static let a8 = Tile(0, 0)
+    
     init(_ rank: Int, _ file: Int) {
         self.rank = rank
         self.file = file
