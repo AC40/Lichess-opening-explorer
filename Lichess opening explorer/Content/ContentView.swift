@@ -33,7 +33,7 @@ struct ContentView: View {
                         )
                     
                     VStack(alignment: .leading) {
-                        AnaylsisView(chessboardVM: chessboardVM)
+//                        AnaylsisView(chessboardVM: chessboardVM)
                         HStack {
                             
                             Picker("View", selection: $vm.subView) {
@@ -48,6 +48,7 @@ struct ContentView: View {
                             .pickerStyle(.segmented)
                             moveControls()
                         }
+                        .padding(.horizontal, 10)
                         
                         switch vm.subView {
                         case 0:
@@ -72,7 +73,6 @@ struct ContentView: View {
                         }
                         
                     }
-                    .padding(.horizontal, 5)
                     .alert(isPresented: $vm.showFENAlert) {
                         Alert(title: Text("Current FEN String"), message: Text(chessboardVM.board.asFEN()), dismissButton: .default(Text("Okay")))
                     }

@@ -31,7 +31,6 @@
 		DB7EF473296626500096D5AD /* LichessOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7EF472296626500096D5AD /* LichessOpening.swift */; };
 		DB82104629709F2C00CEA5B3 /* LichessDBResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB82104529709F2C00CEA5B3 /* LichessDBResponse.swift */; };
 		DB8210482970A03300CEA5B3 /* LichessSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8210472970A03300CEA5B3 /* LichessSpeed.swift */; };
-		DB82104A2970A24C00CEA5B3 /* LichessDBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8210492970A24C00CEA5B3 /* LichessDBView.swift */; };
 		DB82104C2970A29200CEA5B3 /* LichessMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB82104B2970A29200CEA5B3 /* LichessMove.swift */; };
 		DB866671293A6E6500761F95 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866670293A6E6500761F95 /* ThemeManager.swift */; };
 		DB866673293A6EAF00761F95 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866672293A6EAF00761F95 /* Theme.swift */; };
@@ -92,7 +91,6 @@
 		DB7EF472296626500096D5AD /* LichessOpening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LichessOpening.swift; sourceTree = "<group>"; };
 		DB82104529709F2C00CEA5B3 /* LichessDBResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessDBResponse.swift; sourceTree = "<group>"; };
 		DB8210472970A03300CEA5B3 /* LichessSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessSpeed.swift; sourceTree = "<group>"; };
-		DB8210492970A24C00CEA5B3 /* LichessDBView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessDBView.swift; sourceTree = "<group>"; };
 		DB82104B2970A29200CEA5B3 /* LichessMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessMove.swift; sourceTree = "<group>"; };
 		DB866670293A6E6500761F95 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		DB866672293A6EAF00761F95 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 		DB5CFE8E2965E33D00E5708B /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				DB8210492970A24C00CEA5B3 /* LichessDBView.swift */,
 				DB5CFE912965E86200E5708B /* MoveStatistics.swift */,
 			);
 			path = Subviews;
@@ -442,7 +439,6 @@
 			files = (
 				DB96653A29561D92000A78BC /* MoveView.swift in Sources */,
 				DB9CD8112954F9180040D017 /* AnaylsisView.swift in Sources */,
-				DB82104A2970A24C00CEA5B3 /* LichessDBView.swift in Sources */,
 				DBBFB5EC294256A00073B502 /* WrappingHStack.swift in Sources */,
 				DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */,
 				DB7EF473296626500096D5AD /* LichessOpening.swift in Sources */,

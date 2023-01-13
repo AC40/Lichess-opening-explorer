@@ -16,7 +16,7 @@ struct MoveStatistics: View {
     
     var body: some View {
         Group {
-                SpacingHStack(distribution: [0.175, 0.225, 0.6]) {
+                SpacingHStack(distribution: [0.15, 0.3, 0.55], spacing: 5) {
                     Text(move.san)
                     
                     Text("\(move.white + move.black + move.draws)")

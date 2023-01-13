@@ -10,6 +10,7 @@ import SwiftUI
 struct SpacingHStack: Layout {
     
     var distribution: [Double]
+    var spacing: Int = 10
     
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
         guard !subviews.isEmpty else { return .zero}
@@ -31,7 +32,7 @@ struct SpacingHStack: Layout {
             gaps = 0
         }
         
-        let distributableSpace = bounds.width - CGFloat(gaps * 5)
+        let distributableSpace = bounds.width - CGFloat(gaps * spacing)
         
         for i in subviews.indices {
             
@@ -39,8 +40,11 @@ struct SpacingHStack: Layout {
             
             subviews[i].place(at: CGPoint(x: x, y: y), proposal: prop)
             
-            // Currently hard-coded spacing, bc 'horizontalSpacing' func for some reason did not work
             x += prop.width ?? 0
+            
+            if i != subviews.count-1 {
+                x += CGFloat(spacing)
+            }
         }
     }
 }
