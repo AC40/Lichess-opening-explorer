@@ -26,6 +26,10 @@ struct Chessboard: View {
                     }
                 }
                 
+                Rectangle()
+                    .frame(width: 50, height: 50)
+                    .position(x: vm.squareFrames[1][1].midX, y: vm.squareFrames[1][1].midY)
+                
                 LazyVGrid(columns: vm.layout, spacing: 0) {
                     ForEach(0..<8) { rank in
                         ForEach(0..<8) { file in
@@ -37,6 +41,7 @@ struct Chessboard: View {
             }
             .rotationEffect(vm.whitePerspective ? .degrees(0) : .degrees(180))
         }
+        .coordinateSpace(name: "chessboard")
         .overlay(
             pieceList()
         )

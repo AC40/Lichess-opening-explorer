@@ -47,10 +47,10 @@ struct SquareView: View {
                 GeometryReader { geo in
                     Color.clear
                         .onAppear {
-                            chessboardVM.squareFrames[tile.rank][tile.file] = geo.frame(in: .global)
+                            chessboardVM.squareFrames[tile.rank][tile.file] = geo.frame(in: .named("chessboard"))
                         }
                         .onChange(of: chessboardVM.whitePerspective, perform: { _ in
-                            chessboardVM.squareFrames[tile.rank][tile.file] = geo.frame(in: .global)
+                            chessboardVM.squareFrames[tile.rank][tile.file] = geo.frame(in: .named("chessboard"))
                         })
                 }
             )
@@ -61,7 +61,8 @@ struct SquareView: View {
                 } else {
                     chessboardVM.handleTap(at: tile)
                 }
-            }
+        }
+        
     }
     
     func squareHasKing() -> ChessColor {
