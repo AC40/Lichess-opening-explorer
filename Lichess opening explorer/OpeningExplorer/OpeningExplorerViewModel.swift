@@ -9,7 +9,11 @@ import SwiftUI
 
 class OpeningExplorerViewModel: ObservableObject {
     
-    @AppStorage("selectedDBType") var dbType: Int = 0
+    @Published var dbType: LichessDBType = LichessDBType.stringToType(UserDefaults.standard.string(forKey: "selectedDBType") ?? "lichess") {
+        didSet {
+            saveDBType()
+        }
+    }
     
     @Published var currOpening: LichessOpening = .none {
         willSet {
@@ -20,4 +24,8 @@ class OpeningExplorerViewModel: ObservableObject {
     }
     
     @Published var prevOpening: LichessOpening = .none
+    
+    func saveDBType() {
+        UserDefaults.standard.set(dbType.rawValue, forKey: "selectedDBType")
+    }
 }

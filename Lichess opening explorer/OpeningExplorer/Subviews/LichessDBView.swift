@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LichessDBView: View {
     
+    var dbType: LichessDBType
     @ObservedObject var chessboardVM: ChessboardViewModel
     @Binding var opening: LichessOpening
     
@@ -17,12 +18,15 @@ struct LichessDBView: View {
             opening = db?.opening ?? LichessOpening(eco: nil, name: nil)
         }
     }
+    @State private var unavailabe = false
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                
-                if db != nil {
+                if unavailabe {
+                    Text("This feature is currently unavailable. Sorry :(")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                } else if db != nil {
                     ForEach(Array(db!.moves.enumerated()), id:\.offset) { i, move in
                         MoveStatistics(move: move)
                             .frame(maxWidth: .infinity, idealHeight: 30, alignment: .leading)
@@ -37,6 +41,10 @@ struct LichessDBView: View {
             }
         }
         // Request analysis when
+        // ... the selected dbType changes
+        .onChange(of: dbType, perform: { newValue in
+            fetchDBData(for: newValue)
+        })
         // ... a move is made
         .onChange(of: chessboardVM.board.moves, perform: { _ in
             fetchDBData()
@@ -51,10 +59,23 @@ struct LichessDBView: View {
         }
     }
     
-    func fetchDBData() {
+    func fetchDBData(for newType: LichessDBType? = nil) {
         Task {
+            
+            let type = newType ?? dbType
+            
             do {
-                db = try await Networking.fetchLichessDB(from: chessboardVM.board.asFEN())
+                unavailabe = false
+                
+                switch type {
+                case .lichess:
+                    db = try await Networking.fetchLichessDB(from: chessboardVM.board.asFEN())
+                case .masters:
+                    db = try await Networking.fetchMasterDB(from: chessboardVM.board.asFEN())
+                case .player:
+                    unavailabe = true
+                    db = nil
+                }
             } catch {
                 print(error)
                 db = nil

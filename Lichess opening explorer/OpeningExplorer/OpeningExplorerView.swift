@@ -22,23 +22,15 @@ struct OpeningExplorerView: View {
                     
                     Picker("", selection: $vm.dbType) {
                         Text("Masters")
-                            .tag(0)
+                            .tag(LichessDBType.masters)
                         Text("Lichess")
-                            .tag(1)
+                            .tag(LichessDBType.lichess)
                         Text("Player")
-                            .tag(2)
+                            .tag(LichessDBType.player)
                     }
                 }
             
-            switch vm.dbType {
-            case 0:
-                MastersDBView(chessboardVM: chessboardVM, opening: $vm.currOpening)
-            case 1:
-                LichessDBView(chessboardVM: chessboardVM, opening: $vm.currOpening)
-            default:
-                Text("Currently not supported")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            }
+            LichessDBView(dbType: vm.dbType, chessboardVM: chessboardVM, opening: $vm.currOpening)
         }
     }
     

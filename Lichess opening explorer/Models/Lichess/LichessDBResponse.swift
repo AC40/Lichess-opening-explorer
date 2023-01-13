@@ -21,7 +21,7 @@ struct LichessGame: Decodable {
     let uci: String?
     let id: String
     let winner: String?
-    let black, white: MasterPlayer
+    let black, white: LichessPlayer
     let year: Int
     let month: String?
 }
