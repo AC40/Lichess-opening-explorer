@@ -10,9 +10,10 @@
 		DB06D4A0296B5DEC00AB1516 /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = DB06D49F296B5DEC00AB1516 /* MarqueeLabel */; };
 		DB06D4A2296B5E1700AB1516 /* MarqueeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */; };
 		DB2059C329734CDC00C14BE6 /* GameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2059C229734CDC00C14BE6 /* GameList.swift */; };
+		DB2059C5297366AB00C14BE6 /* Color + gold.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2059C4297366AB00C14BE6 /* Color + gold.swift */; };
 		DB5CFE8A2965E24800E5708B /* OpeningExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE892965E24800E5708B /* OpeningExplorerView.swift */; };
 		DB5CFE8D2965E31900E5708B /* OpeningExplorerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE8C2965E31900E5708B /* OpeningExplorerViewModel.swift */; };
-		DB5CFE922965E86200E5708B /* MoveStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE912965E86200E5708B /* MoveStatistics.swift */; };
+		DB5CFE922965E86200E5708B /* MoveList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE912965E86200E5708B /* MoveList.swift */; };
 		DB5CFE942965F81A00E5708B /* SpacingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE932965F81A00E5708B /* SpacingHStack.swift */; };
 		DB646A5C293D139100C56280 /* Termination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A5B293D139100C56280 /* Termination.swift */; };
 		DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A5D293D185500C56280 /* Array + subscripts.swift */; };
@@ -68,9 +69,10 @@
 /* Begin PBXFileReference section */
 		DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeView.swift; sourceTree = "<group>"; };
 		DB2059C229734CDC00C14BE6 /* GameList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameList.swift; sourceTree = "<group>"; };
+		DB2059C4297366AB00C14BE6 /* Color + gold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color + gold.swift"; sourceTree = "<group>"; };
 		DB5CFE892965E24800E5708B /* OpeningExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningExplorerView.swift; sourceTree = "<group>"; };
 		DB5CFE8C2965E31900E5708B /* OpeningExplorerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningExplorerViewModel.swift; sourceTree = "<group>"; };
-		DB5CFE912965E86200E5708B /* MoveStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveStatistics.swift; sourceTree = "<group>"; };
+		DB5CFE912965E86200E5708B /* MoveList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveList.swift; sourceTree = "<group>"; };
 		DB5CFE932965F81A00E5708B /* SpacingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacingHStack.swift; sourceTree = "<group>"; };
 		DB646A5B293D139100C56280 /* Termination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Termination.swift; sourceTree = "<group>"; };
 		DB646A5D293D185500C56280 /* Array + subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + subscripts.swift"; sourceTree = "<group>"; };
@@ -161,7 +163,7 @@
 		DB5CFE8E2965E33D00E5708B /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				DB5CFE912965E86200E5708B /* MoveStatistics.swift */,
+				DB5CFE912965E86200E5708B /* MoveList.swift */,
 				DB2059C229734CDC00C14BE6 /* GameList.swift */,
 			);
 			path = Subviews;
@@ -334,6 +336,7 @@
 				DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */,
 				DBA51AB4293BF44300CC4BC3 /* Array + removeEnPassants.swift */,
 				DB646A5D293D185500C56280 /* Array + subscripts.swift */,
+				DB2059C4297366AB00C14BE6 /* Color + gold.swift */,
 				DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */,
 				DBAB9F9C284E4AB000E1CFE4 /* Board + loadFEN.swift */,
 				DBAFF1A429463C7F00335AB6 /* Board + toFEN.swift */,
@@ -437,10 +440,11 @@
 				DB96653A29561D92000A78BC /* MoveView.swift in Sources */,
 				DB9CD8112954F9180040D017 /* AnaylsisView.swift in Sources */,
 				DBBFB5EC294256A00073B502 /* WrappingHStack.swift in Sources */,
+				DB2059C5297366AB00C14BE6 /* Color + gold.swift in Sources */,
 				DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */,
 				DB7EF473296626500096D5AD /* LichessOpening.swift in Sources */,
 				DB646A67293D4BAC00C56280 /* Convert.swift in Sources */,
-				DB5CFE922965E86200E5708B /* MoveStatistics.swift in Sources */,
+				DB5CFE922965E86200E5708B /* MoveList.swift in Sources */,
 				DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */,
 				DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */,
 				DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */,

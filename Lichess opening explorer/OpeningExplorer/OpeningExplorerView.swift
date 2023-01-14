@@ -13,27 +13,13 @@ struct OpeningExplorerView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
-    //    init(chessboardVM: ChessboardViewModel) {
-    //        UITableView.appearance().backgroundColor = .red
-    //        UITableViewCell.appearance().backgroundColor = .green
-    //
-    //        self.chessboardVM = chessboardVM
-    //    }
-    
     var body: some View {
         List {
             Section {
                 if vm.db != nil {
                     // Moves played
-                    VStack(alignment: .leading, spacing: 10) {
-                        ForEach(Array(vm.db!.moves.enumerated()), id:\.offset) { i, move in
-                            MoveStatistics(move: move)
-                                .frame(maxWidth: .infinity, idealHeight: 30, alignment: .leading)
-                                .onTapGesture {
-                                    onClickMove(at: i)
-                                }
-                        }
-                    }
+                    MoveList(moves: vm.db!.moves, didClick: onClickMove)
+                    
                     .padding(.bottom, 10)
                 } else {
                     Text("Sorry. This we couldn't find moves in this position.")
