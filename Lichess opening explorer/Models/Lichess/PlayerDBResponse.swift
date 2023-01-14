@@ -9,14 +9,12 @@
 //
 //   let playerGameResponse = try? newJSONDecoder().decode(PlayerDBResponse.self, from: jsonData)
 
-import Foundation
-
-// MARK: - PlayerDBResponse
+// MARK: - LichessDBResponse
 struct PlayerDBResponse: Decodable {
     let white, draws, black: Int
-    let moves: [LichessMove]
+    let moves: [PlayerMove]
     let recentGames: [PlayerGame]
-    let opening: LichessOpening
+    let opening: LichessOpening?
 }
 
 // MARK: - Move
@@ -31,15 +29,16 @@ struct PlayerMove:  Decodable {
 struct PlayerGame:  Decodable, Identifiable {
     let id: String
     let winner: String?
-    let speed, mode: String
-    let black, white: Player
+    let speed: String
+    let mode: String
+    let black, white: LichessPlayer
     let year: Int
     let month: String?
     let uci: String?
 }
 
 // MARK: - Black
-struct Player: Decodable {
+struct Black: Codable {
     let name: String
     let rating: Int
 }

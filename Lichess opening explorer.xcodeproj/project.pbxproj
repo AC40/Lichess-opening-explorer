@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		DB06D4A0296B5DEC00AB1516 /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = DB06D49F296B5DEC00AB1516 /* MarqueeLabel */; };
 		DB06D4A2296B5E1700AB1516 /* MarqueeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */; };
-		DB5CFE7D2965DA8C00E5708B /* MastersDBResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE7C2965DA8C00E5708B /* MastersDBResponse.swift */; };
 		DB5CFE8A2965E24800E5708B /* OpeningExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE892965E24800E5708B /* OpeningExplorerView.swift */; };
 		DB5CFE8D2965E31900E5708B /* OpeningExplorerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE8C2965E31900E5708B /* OpeningExplorerViewModel.swift */; };
 		DB5CFE922965E86200E5708B /* MoveStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE912965E86200E5708B /* MoveStatistics.swift */; };
@@ -68,7 +67,6 @@
 
 /* Begin PBXFileReference section */
 		DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeView.swift; sourceTree = "<group>"; };
-		DB5CFE7C2965DA8C00E5708B /* MastersDBResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastersDBResponse.swift; sourceTree = "<group>"; };
 		DB5CFE892965E24800E5708B /* OpeningExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningExplorerView.swift; sourceTree = "<group>"; };
 		DB5CFE8C2965E31900E5708B /* OpeningExplorerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningExplorerViewModel.swift; sourceTree = "<group>"; };
 		DB5CFE912965E86200E5708B /* MoveStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveStatistics.swift; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 		DB5CFE7E2965DA9000E5708B /* Lichess */ = {
 			isa = PBXGroup;
 			children = (
-				DB5CFE7C2965DA8C00E5708B /* MastersDBResponse.swift */,
 				DB82104529709F2C00CEA5B3 /* LichessDBResponse.swift */,
 				DB664D2228427CA10088749A /* PlayerDBResponse.swift */,
 				DB7EF472296626500096D5AD /* LichessOpening.swift */,
@@ -481,7 +478,6 @@
 				DB646A65293D495E00C56280 /* VariationView.swift in Sources */,
 				DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */,
 				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
-				DB5CFE7D2965DA8C00E5708B /* MastersDBResponse.swift in Sources */,
 				DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */,
 				DBAB9F9D284E4AB100E1CFE4 /* Board + loadFEN.swift in Sources */,
 				DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */,

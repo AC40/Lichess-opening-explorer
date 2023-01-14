@@ -31,24 +31,33 @@ struct OpeningExplorerView: View {
                     }
                 }
                 
-                VStack(alignment: .leading, spacing: 10) {
-                    if vm.unavailabe {
-                        Spacer()
-                        Text("This feature is currently unavailable. Sorry :(")
-                        Spacer()
-                    } else if vm.db != nil {
-                        ForEach(Array(vm.db!.moves.enumerated()), id:\.offset) { i, move in
-                            MoveStatistics(move: move)
+                if vm.dbType == .player {
+                    if vm.playerDB != nil {
+                        ForEach(Array(vm.playerDB!.moves.enumerated()), id:\.offset) { i, move in
+                            Text(String(move.averageOpponentRating))
                                 .frame(maxWidth: .infinity, idealHeight: 30, alignment: .leading)
                                 .onTapGesture {
                                     onClickMove(at: i)
                                 }
                         }
-                    } else {
-                        Text("Sorry. This we couldn't find moves in this position.")
                     }
-                    
+                } else {
+                    VStack(alignment: .leading, spacing: 10) {
+                        if vm.db != nil {
+                            ForEach(Array(vm.db!.moves.enumerated()), id:\.offset) { i, move in
+                                MoveStatistics(move: move)
+                                    .frame(maxWidth: .infinity, idealHeight: 30, alignment: .leading)
+                                    .onTapGesture {
+                                        onClickMove(at: i)
+                                    }
+                            }
+                        } else {
+                            Text("Sorry. This we couldn't find moves in this position.")
+                        }
+                        
+                    }
                 }
+                
             }
             .padding(.horizontal, 20)
         }
@@ -85,8 +94,7 @@ struct OpeningExplorerView: View {
                 case .masters:
                     vm.db = try await Networking.fetchMasterDB(from: chessboardVM.board.asFEN())
                 case .player:
-                    vm.unavailabe = true
-                    vm.db = nil
+                    vm.playerDB = try await Networking.fetchPlayerDB(for: "ac40", with: "white", from: chessboardVM.board.asFEN())
                 }
             } catch {
                 print(error)
