@@ -11,7 +11,10 @@ struct LichessMove: Decodable, Identifiable {
     internal let id = UUID()
     
     let uci, san: String
-    let averageRating, white, draws, black: Int
+    let white, draws, black: Int
+    let averageRating: Int?
+    let averageOpponentRating: Int?
+    let performace: Int?
     let game: LichessOpening?
     
 }

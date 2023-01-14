@@ -31,9 +31,13 @@ struct MoveStatistics: View {
                                     let drawShare = shareOfWins(for: move.draws)
                                     let blackShare = shareOfWins(for: move.black)
 
+//                                    Color(red: 230/255, green: 230/255, blue: 230/255)
                                     Color.white
                                         .frame(width: geo.size.width*whiteShare)
-                                        .overlay(properlyFormattedText(whiteShare))
+                                        .overlay(
+                                            properlyFormattedText(whiteShare)
+                                                .foregroundColor(.black)
+                                        )
                                     Color.gray
                                         .frame(width: geo.size.width*drawShare)
                                         .overlay(properlyFormattedText(drawShare))

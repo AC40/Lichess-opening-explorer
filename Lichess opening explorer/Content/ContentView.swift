@@ -17,7 +17,8 @@ struct ContentView: View {
         NavigationStack {
             ZStack {
                 
-                Color(red: 230/255, green: 230/255, blue: 230/255)
+                Color(uiColor: .systemGray6)
+                //                Color(red: 230/255, green: 230/255, blue: 230/255)
                     .edgesIgnoringSafeArea(.all)
                 
                 AdaptiveStack(content: {

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DB06D4A0296B5DEC00AB1516 /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = DB06D49F296B5DEC00AB1516 /* MarqueeLabel */; };
 		DB06D4A2296B5E1700AB1516 /* MarqueeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */; };
+		DB2059C329734CDC00C14BE6 /* GameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2059C229734CDC00C14BE6 /* GameList.swift */; };
 		DB5CFE8A2965E24800E5708B /* OpeningExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE892965E24800E5708B /* OpeningExplorerView.swift */; };
 		DB5CFE8D2965E31900E5708B /* OpeningExplorerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE8C2965E31900E5708B /* OpeningExplorerViewModel.swift */; };
 		DB5CFE922965E86200E5708B /* MoveStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE912965E86200E5708B /* MoveStatistics.swift */; };
@@ -23,7 +24,6 @@
 		DB664D1728427BEC0088749A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1628427BEC0088749A /* ContentView.swift */; };
 		DB664D1928427BEE0088749A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB664D1828427BEE0088749A /* Assets.xcassets */; };
 		DB664D1C28427BEE0088749A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB664D1B28427BEE0088749A /* Preview Assets.xcassets */; };
-		DB664D2328427CA10088749A /* PlayerDBResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2228427CA10088749A /* PlayerDBResponse.swift */; };
 		DB664D2528427CBD0088749A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2428427CBD0088749A /* Networking.swift */; };
 		DB664D2728427D290088749A /* NeworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2628427D290088749A /* NeworkingError.swift */; };
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
@@ -67,6 +67,7 @@
 
 /* Begin PBXFileReference section */
 		DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeView.swift; sourceTree = "<group>"; };
+		DB2059C229734CDC00C14BE6 /* GameList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameList.swift; sourceTree = "<group>"; };
 		DB5CFE892965E24800E5708B /* OpeningExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningExplorerView.swift; sourceTree = "<group>"; };
 		DB5CFE8C2965E31900E5708B /* OpeningExplorerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningExplorerViewModel.swift; sourceTree = "<group>"; };
 		DB5CFE912965E86200E5708B /* MoveStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveStatistics.swift; sourceTree = "<group>"; };
@@ -82,7 +83,6 @@
 		DB664D1628427BEC0088749A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DB664D1828427BEE0088749A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB664D1B28427BEE0088749A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		DB664D2228427CA10088749A /* PlayerDBResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDBResponse.swift; sourceTree = "<group>"; };
 		DB664D2428427CBD0088749A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		DB664D2628427D290088749A /* NeworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeworkingError.swift; sourceTree = "<group>"; };
 		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
@@ -140,7 +140,6 @@
 			isa = PBXGroup;
 			children = (
 				DB82104529709F2C00CEA5B3 /* LichessDBResponse.swift */,
-				DB664D2228427CA10088749A /* PlayerDBResponse.swift */,
 				DB7EF472296626500096D5AD /* LichessOpening.swift */,
 				DB82104B2970A29200CEA5B3 /* LichessMove.swift */,
 				DB8210472970A03300CEA5B3 /* LichessSpeed.swift */,
@@ -163,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5CFE912965E86200E5708B /* MoveStatistics.swift */,
+				DB2059C229734CDC00C14BE6 /* GameList.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -450,7 +450,6 @@
 				DB82104629709F2C00CEA5B3 /* LichessDBResponse.swift in Sources */,
 				DBAFF1A529463C7F00335AB6 /* Board + toFEN.swift in Sources */,
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
-				DB664D2328427CA10088749A /* PlayerDBResponse.swift in Sources */,
 				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
 				DB966538295613D4000A78BC /* AnalysisViewModel.swift in Sources */,
 				DB5CFE8D2965E31900E5708B /* OpeningExplorerViewModel.swift in Sources */,
@@ -485,6 +484,7 @@
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
 				DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */,
 				DB646A63293D1D0300C56280 /* MoveFlag.swift in Sources */,
+				DB2059C329734CDC00C14BE6 /* GameList.swift in Sources */,
 				DB866671293A6E6500761F95 /* ThemeManager.swift in Sources */,
 				DBCBA7E42950B129000024F4 /* SettingsView.swift in Sources */,
 			);

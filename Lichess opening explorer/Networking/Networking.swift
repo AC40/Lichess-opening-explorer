@@ -9,19 +9,6 @@ import Foundation
 
 struct Networking {
     
-    static func fetchPlayerGames(for moves: String) async throws -> PlayerDBResponse {
-        
-        let url =  URL(string: "https://explorer.lichess.ovh/player?player=ac40&color=white&play=\(moves)&recentGames=10")!
-        
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        print(response)
-        
-        let playerGameResponse = try JSONDecoder().decode(PlayerDBResponse.self, from: data)
-        
-        return playerGameResponse
-    }
-    
     static func fetchMasterDB(from fen: String = "fen=rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", moves: String = "", since start: Int = 1952, movesToReturn: Int = 12) async throws -> LichessDBResponse {
         
         let fen = fen.replacingOccurrences(of: " ", with: "%20")
@@ -67,8 +54,6 @@ struct Networking {
         return db
     }
     
-    // Currently does not work
-    // Lichess (for some dumb reason) returns nd-json instead of json and i dont know how to read or convert it
     static func fetchPlayerDB(
         for player: String,
         with color: String,
@@ -76,7 +61,7 @@ struct Networking {
         moves: String = "",
         speeds: [LichessSpeed] = LichessSpeed.allCases,
         since start: Int = 1952,
-        movesToReturn: Int = 12) async throws -> PlayerDBResponse {
+        movesToReturn: Int = 12) async throws -> LichessDBResponse {
             
             let fen = fen.replacingOccurrences(of: " ", with: "%20")
             
@@ -86,9 +71,9 @@ struct Networking {
                 throw NetworkingError.invalidURL
             }
             
-            var jsonString = try await Networking.fetchNDJSON(url: url!)
+            let jsonString = try await Networking.fetchNDJSON(url: url!)
             
-            let db = try JSONDecoder().decode(PlayerDBResponse.self, from: Data(jsonString.utf8))
+            let db = try JSONDecoder().decode(LichessDBResponse.self, from: Data(jsonString.utf8))
             
             return db
         }
@@ -118,9 +103,6 @@ struct Networking {
         }
         
         jsonString = jsonString.filter { !" \n\t\r".contains($0) }
-//        jsonString.removeAll(where: { $0 == "\\" })
-//        jsonString = "[" + jsonString
-//        jsonString.append("]")
         
         return jsonString
     

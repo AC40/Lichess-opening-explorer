@@ -17,8 +17,6 @@ class OpeningExplorerViewModel: ObservableObject {
         }
     }
     
-    @Published var playerDB: PlayerDBResponse? = nil
-    
     @Published var dbType: LichessDBType = LichessDBType.stringToType(UserDefaults.standard.string(forKey: "selectedDBType") ?? "lichess") {
         didSet {
             saveDBType()

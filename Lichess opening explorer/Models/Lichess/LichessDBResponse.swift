@@ -18,9 +18,12 @@ struct LichessDBResponse: Decodable {
 
 // MARK: - Lichessgame
 struct LichessGame: Decodable {
-    let uci: String?
     let id: String
+    
+    let uci: String?
     let winner: String?
+    let speed: String?
+    let mode: String?
     let black, white: LichessPlayer
     let year: Int
     let month: String?
