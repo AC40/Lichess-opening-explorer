@@ -144,79 +144,61 @@ extension Board {
         var newPieces = new
         var pieces = [Piece]()
         
-        // For every piece, see if it remains on the board
-        for org in orginal {
-            var potentialNeighbours = [Piece]()
-            var org = org
+        // for every piece in current piece array:
+        for var piece in orginal where piece.type != .pawn {
             
-            for new in newPieces {
-                if new == org {
-                    potentialNeighbours.append(new)
-                }
+            // get all pieces of same color and type from new array
+            let samePieces = newPieces.filter({ $0 == piece })
+            
+            // calculate distance between each new piece and the current piece
+            let distances = samePieces.map({ Utility.distanceBetweenTwoSquares(piece.square, $0.square) ?? 0 })
+            
+            // get new piece with lowest distance to org piece
+            guard let lowestI = distances.firstIndex(of: distances.min() ?? 0) else {
+                continue
             }
             
-            var diffs: [Int] = []
+            let closestPiece = samePieces[lowestI]
             
-            for neighbour in potentialNeighbours {
-                if neighbour.type == .pawn {
-                    if neighbour.square.file == org.square.file {
-                        org.square = neighbour.square
-                        pieces.append(org)
-                        break
-                    }
-                } else {
-                    let nRank = neighbour.square.rank
-                    let nFile = neighbour.square.file
-                    let oRank = org.square.rank
-                    let oFile = org.square.file
-                    
-                    var rankDiff = 0
-                    var fileDiff = 0
-                    
-                    if nRank > oRank {
-                        rankDiff = nRank - oRank
-                    } else {
-                        rankDiff = oRank - nRank
-                    }
-                    
-                    if nFile > oFile {
-                        fileDiff = nFile - oFile
-                    } else {
-                        fileDiff = oFile - nFile
-                    }
-                    
-                    diffs.append(rankDiff + fileDiff)
-                }
+            // set org piece.square to new piece.square
+            piece.square = closestPiece.square
+            
+            // remove said new piece from new array
+            newPieces.remove(at: newPieces.firstIndex(where: { $0 == closestPiece && $0.square == closestPiece.square })!)
+            
+            // add org piece to all array
+            pieces.append(piece)
+        }
+
+        
+        // for every pawn in current piece array:
+        for var pawn in orginal where pawn.type == .pawn {
+            
+            // get all pawns on same file
+            let sameFile = newPieces.filter({ $0 == pawn && $0.square.file == pawn.square.file })
+            let rankDistance = sameFile.map({ samePawn in
+                let relDistance = pawn.square.rank - samePawn.square.rank
+                return abs(relDistance)
+            })
+            
+            // get pawn with nearest rank to org pawn
+            guard let lowestI = rankDistance.firstIndex(of: rankDistance.min() ?? 0) else {
+                continue
             }
             
-            guard potentialNeighbours.count < 0 else {
-                break
-            }
+            let closest = sameFile[lowestI]
             
-            org.square = potentialNeighbours[diffs.firstIndex(where: { $0 == diffs.max() }) ?? 0].square
-//            if let i = new.firstIndex(where: {
-//                if $0.type == org.type && $0.color == org.color {
-//                    if $0.type == .pawn {
-//                        return ($0.square == org.square ||
-//                                $0.square.file == org.square.file)
-//                    } else {
-//                        return ($0.square == org.square ||
-//                                $0.square.file == org.square.file ||
-//                                $0.square.rank == org.square.rank)
-//                    }
-//                }
-//                return false
-//
-//            }) {
-//                var piece = org
-//                piece.square = new[i].square
-//                pieces.append(piece)
-//
-//                new.remove(at: i)
-//            }
+            // set org pawn.square = new pawn.square
+            pawn.square = closest.square
+            
+            // remove newPawn from new array
+            newPieces.remove(at: newPieces.firstIndex(where: { $0 == closest && $0.square == closest.square })!)
+            
+            // add org pawn to all array
+            pieces.append(pawn)
         }
         
-        // Add all remaining pieces to the board
+        //Add all remaining pieces to the board
         pieces += newPieces
         
         return pieces
