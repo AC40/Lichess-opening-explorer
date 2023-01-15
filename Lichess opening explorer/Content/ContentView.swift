@@ -18,10 +18,9 @@ struct ContentView: View {
             ZStack {
                 
                 Color(uiColor: .systemGray6)
-                //                Color(red: 230/255, green: 230/255, blue: 230/255)
                     .edgesIgnoringSafeArea(.all)
                 
-                AdaptiveStack(content: {
+                AdaptiveStack(spacing: 0, content: {
                     
                     Chessboard(vm: chessboardVM, themeMg: themeMg)
                         .zIndex(10)
@@ -33,7 +32,28 @@ struct ContentView: View {
                             }
                         )
                     
-                    VStack(alignment: .leading) {
+                    ZStack(alignment: .topLeading) {
+                        
+                        switch vm.subView {
+                        case 0:
+                            VariationView(chessboardVM: chessboardVM, pickerHeight: vm.pickerHeight)
+                        case 1:
+                            ScrollView {
+                                buttonList()
+                                    .padding()
+                                    .buttonStyle(.bordered)
+                                    .buttonBorderShape(.roundedRectangle)
+                                    .tint(.pink)
+                                    .padding(.top, vm.pickerHeight)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        case 2:
+                            OpeningExplorerView(chessboardVM: chessboardVM, pickerHeight: vm.pickerHeight)
+                            
+                        default:
+                            VariationView(chessboardVM: chessboardVM, pickerHeight: vm.pickerHeight)
+                        }
+                        
 //                        AnaylsisView(chessboardVM: chessboardVM)
                         HStack {
                             
@@ -49,28 +69,23 @@ struct ContentView: View {
                             .pickerStyle(.segmented)
                             moveControls()
                         }
-                        .padding(.horizontal, 10)
-                        
-                        switch vm.subView {
-                        case 0:
-                            VariationView(chessboardVM: chessboardVM)
-                        case 1:
-                            ScrollView {
-                                buttonList()
-                                    .padding()
-                                    .buttonStyle(.bordered)
-                                    .buttonBorderShape(.roundedRectangle)
-                                    .tint(.pink)
+                        .padding(10)
+                        .background(Group {
+                            if vm.subView == 2 {
+                                EmptyView()
+                            } else {
+                                Rectangle()
+                                    .fill(.regularMaterial)
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .zIndex(8)
-                        case 2:
-                            OpeningExplorerView(chessboardVM: chessboardVM)
-                            
-                        default:
-                            VariationView(chessboardVM: chessboardVM)
-                        }
-                        
+                        })
+                        .background(
+                            GeometryReader { geo in
+                                Color.clear
+                                    .onAppear {
+                                        vm.pickerHeight = geo.size.height
+                                    }
+                            }
+                        )
                     }
                     .alert(isPresented: $vm.showFENAlert) {
                         Alert(title: Text("Current FEN String"), message: Text(chessboardVM.board.asFEN()), dismissButton: .default(Text("Okay")))

@@ -13,6 +13,8 @@ struct OpeningExplorerView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
+    var pickerHeight: CGFloat
+    
     var body: some View {
         List {
             Section {
@@ -23,6 +25,23 @@ struct OpeningExplorerView: View {
                     .padding(.bottom, 10)
                 } else {
                     Text("Sorry. This we couldn't find moves in this position.")
+                }
+                
+                if let games = vm.db?.topGames {
+                    if !games.isEmpty {
+                        Text("Top Games")
+                            .fontWeight(.bold)
+                            .foregroundColor(.secondary)
+                        GameList(games: games)
+                    }
+                }
+                if let games = vm.db?.recentGames {
+                    if !games.isEmpty {
+                        Text("Recent Games")
+                            .fontWeight(.bold)
+                            .foregroundColor(.secondary)
+                        GameList(games: games)
+                    }
                 }
             } header: {
                 HStack(alignment: .center) {
@@ -39,26 +58,9 @@ struct OpeningExplorerView: View {
                             .tag(LichessDBType.player)
                     }
                 }
+                    .padding(.top, pickerHeight-10)
             }
             .listRowBackground(Color.clear)
-            
-            if let games = vm.db?.topGames {
-                Section {
-                    GameList(games: games)
-                } header: {
-                    Text("Top Games")
-                }
-                .listRowBackground(Color.clear)
-            }
-            
-            if let games = vm.db?.recentGames {
-                Section {
-                    GameList(games: games)
-                } header: {
-                    Text("Recent Games")
-                }
-                .listRowBackground(Color.clear)
-            }
             
         }
         .listStyle(.plain)

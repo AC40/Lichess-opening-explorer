@@ -138,6 +138,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB2474EA29749FE50070712F /* Variations */ = {
+			isa = PBXGroup;
+			children = (
+				DB646A64293D495E00C56280 /* VariationView.swift */,
+				DB2474EB29749FF60070712F /* Subviews */,
+			);
+			path = Variations;
+			sourceTree = "<group>";
+		};
+		DB2474EB29749FF60070712F /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				DB96653929561D92000A78BC /* MoveView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		DB5CFE7E2965DA9000E5708B /* Lichess */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +221,7 @@
 				DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */,
 				DBAE573A28451A2900B72B8C /* Content */,
 				DBAE573928451A1E00B72B8C /* Board */,
+				DB2474EA29749FE50070712F /* Variations */,
 				DB966536295613BC000A78BC /* Analysis */,
 				DB5CFE8B2965E2FF00E5708B /* OpeningExplorer */,
 				DBCBA7E22950B11A000024F4 /* Settings */,
@@ -302,8 +320,6 @@
 			children = (
 				DBAE5743284530D600B72B8C /* PieceView.swift */,
 				DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */,
-				DB646A64293D495E00C56280 /* VariationView.swift */,
-				DB96653929561D92000A78BC /* MoveView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
