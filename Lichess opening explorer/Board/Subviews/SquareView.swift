@@ -102,7 +102,7 @@ struct SquareView: View {
         }
         
         // Square was part of previous move
-        if chessboardVM.board.currentMove > 0 {
+        if chessboardVM.board.currentMove < chessboardVM.board.moves.count-1 && chessboardVM.board.currentMove > 0 {
             let prevMove = chessboardVM.board.moves[chessboardVM.board.currentMove-1]
             
             if prevMove.start == tile || prevMove.end == tile {

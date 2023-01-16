@@ -77,8 +77,6 @@ class ChessboardViewModel: ObservableObject {
             return
         }
         
-//        var piece = board.pieces[pieceI]
-        
         guard board.pieces[pieceI].type != .none else {
             resetSelection()
             return
@@ -90,7 +88,6 @@ class ChessboardViewModel: ObservableObject {
                 return
             }
         }
-        
         
         // Check, if pawns moves two squares (initial double step)
         if board.pieces[pieceI].type == .pawn && abs(endRank-startRank) == 2 {
@@ -217,25 +214,76 @@ class ChessboardViewModel: ObservableObject {
             }
         }
         
-        // Move piece from start to end square
-        board[move.start].piece = Piece.none
         
         // Add meta info to piece
         if let newPieceI = board.pieces.firstIndex(where: { $0.square == move.start }) {
             board.pieces[newPieceI].square = move.end
+            
+            // Move piece from start to end square
+            board[move.start].piece = Piece.none
             board[move.end].piece = board.pieces[newPieceI]
+            
+            move.piece = board.pieces[newPieceI]
         } else {
             print("Huston we got a problem")
         }
         
-        
-
-        
-        // Add meta info to move
-        move.piece = board.pieces[pieceI]
-        
         endTurn(with: move)
         
+    }
+    
+    func unmakeMove(_ move: Move) {
+        //MARK: Pseudo code
+        
+        // move piece from end square to start square
+        let piece = board[move.end].piece
+        board[move.end].piece = .none
+        board[move.start].piece = piece
+        
+        if let i = board.pieces.firstIndex(where: { $0 == piece && $0.square == move.end }) {
+            board.pieces[i].square = move.start
+        }
+        
+        // check move.flag
+        switch move.flag {
+        case .capture:
+            // Add captured piece back to end
+            if var capture = move.capture {
+                capture.square = move.end
+                board[move.end].piece = capture
+                board.pieces.append(capture)
+            }
+        case .longCastle:
+            // move rook back
+            if piece.color == .white, let i = board.pieces.firstIndex(where: { $0 == .rookW && $0.square == (7, 3) }) {
+                board.pieces[i].square = Tile(7, 0)
+            } else if let i = board.pieces.firstIndex(where: { $0 == .rookB && $0.square == (0, 3) }) {
+                board.pieces[i].square = Tile(0, 0)
+            }
+        case .shortCastle:
+            // move rook back
+            if piece.color == .white, let i = board.pieces.firstIndex(where: { $0 == .rookW && $0.square == (7, 5) }) {
+                board.pieces[i].square = Tile(7, 7)
+            } else if let i = board.pieces.firstIndex(where: { $0 == .rookB && $0.square == (0, 5) }) {
+                board.pieces[i].square = Tile(0, 7)
+            }
+            break
+        case .promotion(piece: _):
+            // set piece.type to pawn
+            board[move.start].piece.type = .pawn
+            if let i = board.pieces.firstIndex(where: { $0 == piece && $0.square == move.start }) {
+                board.pieces[i].type = .pawn
+            }
+        default:
+            break
+        }
+        
+        //TODO: Restore king- and rookHasMoved flags (from FEN)
+        
+        //TODO: Restore en-passant (from FEN)
+        
+        // Note: Make every change in board.squares and in board.pieces
+        endTurn(with: move, undo: true)
     }
     
     func loadMove(_ move: Move) {
@@ -243,7 +291,7 @@ class ChessboardViewModel: ObservableObject {
         resetSelection()
     }
     
-    func endTurn(with move: Move) {
+    func endTurn(with move: Move, undo: Bool = false) {
         var move = move
         resetSelection()
         
@@ -273,6 +321,13 @@ class ChessboardViewModel: ObservableObject {
         move.check = board.check
         move.termination = board.termination
         move.position = board.asFEN()
+        
+        // If turn unmakes a move
+        guard !undo else {
+            board.currentMove -= 1
+            
+            return
+        }
         
         // Add move to history
         if (board.moves.isEmpty) {

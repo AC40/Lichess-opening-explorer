@@ -30,10 +30,8 @@ struct PieceView: View {
                     .scaleEffect(isDragging ? 1.3 : 1, anchor: .center)
                     .frame(width: frame.width, height: frame.height)
                     .position(x: frame.midX  + offsetX, y: frame.midY + offsetY)
-//                    .offset(offset)
                     .rotationEffect(chessboardVM.whitePerspective ? .degrees(0) : .degrees(180))
-                    .animation(.spring(), value: piece.square)
-//                    .animation(.linear.speed(5), value: isDragging)
+                    .animation(settings.movePieceAnimation(), value: piece.square)
                     .highPriorityGesture(DragGesture(coordinateSpace: .named("chessboard"))
                         .onChanged {
                             onDragChanged($0, piece: piece, square: tile)
@@ -121,19 +119,11 @@ struct PieceView: View {
     }
     
     func animatePieceToSelf() {
-             withAnimation(movePieceAnimation())  {
-                 offsetX = .zero
-                 offsetY = .zero
-             }
-
-         }
-
-         func movePieceAnimation() -> Animation? {
-             guard settings.animatePieces else {
-                 return nil
-             }
-
-             return Animation.linear.speed(settings.animationSpeed)
-         }
+        withAnimation(settings.movePieceAnimation())  {
+            offsetX = .zero
+            offsetY = .zero
+        }
+        
+    }
 }
 

@@ -5,14 +5,21 @@
 //  Created by AC Richter on 19.12.22.
 //
 
-import Foundation
+import SwiftUI
 
  class Settings: ObservableObject {
 
      @Published var animatePieces = true
      @Published var animationSpeed: Double = 2
 
-     //TODO: Create defaults and give option to reset to them
+     
+     func movePieceAnimation() -> Animation {
+         guard animatePieces else {
+             return Animation.linear(duration: 0)
+         }
+
+         return Animation.linear.speed(animationSpeed)
+     }
      
      //Future settings options:
      /*
