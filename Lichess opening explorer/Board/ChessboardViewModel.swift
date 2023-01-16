@@ -90,6 +90,9 @@ class ChessboardViewModel: ObservableObject {
         }
         
         move.position = board.asFEN()
+        if board[move.end].canBeTakenWithEnPassant {
+            move.flag = .enPassant
+        }
         
         // Check, if pawns moves two squares (initial double step)
         if board.pieces[pieceI].type == .pawn && abs(endRank-startRank) == 2 {
@@ -194,6 +197,7 @@ class ChessboardViewModel: ObservableObject {
             if move.flag == .move {
                 move.flag = .capture
             }
+            
         }
         
         // Remove captured piece
@@ -202,18 +206,21 @@ class ChessboardViewModel: ObservableObject {
         }
         
         // Take pawn when taken with en passant
-        if board[move.end].canBeTakenWithEnPassant {
+        if move.flag == .enPassant {
             if board.whiteTurn {
+                move.capture = board[endRank+1, endFile].piece
                 board[endRank+1, endFile].piece = Piece.none
                 if let epI = board.pieces.firstIndex(where: { $0.square == (endRank+1, endFile)}) {
                     board.pieces.remove(at: epI)
                 }
             } else {
+                move.capture = board[endRank-1, endFile].piece
                 board[endRank-1, endFile].piece = Piece.none
                 if let epI = board.pieces.firstIndex(where: { $0.square == (endRank-1, endFile)}) {
                     board.pieces.remove(at: epI)
                 }
             }
+            move.flag = .enPassant
         }
         
         
@@ -248,6 +255,14 @@ class ChessboardViewModel: ObservableObject {
         
         // check move.flag
         switch move.flag {
+        case .enPassant:
+            // Add captured pawn back to end
+            if var capture = move.capture {
+                let enPassantSquare = piece.color == .white ? Tile(move.end.rank+1, move.end.file) : Tile(move.end.rank-1, move.end.file)
+                capture.square = enPassantSquare
+                board[enPassantSquare].piece = capture
+                board.pieces.append(capture)
+            }
         case .capture:
             // Add captured piece back to end
             if var capture = move.capture {
@@ -308,7 +323,7 @@ class ChessboardViewModel: ObservableObject {
             board.blackKingHasMoved = false
         }
         
-        //TODO: Restore en-passant (from FEN)
+        // Restore en-passant (from FEN)
         let enPassantSquare = Utility.enPassantSquareFromFen(move.position)
         let enPassantTile = Convert.shortAlgebraToTile(enPassantSquare)
         
