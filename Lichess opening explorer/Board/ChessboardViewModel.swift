@@ -202,18 +202,6 @@ class ChessboardViewModel: ObservableObject {
             board.pieces.remove(at: captureI)
         }
         
-        // Move piece from start to end square
-        board[move.start].piece = Piece.none
-        
-        // Add meta info to piece
-        if let newPieceI = board.pieces.firstIndex(where: { $0.square == move.start }) {
-            board.pieces[newPieceI].square = move.end
-            board[move.end].piece = board.pieces[newPieceI]
-        } else {
-            print("Huston we got a problem")
-        }
-        
-        
         // Take pawn when taken with en passant
         if board[move.end].canBeTakenWithEnPassant {
             if board.whiteTurn {
@@ -228,6 +216,20 @@ class ChessboardViewModel: ObservableObject {
                 }
             }
         }
+        
+        // Move piece from start to end square
+        board[move.start].piece = Piece.none
+        
+        // Add meta info to piece
+        if let newPieceI = board.pieces.firstIndex(where: { $0.square == move.start }) {
+            board.pieces[newPieceI].square = move.end
+            board[move.end].piece = board.pieces[newPieceI]
+        } else {
+            print("Huston we got a problem")
+        }
+        
+        
+
         
         // Add meta info to move
         move.piece = board.pieces[pieceI]
@@ -337,6 +339,11 @@ class ChessboardViewModel: ObservableObject {
         
         board[startSquare].piece = .none
         board[promotionSquare].piece = Piece(color: board.whiteTurn ? .white : .black, type: pieceType)
+        
+        if let i = board.pieces.firstIndex(where: { $0.square == startSquare }) {
+            board.pieces[i].square = promotionSquare
+            board.pieces[i].type = pieceType
+        }
         
         self.board.promotionSquare = nil
         pauseGame = false

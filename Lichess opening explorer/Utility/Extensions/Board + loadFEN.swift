@@ -181,21 +181,54 @@ extension Board {
                 return abs(relDistance)
             })
             
-            // get pawn with nearest rank to org pawn
-            guard let lowestI = rankDistance.firstIndex(of: rankDistance.min() ?? 0) else {
-                continue
+            // get all pawns in capture distance
+            let undoCaptures = newPieces.filter({ newPawn in
+                let isPawn = newPawn == pawn
+                let isOnAdjaconedFile = newPawn.square.file == pawn.square.file-1 || newPawn.square.file == pawn.square.file+1
+                var isOnNextRank = false
+                
+                /// Indicates, wether a opposite-colored-piece is on the square the pawn in question was orginally at
+                let didCaputure = new.contains(where: { $0.square == pawn.square && $0.color != pawn.color })
+                
+                if pawn.color == .white {
+                    isOnNextRank = newPawn.square.rank == pawn.square.rank+1
+                } else {
+                    isOnNextRank = newPawn.square.rank == pawn.square.rank-1
+                }
+                
+                return (isPawn && isOnAdjaconedFile && isOnNextRank && didCaputure)
+            })
+            
+            // If available, get pawn in capture distance
+            if let closest = undoCaptures.first {
+                // set org pawn.square = new pawn.square
+                pawn.square = closest.square
+                
+                // remove newPawn from new array
+                newPieces.remove(at: newPieces.firstIndex(where: { $0 == closest && $0.square == closest.square })!)
+                
+                // add org pawn to all array
+                pieces.append(pawn)
+                
+            } else {
+                // get pawn with nearest rank to org pawn
+                guard let lowestI = rankDistance.firstIndex(of: rankDistance.min() ?? 0) else {
+                    continue
+                }
+                
+                let closest = sameFile[lowestI]
+                
+                // set org pawn.square = new pawn.square
+                pawn.square = closest.square
+                
+                // remove newPawn from new array
+                newPieces.remove(at: newPieces.firstIndex(where: { $0 == closest && $0.square == closest.square })!)
+                
+                // add org pawn to all array
+                pieces.append(pawn)
             }
             
-            let closest = sameFile[lowestI]
             
-            // set org pawn.square = new pawn.square
-            pawn.square = closest.square
-            
-            // remove newPawn from new array
-            newPieces.remove(at: newPieces.firstIndex(where: { $0 == closest && $0.square == closest.square })!)
-            
-            // add org pawn to all array
-            pieces.append(pawn)
         }
         
         //Add all remaining pieces to the board
