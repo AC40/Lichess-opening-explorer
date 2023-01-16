@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var settings: Settings
     
     @StateObject private var vm = ContentViewModel()
     @StateObject private var chessboardVM = ChessboardViewModel()
@@ -207,13 +208,14 @@ struct ContentView: View {
                 // unmake the most recent move in history
                 if chessboardVM.board.moves.count > 0 {
                     
-                    if chessboardVM.board.currentMove == 1 {
-                        chessboardVM.board.loadDefaultFEN()
-                        chessboardVM.board.currentMove = 0
-                        return
+                    withAnimation(settings.movePieceAnimation()) {
+                        if chessboardVM.board.currentMove == 1 {
+                            chessboardVM.board.loadDefaultFEN()
+                            chessboardVM.board.currentMove = 0
+                            return
+                        }
+                        chessboardVM.unmakeMove(chessboardVM.board.moves[chessboardVM.board.currentMove-1])
                     }
-                    chessboardVM.board.currentMove -= 1
-                    chessboardVM.loadMove(chessboardVM.board.moves[chessboardVM.board.currentMove-1])
                 }
             } label: {
                 Image(systemName: "chevron.backward")
@@ -223,8 +225,9 @@ struct ContentView: View {
             Button {
                 // progress one move forward in move history
                 if chessboardVM.board.moves.count > chessboardVM.board.currentMove {
-                    chessboardVM.loadMove(chessboardVM.board.moves[chessboardVM.board.currentMove])
-                    chessboardVM.board.currentMove += 1
+                    withAnimation(settings.movePieceAnimation()) {
+                        chessboardVM.makeMove(chessboardVM.board.moves[chessboardVM.board.currentMove], strict: false)
+                    }
                 }
                 
             } label: {

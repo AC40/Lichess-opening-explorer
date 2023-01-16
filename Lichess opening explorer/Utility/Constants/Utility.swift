@@ -26,4 +26,26 @@ struct Utility {
         
         return distance
     }
+    
+    /// Returns a string containing the fens information about castling legality (from "kqKQ" to "")
+    static func castlingRightFromFen(_ fen: String) -> String {
+        
+        let parts = fen.split(separator: " ")
+        
+        guard parts.count == 6 else {
+            return ""
+        }
+        
+        return String(parts[2])
+    }
+    
+    static func enPassantSquareFromFen(_ fen: String) -> String {
+        let parts = fen.split(separator: " ")
+        
+        guard parts.count == 6 else {
+            return ""
+        }
+        
+        return String(parts[3])
+    }
 }

@@ -29,10 +29,10 @@ struct Move: Identifiable, Equatable {
     /// A bool describing wether a move induced a check or not
     var check: Bool
     
-    // The type of termination (if any) invoked by the move
+    /// The type of termination (if any) invoked by the move
     var termination: Termination
     
-    // A FEN string describing the position `Before` the move was made
+    /// A FEN string describing the position `Before` the move was made
     var position: String
     
     // If a move has an alternative, than an array containing that move is added to variations: variations.append([move])
