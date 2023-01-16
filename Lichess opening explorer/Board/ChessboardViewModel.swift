@@ -89,6 +89,8 @@ class ChessboardViewModel: ObservableObject {
             }
         }
         
+        move.position = board.asFEN()
+        
         // Check, if pawns moves two squares (initial double step)
         if board.pieces[pieceI].type == .pawn && abs(endRank-startRank) == 2 {
             if board.pieces[pieceI].color == .white {
@@ -257,17 +259,24 @@ class ChessboardViewModel: ObservableObject {
             // move rook back
             if piece.color == .white, let i = board.pieces.firstIndex(where: { $0 == .rookW && $0.square == (7, 3) }) {
                 board.pieces[i].square = Tile(7, 0)
+                board[7, 3].piece = .none
+                board[7, 0].piece = board.pieces[i]
             } else if let i = board.pieces.firstIndex(where: { $0 == .rookB && $0.square == (0, 3) }) {
                 board.pieces[i].square = Tile(0, 0)
+                board[0, 3].piece = .none
+                board[0, 0].piece = board.pieces[i]
             }
         case .shortCastle:
             // move rook back
             if piece.color == .white, let i = board.pieces.firstIndex(where: { $0 == .rookW && $0.square == (7, 5) }) {
                 board.pieces[i].square = Tile(7, 7)
+                board[7, 5].piece = .none
+                board[7, 7].piece = board.pieces[i]
             } else if let i = board.pieces.firstIndex(where: { $0 == .rookB && $0.square == (0, 5) }) {
                 board.pieces[i].square = Tile(0, 7)
+                board[0, 5].piece = .none
+                board[0, 7].piece = board.pieces[i]
             }
-            break
         case .promotion(piece: _):
             // set piece.type to pawn
             board[move.start].piece.type = .pawn
@@ -279,6 +288,25 @@ class ChessboardViewModel: ObservableObject {
         }
         
         //TODO: Restore king- and rookHasMoved flags (from FEN)
+        let rights = Utility.castlingRightFromFen(move.position)
+        
+        if rights.contains("K") {
+            board.whiteKingsRookHasMoved = false
+            board.whiteKingHasMoved = false
+        }
+        if rights.contains("Q") {
+            board.whiteQueensRookHasMoved = false
+            board.whiteKingHasMoved = false
+        }
+        
+        if rights.contains("k") {
+            board.blackKingsRookHasMoved = false
+            board.blackKingHasMoved = false
+        }
+        if rights.contains("q") {
+            board.blackQueensRookHasMoved = false
+            board.blackKingHasMoved = false
+        }
         
         //TODO: Restore en-passant (from FEN)
         
@@ -320,7 +348,7 @@ class ChessboardViewModel: ObservableObject {
         // Set move variables
         move.check = board.check
         move.termination = board.termination
-        move.position = board.asFEN()
+//        move.position = board.asFEN()
         
         // If turn unmakes a move
         guard !undo else {
