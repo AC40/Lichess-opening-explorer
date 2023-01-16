@@ -38,4 +38,14 @@ struct Utility {
         
         return String(parts[2])
     }
+    
+    static func enPassantSquareFromFen(_ fen: String) -> String {
+        let parts = fen.split(separator: " ")
+        
+        guard parts.count == 6 else {
+            return ""
+        }
+        
+        return String(parts[3])
+    }
 }

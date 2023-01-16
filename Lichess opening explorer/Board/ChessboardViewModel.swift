@@ -287,7 +287,7 @@ class ChessboardViewModel: ObservableObject {
             break
         }
         
-        //TODO: Restore king- and rookHasMoved flags (from FEN)
+        // Restore king- and rookHasMoved flags (from FEN)
         let rights = Utility.castlingRightFromFen(move.position)
         
         if rights.contains("K") {
@@ -309,6 +309,18 @@ class ChessboardViewModel: ObservableObject {
         }
         
         //TODO: Restore en-passant (from FEN)
+        let enPassantSquare = Utility.enPassantSquareFromFen(move.position)
+        let enPassantTile = Convert.shortAlgebraToTile(enPassantSquare)
+        
+        if enPassantTile != nil {
+            if piece.color == .white {
+                board.blackEnPassant = enPassantTile
+                board[enPassantTile!].canBeTakenWithEnPassant = true
+            } else {
+                board.whiteEnPassant = enPassantTile
+                board[enPassantTile!].canBeTakenWithEnPassant = true
+            }
+        }
         
         // Note: Make every change in board.squares and in board.pieces
         endTurn(with: move, undo: true)
