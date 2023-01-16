@@ -13,13 +13,41 @@ struct OpeningExplorerView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
+    var pickerHeight: CGFloat
+    
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
+        List {
+            Section {
+                if vm.db != nil {
+                    // Moves played
+                    MoveList(moves: vm.db!.moves, didClick: onClickMove)
+                    
+                    .padding(.bottom, 10)
+                } else {
+                    Text("Sorry. This we couldn't find moves in this position.")
+                }
+                
+                if let games = vm.db?.topGames {
+                    if !games.isEmpty {
+                        Text("Top Games")
+                            .fontWeight(.bold)
+                            .foregroundColor(.secondary)
+                        GameList(games: games)
+                    }
+                }
+                if let games = vm.db?.recentGames {
+                    if !games.isEmpty {
+                        Text("Recent Games")
+                            .fontWeight(.bold)
+                            .foregroundColor(.secondary)
+                        GameList(games: games)
+                    }
+                }
+            } header: {
                 HStack(alignment: .center) {
                     Marquee(text: vm.openingName())
                     // For some reason, the marquee's frame is ignored, so frame has to be set here. 20 is just an eyeball estimate, and it is not good that this is hardcoded. Ideally, it would calculate the text of a Text("Nq") with the background geo-reader "hack"
-                        .frame(height: 20)
+                    //                            .frame(height: 20)
                     
                     Picker("", selection: $vm.dbType) {
                         Text("Masters")
@@ -30,27 +58,15 @@ struct OpeningExplorerView: View {
                             .tag(LichessDBType.player)
                     }
                 }
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    if vm.unavailabe {
-                        Spacer()
-                        Text("This feature is currently unavailable. Sorry :(")
-                        Spacer()
-                    } else if vm.db != nil {
-                        ForEach(Array(vm.db!.moves.enumerated()), id:\.offset) { i, move in
-                            MoveStatistics(move: move)
-                                .frame(maxWidth: .infinity, idealHeight: 30, alignment: .leading)
-                                .onTapGesture {
-                                    onClickMove(at: i)
-                                }
-                        }
-                    } else {
-                        Text("Sorry. This we couldn't find moves in this position.")
-                    }
-                    
-                }
+                    .padding(.top, pickerHeight-10)
             }
-            .padding(.horizontal, 20)
+            .listRowBackground(Color.clear)
+            
+        }
+        .listStyle(.plain)
+        .task {
+            UITableView.appearance().backgroundColor = .red
+            UITableViewCell.appearance().backgroundColor = .green
         }
         // Request analysis when
         // ... the selected dbType changes
@@ -85,8 +101,7 @@ struct OpeningExplorerView: View {
                 case .masters:
                     vm.db = try await Networking.fetchMasterDB(from: chessboardVM.board.asFEN())
                 case .player:
-                    vm.unavailabe = true
-                    vm.db = nil
+                    vm.db = try await Networking.fetchPlayerDB(for: "ac40", with: "white", from: chessboardVM.board.asFEN())
                 }
             } catch {
                 print(error)

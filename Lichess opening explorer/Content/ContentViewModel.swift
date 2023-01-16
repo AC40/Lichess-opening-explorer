@@ -16,6 +16,8 @@ class ContentViewModel: ObservableObject {
 
     @Published var databaseType = DatabaseType.player
     
+    @Published var pickerHeight: CGFloat = .zero
+    
     /* For later implementation:
         @Published var currentResponse: PlayerDBResponse?
         

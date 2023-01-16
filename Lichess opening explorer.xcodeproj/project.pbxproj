@@ -9,10 +9,12 @@
 /* Begin PBXBuildFile section */
 		DB06D4A0296B5DEC00AB1516 /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = DB06D49F296B5DEC00AB1516 /* MarqueeLabel */; };
 		DB06D4A2296B5E1700AB1516 /* MarqueeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */; };
-		DB5CFE7D2965DA8C00E5708B /* MastersDBResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE7C2965DA8C00E5708B /* MastersDBResponse.swift */; };
+		DB2059C329734CDC00C14BE6 /* GameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2059C229734CDC00C14BE6 /* GameList.swift */; };
+		DB2059C5297366AB00C14BE6 /* Color + gold.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2059C4297366AB00C14BE6 /* Color + gold.swift */; };
+		DB2474ED2974AC310070712F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2474EC2974AC310070712F /* Utility.swift */; };
 		DB5CFE8A2965E24800E5708B /* OpeningExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE892965E24800E5708B /* OpeningExplorerView.swift */; };
 		DB5CFE8D2965E31900E5708B /* OpeningExplorerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE8C2965E31900E5708B /* OpeningExplorerViewModel.swift */; };
-		DB5CFE922965E86200E5708B /* MoveStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE912965E86200E5708B /* MoveStatistics.swift */; };
+		DB5CFE922965E86200E5708B /* MoveList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE912965E86200E5708B /* MoveList.swift */; };
 		DB5CFE942965F81A00E5708B /* SpacingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5CFE932965F81A00E5708B /* SpacingHStack.swift */; };
 		DB646A5C293D139100C56280 /* Termination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A5B293D139100C56280 /* Termination.swift */; };
 		DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB646A5D293D185500C56280 /* Array + subscripts.swift */; };
@@ -24,7 +26,6 @@
 		DB664D1728427BEC0088749A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D1628427BEC0088749A /* ContentView.swift */; };
 		DB664D1928427BEE0088749A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB664D1828427BEE0088749A /* Assets.xcassets */; };
 		DB664D1C28427BEE0088749A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB664D1B28427BEE0088749A /* Preview Assets.xcassets */; };
-		DB664D2328427CA10088749A /* PlayerDBResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2228427CA10088749A /* PlayerDBResponse.swift */; };
 		DB664D2528427CBD0088749A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2428427CBD0088749A /* Networking.swift */; };
 		DB664D2728427D290088749A /* NeworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D2628427D290088749A /* NeworkingError.swift */; };
 		DB664D29284280470088749A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB664D28284280470088749A /* ContentViewModel.swift */; };
@@ -68,10 +69,12 @@
 
 /* Begin PBXFileReference section */
 		DB06D4A1296B5E1700AB1516 /* MarqueeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeView.swift; sourceTree = "<group>"; };
-		DB5CFE7C2965DA8C00E5708B /* MastersDBResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastersDBResponse.swift; sourceTree = "<group>"; };
+		DB2059C229734CDC00C14BE6 /* GameList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameList.swift; sourceTree = "<group>"; };
+		DB2059C4297366AB00C14BE6 /* Color + gold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color + gold.swift"; sourceTree = "<group>"; };
+		DB2474EC2974AC310070712F /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		DB5CFE892965E24800E5708B /* OpeningExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningExplorerView.swift; sourceTree = "<group>"; };
 		DB5CFE8C2965E31900E5708B /* OpeningExplorerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningExplorerViewModel.swift; sourceTree = "<group>"; };
-		DB5CFE912965E86200E5708B /* MoveStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveStatistics.swift; sourceTree = "<group>"; };
+		DB5CFE912965E86200E5708B /* MoveList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveList.swift; sourceTree = "<group>"; };
 		DB5CFE932965F81A00E5708B /* SpacingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacingHStack.swift; sourceTree = "<group>"; };
 		DB646A5B293D139100C56280 /* Termination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Termination.swift; sourceTree = "<group>"; };
 		DB646A5D293D185500C56280 /* Array + subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + subscripts.swift"; sourceTree = "<group>"; };
@@ -84,7 +87,6 @@
 		DB664D1628427BEC0088749A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DB664D1828427BEE0088749A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB664D1B28427BEE0088749A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		DB664D2228427CA10088749A /* PlayerDBResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDBResponse.swift; sourceTree = "<group>"; };
 		DB664D2428427CBD0088749A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		DB664D2628427D290088749A /* NeworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeworkingError.swift; sourceTree = "<group>"; };
 		DB664D28284280470088749A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
@@ -138,12 +140,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB2474EA29749FE50070712F /* Variations */ = {
+			isa = PBXGroup;
+			children = (
+				DB646A64293D495E00C56280 /* VariationView.swift */,
+				DB2474EB29749FF60070712F /* Subviews */,
+			);
+			path = Variations;
+			sourceTree = "<group>";
+		};
+		DB2474EB29749FF60070712F /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				DB96653929561D92000A78BC /* MoveView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		DB5CFE7E2965DA9000E5708B /* Lichess */ = {
 			isa = PBXGroup;
 			children = (
-				DB5CFE7C2965DA8C00E5708B /* MastersDBResponse.swift */,
 				DB82104529709F2C00CEA5B3 /* LichessDBResponse.swift */,
-				DB664D2228427CA10088749A /* PlayerDBResponse.swift */,
 				DB7EF472296626500096D5AD /* LichessOpening.swift */,
 				DB82104B2970A29200CEA5B3 /* LichessMove.swift */,
 				DB8210472970A03300CEA5B3 /* LichessSpeed.swift */,
@@ -165,7 +182,8 @@
 		DB5CFE8E2965E33D00E5708B /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				DB5CFE912965E86200E5708B /* MoveStatistics.swift */,
+				DB5CFE912965E86200E5708B /* MoveList.swift */,
+				DB2059C229734CDC00C14BE6 /* GameList.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -205,6 +223,7 @@
 				DB664D1428427BEC0088749A /* Lichess_opening_explorerApp.swift */,
 				DBAE573A28451A2900B72B8C /* Content */,
 				DBAE573928451A1E00B72B8C /* Board */,
+				DB2474EA29749FE50070712F /* Variations */,
 				DB966536295613BC000A78BC /* Analysis */,
 				DB5CFE8B2965E2FF00E5708B /* OpeningExplorer */,
 				DBCBA7E22950B11A000024F4 /* Settings */,
@@ -260,6 +279,7 @@
 				DBAB9F94284E06F400E1CFE4 /* Moves.swift */,
 				DB866674293A6EF200761F95 /* Themes.swift */,
 				DB646A66293D4BAC00C56280 /* Convert.swift */,
+				DB2474EC2974AC310070712F /* Utility.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -303,8 +323,6 @@
 			children = (
 				DBAE5743284530D600B72B8C /* PieceView.swift */,
 				DBAB9F9A284E1A9A00E1CFE4 /* SquareView.swift */,
-				DB646A64293D495E00C56280 /* VariationView.swift */,
-				DB96653929561D92000A78BC /* MoveView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -337,6 +355,7 @@
 				DBAB9F96284E09DC00E1CFE4 /* Array + allIllegal.swift */,
 				DBA51AB4293BF44300CC4BC3 /* Array + removeEnPassants.swift */,
 				DB646A5D293D185500C56280 /* Array + subscripts.swift */,
+				DB2059C4297366AB00C14BE6 /* Color + gold.swift */,
 				DBB293F2285E3132002CD543 /* Int + isOnBoard.swift */,
 				DBAB9F9C284E4AB000E1CFE4 /* Board + loadFEN.swift */,
 				DBAFF1A429463C7F00335AB6 /* Board + toFEN.swift */,
@@ -440,10 +459,11 @@
 				DB96653A29561D92000A78BC /* MoveView.swift in Sources */,
 				DB9CD8112954F9180040D017 /* AnaylsisView.swift in Sources */,
 				DBBFB5EC294256A00073B502 /* WrappingHStack.swift in Sources */,
+				DB2059C5297366AB00C14BE6 /* Color + gold.swift in Sources */,
 				DBA51AB0293BEACF00CC4BC3 /* AdaptiveStack.swift in Sources */,
 				DB7EF473296626500096D5AD /* LichessOpening.swift in Sources */,
 				DB646A67293D4BAC00C56280 /* Convert.swift in Sources */,
-				DB5CFE922965E86200E5708B /* MoveStatistics.swift in Sources */,
+				DB5CFE922965E86200E5708B /* MoveList.swift in Sources */,
 				DBAB9F97284E09DC00E1CFE4 /* Array + allIllegal.swift in Sources */,
 				DB9413DC29392A4E00E0F335 /* Arbiter.swift in Sources */,
 				DBAB9F95284E06F400E1CFE4 /* Moves.swift in Sources */,
@@ -453,7 +473,6 @@
 				DB82104629709F2C00CEA5B3 /* LichessDBResponse.swift in Sources */,
 				DBAFF1A529463C7F00335AB6 /* Board + toFEN.swift in Sources */,
 				DBAE573F28451A8500B72B8C /* Chessboard.swift in Sources */,
-				DB664D2328427CA10088749A /* PlayerDBResponse.swift in Sources */,
 				DB664D29284280470088749A /* ContentViewModel.swift in Sources */,
 				DB966538295613D4000A78BC /* AnalysisViewModel.swift in Sources */,
 				DB5CFE8D2965E31900E5708B /* OpeningExplorerViewModel.swift in Sources */,
@@ -462,6 +481,7 @@
 				DBCBA7E62950B14C000024F4 /* Settings.swift in Sources */,
 				DBEF8DD1296F498D009C63F3 /* FooView.swift in Sources */,
 				DB5CFE8A2965E24800E5708B /* OpeningExplorerView.swift in Sources */,
+				DB2474ED2974AC310070712F /* Utility.swift in Sources */,
 				DBAFF1A929467DF600335AB6 /* variationStyle.swift in Sources */,
 				DB06D4A2296B5E1700AB1516 /* MarqueeView.swift in Sources */,
 				DBAE57492845343900B72B8C /* Array + loadDefaultFEN.swift in Sources */,
@@ -481,7 +501,6 @@
 				DB646A65293D495E00C56280 /* VariationView.swift in Sources */,
 				DBAB9F9B284E1A9A00E1CFE4 /* SquareView.swift in Sources */,
 				DB664D2528427CBD0088749A /* Networking.swift in Sources */,
-				DB5CFE7D2965DA8C00E5708B /* MastersDBResponse.swift in Sources */,
 				DBB293F3285E3132002CD543 /* Int + isOnBoard.swift in Sources */,
 				DBAB9F9D284E4AB100E1CFE4 /* Board + loadFEN.swift in Sources */,
 				DBAE573D28451A6300B72B8C /* DatabaseType.swift in Sources */,
@@ -489,6 +508,7 @@
 				DB664D2728427D290088749A /* NeworkingError.swift in Sources */,
 				DB646A5E293D185500C56280 /* Array + subscripts.swift in Sources */,
 				DB646A63293D1D0300C56280 /* MoveFlag.swift in Sources */,
+				DB2059C329734CDC00C14BE6 /* GameList.swift in Sources */,
 				DB866671293A6E6500761F95 /* ThemeManager.swift in Sources */,
 				DBCBA7E42950B129000024F4 /* SettingsView.swift in Sources */,
 			);

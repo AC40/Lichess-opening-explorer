@@ -18,12 +18,46 @@ struct LichessDBResponse: Decodable {
 
 // MARK: - Lichessgame
 struct LichessGame: Decodable {
-    let uci: String?
     let id: String
-    let winner: String?
+    
+    let uci: String?
+    let winner: Winner?
+    let speed: Speed?
+    let mode: String?
     let black, white: LichessPlayer
     let year: Int
     let month: String?
+    
+    enum Winner: String, CodingKey, Decodable {
+        case white = "white"
+        case black = "black"
+    }
+    
+    enum Speed: String, CodingKey, Decodable, CaseIterable {
+        case ultraBullet = "ultraBullet"
+        case bullet = "bullet"
+        case blitz = "blitz"
+        case rapid = "rapid"
+        case classical = "classical"
+        case correspondence = "correspondence"
+        
+        func icon() -> String {
+            switch self {
+            case .ultraBullet:
+                return "alarm.waves.left.and.right"
+            case .bullet:
+                return "bolt"
+            case .blitz:
+                return "flame"
+            case .rapid:
+                return "hare"
+            case .classical:
+                return "tortoise"
+            case .correspondence:
+                return "paperplane"
+            }
+        }
+    }
 }
 
 // MARK: - LichessPlayer

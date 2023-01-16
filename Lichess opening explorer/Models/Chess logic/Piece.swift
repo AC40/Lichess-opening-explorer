@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Piece: Equatable {
+struct Piece: Equatable, Identifiable {
+    let id = UUID()
     
     static let none = Piece(color: .none, type: .none)
     
@@ -28,7 +29,7 @@ struct Piece: Equatable {
     var color: ChessColor
     var type: PieceType
     
-    var square: Tile?
+    var square: Tile = .a8
     
     static func == (lhs: Piece, rhs: Piece) -> Bool {
         return lhs.color == rhs.color && lhs.type == rhs.type

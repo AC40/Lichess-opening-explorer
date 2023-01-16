@@ -26,17 +26,18 @@ struct Chessboard: View {
                     }
                 }
                 
-                LazyVGrid(columns: vm.layout, spacing: 0) {
-                    ForEach(0..<8) { rank in
-                        ForEach(0..<8) { file in
-                            PieceView(tile: Tile(rank, file), chessboardVM: vm)
-                                .zIndex(isSelected(at: Tile(rank, file)) ? 100 : 90)
-                        }
+                ZStack {
+                    ForEach(vm.board.pieces) { piece in
+                        let frame = vm.squareFrames[piece.square.rank][piece.square.file]
+                        PieceView(tile: piece.square, chessboardVM: vm)
+                            .zIndex(isSelected(at: piece.square) ? 100 : 90)
                     }
                 }
+
             }
             .rotationEffect(vm.whitePerspective ? .degrees(0) : .degrees(180))
         }
+        .coordinateSpace(name: "chessboard")
         .overlay(
             pieceList()
         )

@@ -11,6 +11,8 @@ struct VariationView: View {
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
+    var pickerHeight: CGFloat
+    
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
@@ -21,7 +23,8 @@ struct VariationView: View {
                             .padding(.trailing, ((i % 2) == 0) ? 4 : 8)
                     }
                 }
-                .padding(.horizontal, 5)
+                .padding(.horizontal, 10)
+                .padding(.top, pickerHeight + 10)
             }
         }
         .frame(maxHeight: .infinity, alignment: .topLeading)
