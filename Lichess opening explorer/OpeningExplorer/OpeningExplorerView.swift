@@ -18,31 +18,36 @@ struct OpeningExplorerView: View {
     var body: some View {
         List {
             Section {
-                if vm.db != nil {
-                    // Moves played
-                    MoveList(moves: vm.db!.moves, didClick: onClickMove)
+                Group {
+                    if vm.db != nil {
+                        // Moves played
+                        MoveList(moves: vm.db!.moves, didClick: onClickMove)
+                            .padding(.bottom, 10)
+                        
+                        if let games = vm.db?.topGames {
+                            if !games.isEmpty {
+                                Text("Top Games")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.secondary)
+                                GameList(games: games)
+                            }
+                        }
+                        if let games = vm.db?.recentGames {
+                            if !games.isEmpty {
+                                Text("Recent Games")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.secondary)
+                                GameList(games: games)
+                            }
+                        }
+                    } else {
+                        Text("Sorry. This we couldn't find moves in this position.")
+                    }
                     
-                    .padding(.bottom, 10)
-                } else {
-                    Text("Sorry. This we couldn't find moves in this position.")
+                   
                 }
+                .disabled(vm.loading)
                 
-                if let games = vm.db?.topGames {
-                    if !games.isEmpty {
-                        Text("Top Games")
-                            .fontWeight(.bold)
-                            .foregroundColor(.secondary)
-                        GameList(games: games)
-                    }
-                }
-                if let games = vm.db?.recentGames {
-                    if !games.isEmpty {
-                        Text("Recent Games")
-                            .fontWeight(.bold)
-                            .foregroundColor(.secondary)
-                        GameList(games: games)
-                    }
-                }
             } header: {
                 HStack(alignment: .center) {
                     Marquee(text: vm.openingName())
@@ -63,11 +68,8 @@ struct OpeningExplorerView: View {
             .listRowBackground(Color.clear)
             
         }
+        .overlay(loadingOverlay())
         .listStyle(.plain)
-        .task {
-            UITableView.appearance().backgroundColor = .red
-            UITableViewCell.appearance().backgroundColor = .green
-        }
         // Request analysis when
         // ... the selected dbType changes
         .onChange(of: vm.dbType, perform: { newValue in
@@ -87,7 +89,24 @@ struct OpeningExplorerView: View {
         }
     }
     
+    @ViewBuilder func loadingOverlay() -> some View {
+        Group {
+            //TODO: Fix weir bug where multiple overlays appear
+            if vm.loading {
+                ProgressView()
+                    .padding(30)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+
+            }
+        }
+    }
     func fetchDBData(for newType: LichessDBType? = nil) {
+        
+        vm.loading = true
+        //Potential: Delay showing overlay slightly (0.3 seconds) incase load time is very fast. That way there would be no flashing. Disadvantage: Inconsitency and seeming delay
+        
         Task {
             
             let type = newType ?? vm.dbType
@@ -103,9 +122,12 @@ struct OpeningExplorerView: View {
                 case .player:
                     vm.db = try await Networking.fetchPlayerDB(for: "ac40", with: "white", from: chessboardVM.board.asFEN())
                 }
+                
+                vm.loading = false
             } catch {
                 print(error)
                 vm.db = nil
+                vm.loading = false
             }
         }
 
