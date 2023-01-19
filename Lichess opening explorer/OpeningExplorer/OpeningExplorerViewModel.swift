@@ -25,7 +25,7 @@ class OpeningExplorerViewModel: ObservableObject {
     
     @Published var prevOpening: LichessOpening = .none
     @Published var unavailabe = false
-    
+    @Published var loading = false 
     
     //MARK: Functions
     
