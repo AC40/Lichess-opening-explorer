@@ -261,14 +261,14 @@ class ChessboardViewModel: ObservableObject {
                 let enPassantSquare = piece.color == .white ? Tile(move.end.rank+1, move.end.file) : Tile(move.end.rank-1, move.end.file)
                 capture.square = enPassantSquare
                 board[enPassantSquare].piece = capture
-                board.pieces.append(capture)
+                board.pieces.append(Piece(color: capture.color, type: capture.type))
             }
         case .capture:
             // Add captured piece back to end
             if var capture = move.capture {
                 capture.square = move.end
                 board[move.end].piece = capture
-                board.pieces.append(capture)
+                board.pieces.append(Piece(color: capture.color, type: capture.type))
             }
         case .longCastle:
             // move rook back

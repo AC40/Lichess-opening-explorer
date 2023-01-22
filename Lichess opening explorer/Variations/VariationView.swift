@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct VariationView: View {
+    @EnvironmentObject var settings: Settings
     
     @ObservedObject var chessboardVM: ChessboardViewModel
     
@@ -33,7 +34,14 @@ struct VariationView: View {
     
     func didClickMove(at i: Int) {
         chessboardVM.board.currentMove = i+1
-        chessboardVM.loadMove(chessboardVM.board.moves[i])
+        
+        if i < chessboardVM.board.moves.count-1 {
+            chessboardVM.loadMove(chessboardVM.board.moves[i+1])
+        } else {
+            chessboardVM.loadMove(chessboardVM.board.moves[i])
+            chessboardVM.makeMove(chessboardVM.board.moves.last!, strict: false)
+            chessboardVM.board.moves.removeLast()
+        }
     }
     
 }

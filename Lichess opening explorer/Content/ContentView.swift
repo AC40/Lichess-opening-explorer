@@ -214,7 +214,13 @@ struct ContentView: View {
                             chessboardVM.board.currentMove = 0
                             return
                         }
-                        chessboardVM.unmakeMove(chessboardVM.board.moves[chessboardVM.board.currentMove-1])
+                        
+                        let i = chessboardVM.board.currentMove-1
+                        guard i < chessboardVM.board.moves.count else {
+                            return
+                        }
+                        
+                        chessboardVM.unmakeMove(chessboardVM.board.moves[i])
                     }
                 }
             } label: {

@@ -21,6 +21,14 @@ import SwiftUI
          return Animation.linear.speed(animationSpeed)
      }
      
+     func uiAnimation() -> Animation {
+         guard animatePieces else {
+             return Animation.linear(duration: 0)
+         }
+         
+         return Animation.default
+     }
+     
      //Future settings options:
      /*
       - App theme

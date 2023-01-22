@@ -28,7 +28,6 @@ struct Chessboard: View {
                 
                 ZStack {
                     ForEach(vm.board.pieces) { piece in
-                        let frame = vm.squareFrames[piece.square.rank][piece.square.file]
                         PieceView(tile: piece.square, chessboardVM: vm)
                             .zIndex(isSelected(at: piece.square) ? 100 : 90)
                     }

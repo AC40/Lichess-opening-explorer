@@ -95,10 +95,6 @@ struct Arbiter {
         // For each piece:
         for piece in pieces {
             
-            guard piece.square != nil else {
-                continue
-            }
-            
             // generate all moves
             let pseudoLegalMoves = pseudoLegalMoves(for: piece, at: piece.square, in: board, turn: color == .white ? true : false)
             
@@ -137,10 +133,6 @@ struct Arbiter {
         
         // For each piece:
         for piece in pieces {
-            
-            guard piece.square != nil else {
-                continue
-            }
             
             let moves = legalMoves(for: piece, at: piece.square, in: board, turn: color == .white)
             

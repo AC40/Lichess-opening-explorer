@@ -19,10 +19,7 @@ struct Networking {
             throw NetworkingError.invalidURL
         }
         
-        let (data, response) = try await URLSession.shared.data(from: url!)
-        
-        print(response)
-        
+        let (data, _) = try await URLSession.shared.data(from: url!)
         
         let mastersDB = try JSONDecoder().decode(LichessDBResponse.self, from: data)
         
@@ -44,10 +41,7 @@ struct Networking {
             throw NetworkingError.invalidURL
         }
         
-        let (data, response) = try await URLSession.shared.data(from: url!)
-        
-        print(response)
-        
+        let (data, _) = try await URLSession.shared.data(from: url!)
         
         let db = try JSONDecoder().decode(LichessDBResponse.self, from: data)
         
@@ -84,9 +78,7 @@ struct Networking {
         fen = fen.replacingOccurrences(of: " ", with: "%20")
         let url = URL(string: "https://lichess.org/api/cloud-eval?fen=\(fen)")!
         
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        print((response as! HTTPURLResponse).statusCode)
+        let (data, _) = try await URLSession.shared.data(from: url)
         
         let analysis = try JSONDecoder().decode(CloudAnalysis.self, from: data)
         
